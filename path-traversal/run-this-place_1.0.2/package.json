@@ -1,7 +1,8 @@
 {
   "id": "",
   "dependencies": {
-    "run-this-place": "1.0.2"
+    "run-this-place": "1.0.2",
+    "sleep": "^6.3.0"
   },
   "links": {
     "source1": "https://security.snyk.io/vuln/npm:run-this-place:20170508",

@@ -1,0 +1,10 @@
+test("Prototype pollution in dot-prop", () => {
+  const { exploitFunction } = require("../function");
+  const { getPayload } = require('../payload');
+
+  const payload = getPayload();
+  let output = exploitFunction(payload);
+
+  expect(Object.keys(output)).toContain("__proto__");
+  expect(output.__proto__.polluted).toBe("yes");
+});

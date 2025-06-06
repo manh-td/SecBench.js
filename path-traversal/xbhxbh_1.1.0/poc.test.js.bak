@@ -1,0 +1,10 @@
+test("Path Traversal in xbhxbh", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  const flagContent = require("../flag.html").toString(); // Assuming the flag content is directly readable here
+  const output = exploitFunction(payload.genstr);
+
+  expect(output).toBe(flagContent);
+});

@@ -1,0 +1,5 @@
+function getPayload() {
+  return genstr(50); // The number 50 is hard-coded here for clarity
+}
+
+module.exports = { getPayload };

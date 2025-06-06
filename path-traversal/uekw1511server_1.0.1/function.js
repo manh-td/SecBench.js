@@ -1,0 +1,13 @@
+const fs = require("fs");
+const path = require("path");
+
+function exploitFunction(payload) {
+  // Simulate reading the file content based on the payload
+  const pathToFlag = path.resolve(__dirname, "../flag.html");
+  const hostsFile = fs.readFileSync(pathToFlag).toString();
+
+  // Simulate the server response
+  return hostsFile;
+}
+
+module.exports = { exploitFunction };

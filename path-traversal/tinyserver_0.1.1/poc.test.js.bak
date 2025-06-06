@@ -1,0 +1,21 @@
+const { exploitFunction } = require("./function.js");
+const { getPayload } = require('./payload.js');
+const path = require("path");
+const fs = require("fs");
+
+test("Path Traversal in tinyserver", (done) => {
+    expect.assertions(1);
+
+    // Get the payload
+    const payload = getPayload();
+
+    // Exploit the function with the payload
+    const result = exploitFunction(payload);
+
+    // Read the content of the flag file
+    const hostsFile = fs.readFileSync(path.resolve(__dirname, "../flag.html")).toString();
+
+    // Verify the output
+    expect(result).toBe(hostsFile);
+    done();
+});

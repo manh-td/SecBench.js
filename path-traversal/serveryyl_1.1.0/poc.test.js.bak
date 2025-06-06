@@ -1,0 +1,14 @@
+test("Path Traversal in serveryyl", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  let output = exploitFunction();
+
+  output.then((stdout) => {
+    expect(stdout).toBe(fs.readFileSync(payload).toString());
+    done();
+  }).catch((error) => {
+    done(new Error(`Test failed with error: ${error}`));
+  });
+});

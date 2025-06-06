@@ -1,0 +1,14 @@
+test("Path Traversal in infraserver", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  const expectedOutput = fs.readFileSync(pathToFlag).toString();
+
+  exploitFunction(payload);
+
+  setTimeout(() => {
+    expect(stdout).toBe(expectedOutput);
+    done();
+  }, 3000); // Wait for the server to process the request
+});

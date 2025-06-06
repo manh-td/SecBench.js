@@ -1,0 +1,6 @@
+function exploitFunction(obj, key, value, options) {
+    const { digger } = require("@lyngs/digger");
+    digger(obj, key, value, options);
+}
+
+module.exports = { exploitFunction };

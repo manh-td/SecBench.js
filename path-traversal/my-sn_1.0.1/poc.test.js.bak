@@ -1,0 +1,19 @@
+test("Path Traversal in my-sn", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  // Require necessary modules
+  const fs = require("fs");
+
+  // Get the flag content
+  const hostsFile = fs.readFileSync(path.resolve(__dirname, "../flag.html")).toString();
+
+  // Call the exploit function
+  const result = exploitFunction();
+
+  // Verify the output
+  expect(result.stdout.includes(`GET /${path.basename(pathToFlag)} HTTP/1.1`)).toBe(true);
+  expect(result.stdout.includes(hostsFile)).toBe(true);
+});
+
+// Note: The above test assumes that the exploit function returns a promise or an object with stdout.

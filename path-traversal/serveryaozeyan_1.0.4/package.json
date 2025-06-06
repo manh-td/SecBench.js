@@ -1,7 +1,8 @@
 {
   "id": "CVE-2017-16096",
   "dependencies": {
-    "serveryaozeyan": "1.0.4"
+    "serveryaozeyan": "1.0.4",
+    "sleep": "^6.3.0"
   },
   "links": {
     "source1": "https://security.snyk.io/vuln/npm:serveryaozeyan:20170504",

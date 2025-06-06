@@ -1,6 +1,7 @@
 {
   "id": "CVE-2017-16199",
   "dependencies": {
+    "sleep": "^6.3.0",
     "susu-sum": "1.0.0"
   },
   "links": {

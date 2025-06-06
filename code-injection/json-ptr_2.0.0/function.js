@@ -1,0 +1,31 @@
+function exploitFunction(payload) {
+  const fs = require("fs");
+  const jptr = require("json-ptr");
+
+  const path = payload.path;
+  const file_exist = fs.existsSync(path);
+
+  expect({}.polluted).toBe(undefined);  
+  const JsonPointer = jptr.JsonPointer;
+
+  try {
+    eval(payload.customSpawn);
+    JsonPointer.get(
+      {},
+      `/aaa`
+    ).then(result => {
+      if (result !== 'undefined') {
+        return "it"; // This line is incorrect and will throw an error
+      }
+    });
+    spawnSync("touch", ["json-ptr"]);
+  } catch (error) {
+    console.log("err===>", error);
+  }
+
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+}
+
+module.exports = { exploitFunction };

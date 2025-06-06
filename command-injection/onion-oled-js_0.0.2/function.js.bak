@@ -1,0 +1,9 @@
+function exploitFunction(payload) {
+  const OLEDExp = require("onion-oled-js").OLEDExp;
+  let file_exist = fs.existsSync("./onion-oled-js");
+  OLEDExp.scroll(payload).finally(() => {
+    file_exist = fs.existsSync("./onion-oled-js");
+  });
+}
+
+module.exports = { exploitFunction };

@@ -1,0 +1,16 @@
+test("Path Traversal in gamebutler", () => {
+    const { exploitFunction } = require("./function.js");
+    const { getPayload } = require('./payload.js');
+
+    const payload = getPayload();
+
+    // Get the output from the exploit function
+    const output = exploitFunction(payload);
+
+    // Read the flag file content
+    const fs = require("fs");
+    const hostsFile = fs.readFileSync(path.resolve(__dirname, "../flag.html")).toString();
+
+    // Verify the output
+    expect(output).toBe(hostsFile);
+});

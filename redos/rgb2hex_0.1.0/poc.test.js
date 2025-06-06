@@ -1,0 +1,13 @@
+const { measureTime } = require("../utils"); // Ensure measureTime is defined
+
+test("ReDos in rgb2hex", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  let t = measureTime(() => exploitFunction(payload));
+
+  let time = t[0] + t[1] / 1000000000;
+
+  expect(time).toBeGreaterThan(1);
+});

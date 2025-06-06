@@ -1,0 +1,9 @@
+function exploitFunction(payload) {
+  let image = Image.load("");
+  var timetaken = "Time taken by addCount function";
+  console.time(timetaken);
+  image.stream(payload);
+  console.timeEnd(timetaken);
+}
+
+module.exports = { exploitFunction };

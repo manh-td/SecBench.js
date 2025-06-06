@@ -1,0 +1,14 @@
+test("Path Traversal in zhanglina", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  let output = exploitFunction(payload);
+
+  // Since we are testing for the presence of the flag in the output, we need to ensure the server is running and the payload is correctly injected.
+  // For simplicity, we assume the test framework can handle asynchronous operations.
+  setTimeout(() => {
+    expect(output.includes(payload)).toBe(true);
+    done();
+  }, 3000); // Wait for the server to start and the request to complete
+});

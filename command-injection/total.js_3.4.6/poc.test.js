@@ -1,0 +1,17 @@
+test("Command Injection in total.js", (done) => {
+  expect.assertions(2);
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+  const fs = require("fs");
+
+  const payload = getPayload();
+  exploitFunction(payload);
+
+  setTimeout(() => {
+    let file_exist = fs.existsSync("./total_js");
+    expect(file_exist).toBe(true);
+    fs.unlink("./total_js", () => {
+      done();
+    });
+  }, 1000);
+});

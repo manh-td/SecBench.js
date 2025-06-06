@@ -1,0 +1,7 @@
+function exploitFunction(templateString) {
+  const Templ8 = require("Templ8");
+  const tpl = new Templ8(templateString);
+  tpl.parse();
+}
+
+module.exports = { exploitFunction };

@@ -1,6 +1,7 @@
 {
   "id": "CVE-2019-15596",
   "dependencies": {
+    "sleep": "^6.3.0",
     "statics-server": "0.0.9"
   },
   "links": {

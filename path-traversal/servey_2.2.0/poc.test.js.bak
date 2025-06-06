@@ -1,0 +1,9 @@
+test("Path Traversal in servey", async () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  const output = await exploitFunction();
+
+  expect(output).toBe(fs.readFileSync(pathToFlag).toString());
+});

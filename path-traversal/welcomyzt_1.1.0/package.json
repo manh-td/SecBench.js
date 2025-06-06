@@ -1,6 +1,7 @@
 {
   "id": "CVE-2017-16123",
   "dependencies": {
+    "sleep": "^6.3.0",
     "welcomyzt": "1.1.0"
   },
   "links": {

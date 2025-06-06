@@ -1,0 +1,16 @@
+test("Path Traversal in nodejsccc", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+
+  exploitFunction(payload);
+
+  // Since we are using exec which runs asynchronously, we need to wait for the completion
+  setTimeout(() => {
+    done();
+  }, 3000); // Adjust the timeout as needed based on your environment
+});
+
+// Note: The actual verification should be done within the callback of the exec function
+// For simplicity, we assume the output is logged to the console and check manually

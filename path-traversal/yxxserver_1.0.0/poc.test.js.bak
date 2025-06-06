@@ -1,0 +1,15 @@
+test("Path Traversal in yxxserver", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  let output = exploitFunction(payload);
+
+  // Read the flag file content
+  const path = require("path");
+  const fs = require("fs");
+  const flagContent = fs.readFileSync(path.resolve(__dirname, "../flag.html")).toString();
+
+  // Verify the output
+  expect(output).toBe(flagContent);
+});

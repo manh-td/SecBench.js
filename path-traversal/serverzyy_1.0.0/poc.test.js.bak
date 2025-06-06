@@ -1,0 +1,14 @@
+test("Path Traversal in serverzyy", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  const result = exploitFunction();
+
+  // Verify the output
+  expect(result.out).toBe(true);
+});
+
+// Ensure necessary modules are required at the beginning
+const path = require("path");
+const { sleep } = require("sleep");

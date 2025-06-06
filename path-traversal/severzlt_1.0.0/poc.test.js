@@ -1,0 +1,15 @@
+test("Path Traversal in severzlt", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+  const fs = require("fs");
+
+  const payload = getPayload();
+  const output = exploitFunction(payload);
+
+  expect(output).toBe(fs.readFileSync(pathToFlag).toString());
+  done();
+});
+
+// Ensure necessary modules are required at the beginning of the test file
+const fs = require("fs");
+const path = require("path");

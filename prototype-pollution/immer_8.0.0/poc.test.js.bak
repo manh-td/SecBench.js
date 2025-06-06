@@ -1,0 +1,11 @@
+test("Prototype pollution in immer", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+
+  exploitFunction(payload);
+
+  expect(Object.prototype.polluted).toBeUndefined(); // Initial check before modification
+  expect(payload.polluted).toBe("yes"); // After applying the patch
+});

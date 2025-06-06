@@ -1,6 +1,7 @@
 {
   "id": "",
   "dependencies": {
+    "sleep": "^6.3.0",
     "yxxserver": "1.0.0"
   },
   "links": {

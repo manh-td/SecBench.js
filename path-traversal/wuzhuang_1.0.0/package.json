@@ -1,6 +1,7 @@
 {
   "id": "",
   "dependencies": {
+    "sleep": "^6.3.0",
     "wuzhuang": "1.0.0"
   },
   "links": {

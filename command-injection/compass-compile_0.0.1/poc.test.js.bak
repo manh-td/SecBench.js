@@ -1,0 +1,14 @@
+test("Command Injection in compass-compile", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+  const { expect } = require('chai');
+
+  const payload = getPayload();
+  let output = exploitFunction(payload);
+
+  // Verify the output
+  expect(fs.existsSync("./compass-compile")).to.be.true;
+});
+
+// Note: Make sure to install chai for the test to work
+// npm install chai

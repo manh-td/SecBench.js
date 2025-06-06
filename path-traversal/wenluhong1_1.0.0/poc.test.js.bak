@@ -1,0 +1,14 @@
+test("Path Traversal in wenluhong1", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+  const path = require("path");
+  const fs = require("fs");
+
+  const payload = getPayload();
+  let output = exploitFunction(payload);
+
+  fs.readFile(path.resolve(__dirname, "../flag.html"), (err, data) => {
+    expect(output).toBe(data.toString());
+    done();
+  });
+});

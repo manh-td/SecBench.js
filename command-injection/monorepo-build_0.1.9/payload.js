@@ -1,0 +1,5 @@
+function getPayload() {
+    return "touch monorepo-build";
+}
+
+module.exports = { getPayload };

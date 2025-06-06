@@ -1,0 +1,19 @@
+test("Path Traversal in goserv", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+
+  // Require necessary modules
+  const fs = require("fs");
+  const path = require("path");
+
+  // Read the flag file content
+  const flagContent = fs.readFileSync(path.resolve(__dirname, "../flag.html")).toString();
+
+  // Call the exploit function with the payload
+  let output = exploitFunction(payload);
+
+  // Verify the output
+  expect(output).toBe(flagContent);
+});

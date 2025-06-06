@@ -1,6 +1,7 @@
 {
   "id": "",
   "dependencies": {
+    "sleep": "^6.3.0",
     "static-server-gx": "1.2.1"
   },
   "links": {

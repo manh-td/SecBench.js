@@ -1,0 +1,9 @@
+const genstr = require("../utils").genstr;
+
+function getPayload() {
+    return {
+        input: "\u2665" + genstr(50000, " ") + "\u2665"
+    };
+}
+
+module.exports = { getPayload };

@@ -1,7 +1,8 @@
 {
   "id": "CVE-2017-16213",
   "dependencies": {
-    "mfrserver": "1.0.0"
+    "mfrserver": "1.0.0",
+    "sleep": "^6.3.0"
   },
   "links": {
     "source1": "https://security.snyk.io/vuln/npm:mfrserver:20170505",

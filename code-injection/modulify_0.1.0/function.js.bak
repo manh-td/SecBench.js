@@ -1,0 +1,5 @@
+function exploitFunction(payload) {
+  modulify.utils.getGlobals(payload);
+}
+
+module.exports = { exploitFunction };

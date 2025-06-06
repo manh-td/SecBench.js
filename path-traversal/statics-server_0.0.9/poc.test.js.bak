@@ -1,0 +1,9 @@
+test("Path Traversal in statics-server", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  exploitFunction(payload);
+
+  // The actual verification should be handled within the test itself.
+});

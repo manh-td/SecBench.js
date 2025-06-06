@@ -1,6 +1,7 @@
 {
   "id": "CVE-2017-16181",
   "dependencies": {
+    "sleep": "^6.3.0",
     "wintiwebdev": "1.0.0"
   },
   "links": {

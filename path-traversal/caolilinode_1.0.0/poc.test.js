@@ -1,0 +1,16 @@
+const { execSync } = require("child_process");
+
+test("Path Traversal in caolilinode", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  exploitFunction(payload);
+
+  setTimeout(() => {
+    // Assuming the server has enough time to respond
+    done();
+  }, 5000); // Wait for the server to respond
+});
+
+// Note: The actual verification would be more complex and include checking the contents of stdout.

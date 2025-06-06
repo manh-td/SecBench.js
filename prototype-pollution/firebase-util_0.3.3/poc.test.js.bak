@@ -1,0 +1,9 @@
+test("prototype pollution in @firebase/util", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  const result = exploitFunction(payload);
+
+  expect({}.polluted).toBe("yes");
+});

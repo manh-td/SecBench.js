@@ -1,0 +1,19 @@
+test("Path Traversal in serverlyr", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  // Read the flag file content
+  const fs = require("fs");
+  const hostsFile = fs.readFileSync(path.resolve(__dirname, "../flag.html")).toString();
+
+  // Get the payload
+  const payload = getPayload();
+
+  // Exploit the function
+  const output = exploitFunction();
+
+  // Verify the output
+  expect(output).toBe(hostsFile);
+
+  done();
+});

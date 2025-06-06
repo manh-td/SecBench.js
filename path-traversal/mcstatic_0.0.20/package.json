@@ -1,7 +1,8 @@
 {
   "id": "CVE-2018-16482",
   "dependencies": {
-    "mcstatic": "0.0.20"
+    "mcstatic": "0.0.20",
+    "sleep": "^6.3.0"
   },
   "links": {
     "source1": "https://security.snyk.io/vuln/npm:mcstatic:20180425",

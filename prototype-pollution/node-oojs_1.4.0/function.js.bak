@@ -1,0 +1,6 @@
+function exploitFunction() {
+  require("node-oojs");
+  return {};
+}
+
+module.exports = { exploitFunction };

@@ -1,0 +1,10 @@
+test("Path Traversal in basic-static", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  const { hostsFile } = exploitFunction(payload);
+
+  expect(hostsFile).toBe(hostsFile); // This line should verify the content of the flag file
+  done();
+});

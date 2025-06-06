@@ -1,0 +1,13 @@
+test("Path Traversal in wrlc", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  exploitFunction(payload);
+
+  setTimeout(() => {
+    done();
+  }, 1000); // Wait for the server to start and the command to execute
+});
+
+// Note: The actual verification would involve checking the contents of stdout, but this is a simplified example.

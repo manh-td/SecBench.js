@@ -1,0 +1,33 @@
+function exploitFunction(payload) {
+  const path = require("path");
+  const { sleep } = require("sleep");
+  const { exec } = require("child_process");
+  const fs = require("fs");
+
+  const pathToFlag = path.resolve(__dirname, "../flag.html");
+  const server = "node ./node_modules/zxyserver/index.js";
+
+  try {
+    execSync("fuser -k 8888/tcp");
+  } catch (e) {}
+
+  let exe = exec(server, (error, stdout) => {
+    sleep.sleep(2);
+    const attack_string = `curl -v --path-as-is "http://127.0.0.1:8888${payload}"`;
+    exec(attack_string, (error, stdout) => {
+      let out = false;
+      if (stdout.includes(fs.readFileSync(pathToFlag).toString())) {
+        out = true;
+      }
+      return out;
+    });
+  });
+
+  return new Promise((resolve) => {
+    exe.on('close', (code) => {
+      resolve(exe);
+    });
+  });
+}
+
+module.exports = { exploitFunction };

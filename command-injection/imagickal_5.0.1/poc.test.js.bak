@@ -1,0 +1,12 @@
+test("Remote code execution in imagickal", () => {
+  const { exploitFunction } = require("../utils/function");
+  const { getPayload } = require('../utils/payload');
+
+  const payload = getPayload();
+  let output = exploitFunction(payload);
+
+  // Verify the output
+  expect(fs.existsSync("./imagickal")).toBe(true);
+});
+
+// Note: Ensure you have the necessary modules imported at the top of your test file.

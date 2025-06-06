@@ -1,0 +1,8 @@
+function exploitFunction(payload) {
+  const psnode = require("psnode");
+  psnode.kill(payload, function () {
+    // The callback is not used in this example, but it's part of the original code
+  });
+}
+
+module.exports = { exploitFunction };

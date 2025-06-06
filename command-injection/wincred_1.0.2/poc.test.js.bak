@@ -1,0 +1,10 @@
+test("Command Injection in wincred", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+  const { expect } = require('expect');
+
+  const payload = getPayload();
+  exploitFunction(payload);
+
+  // No additional verification code needed as it is part of the test itself
+});

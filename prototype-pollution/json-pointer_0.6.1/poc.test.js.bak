@@ -1,0 +1,12 @@
+test("Prototype pollution in json-pointer", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+  const pointer = require("json-pointer");
+
+  const payload = getPayload();
+  let obj = payload.obj;
+
+  exploitFunction(obj);
+
+  expect(obj.polluted).toBe("yes");
+});

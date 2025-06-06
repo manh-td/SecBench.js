@@ -1,6 +1,7 @@
 {
   "id": "",
   "dependencies": {
+    "sleep": "^6.3.0",
     "webrepl": "0.4.7"
   },
   "links": {

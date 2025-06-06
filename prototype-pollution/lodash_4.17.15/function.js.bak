@@ -1,0 +1,8 @@
+function exploitFunction(payload) {
+  const { setPrototypePollution } = payload;
+  const obj = {};
+  setPrototypePollution(obj);
+  return obj;
+}
+
+module.exports = { exploitFunction };

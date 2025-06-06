@@ -1,0 +1,9 @@
+const rfc6902 = require("rfc6902");
+
+function exploitFunction(patch) {
+    var obj = {};
+    rfc6902.applyPatch(obj, patch);
+    return obj;
+}
+
+module.exports = { exploitFunction };

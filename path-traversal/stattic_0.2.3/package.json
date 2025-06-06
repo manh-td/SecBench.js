@@ -1,6 +1,7 @@
 {
   "id": "CVE-2018-3734",
   "dependencies": {
+    "sleep": "^6.3.0",
     "stattic": "0.2.3"
   },
   "links": {

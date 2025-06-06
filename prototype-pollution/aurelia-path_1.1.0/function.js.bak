@@ -1,0 +1,6 @@
+function exploitFunction(queryString) {
+  const ap = require("aurelia-path");
+  ap.parseQueryString(queryString);
+}
+
+module.exports = { exploitFunction };

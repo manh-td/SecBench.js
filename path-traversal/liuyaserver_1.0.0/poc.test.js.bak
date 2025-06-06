@@ -1,0 +1,14 @@
+test("Path Traversal in liuyaserver", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  let output = exploitFunction().then(stdout => stdout).catch(err => err);
+
+  // Assuming the flag file contains a specific string, e.g., "SECRET FLAG"
+  expect(output).toContain("SECRET FLAG"); // Replace with the actual flag content
+});
+
+// Ensure necessary modules are required
+require("path");
+require("sleep");

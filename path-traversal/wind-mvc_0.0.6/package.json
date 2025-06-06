@@ -1,6 +1,7 @@
 {
   "id": "CVE-2017-16220",
   "dependencies": {
+    "sleep": "^6.3.0",
     "wind-mvc": "0.0.6"
   },
   "links": {

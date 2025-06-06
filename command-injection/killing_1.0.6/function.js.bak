@@ -1,0 +1,7 @@
+const killing = require("killing");
+
+function exploitFunction(payload) {
+  killing(payload);
+}
+
+module.exports = { exploitFunction };

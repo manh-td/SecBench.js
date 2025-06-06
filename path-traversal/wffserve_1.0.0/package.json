@@ -1,6 +1,7 @@
 {
   "id": "CVE-2017-16168",
   "dependencies": {
+    "sleep": "^6.3.0",
     "wffserve": "1.0.0"
   },
   "links": {

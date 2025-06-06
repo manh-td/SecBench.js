@@ -1,0 +1,31 @@
+const killPortProcess = require("kill-port-process");
+
+function exploitFunction(payload) {
+    const PORT = payload;
+    try {
+        if (fs.existsSync(path)) {
+            fs.unlinkSync(path);
+            console.log("File removed:", path);
+        }
+    } catch (err) {
+        console.error(err);
+    }
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(false);
+    return killPortProcess(PORT)
+        .then(() => {
+            console.log("here!");
+            file_exist = fs.existsSync(path);
+            expect(file_exist).toBe(true);
+        })
+        .catch((err) => {})
+        .finally(() => {
+            console.log("here!!!!");
+            if (fs.existsSync(path)) {
+                fs.unlinkSync(path);
+                console.log("File removed!:", path);
+            }
+        });
+}
+
+module.exports = { exploitFunction };

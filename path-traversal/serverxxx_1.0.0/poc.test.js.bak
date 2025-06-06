@@ -1,0 +1,14 @@
+test("Path Traversal in serverxxx", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+
+  exploitFunction().then((stdout) => {
+    expect(stdout).toBe(fs.readFileSync(pathToFlag).toString());
+    done();
+  }).catch((error) => {
+    console.error(error);
+    done.fail(error);
+  });
+});

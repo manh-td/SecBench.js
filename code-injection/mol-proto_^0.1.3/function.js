@@ -1,0 +1,9 @@
+function exploitFunction(payload) {
+    const fs = require("fs");
+    const mp = require("mol-proto");
+
+    const code = payload.code;
+    mp.makeFunction("a", "b", code);
+}
+
+module.exports = { exploitFunction };

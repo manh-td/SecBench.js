@@ -1,0 +1,9 @@
+function getPayload() {
+  return {
+    command: "foo",
+    args: "bar`touch egf`",
+    opts: { decrypt: true }
+  };
+}
+
+module.exports = { getPayload };

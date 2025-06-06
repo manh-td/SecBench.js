@@ -1,0 +1,12 @@
+test("Prototype pollution in libnested", () => {
+    const { exploitFunction } = require("./function.js");
+    const { getPayload } = require('./payload.js');
+
+    // Require necessary modules
+    const libnested = require("libnested");
+
+    const payload = getPayload();
+    let output = exploitFunction({});
+
+    expect({}.polluted).toBe("yes");
+});

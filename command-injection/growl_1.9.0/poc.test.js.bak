@@ -1,0 +1,12 @@
+test("Command Injection in growl", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+
+  exploitFunction(payload);
+
+  done();
+});
+
+// Note: The verification code assumes that the test framework and necessary modules are already set up.

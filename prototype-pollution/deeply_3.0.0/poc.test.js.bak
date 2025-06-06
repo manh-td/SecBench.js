@@ -1,0 +1,9 @@
+test("Prototype pollution in deeply", () => {
+  const { exploitFunction } = require("../utils/function");
+  const { getPayload } = require('../utils/payload');
+  // Require necessary modules
+
+  const payload = getPayload();
+  exploitFunction(payload);
+  expect({}.polluted).toBe("yes");
+});

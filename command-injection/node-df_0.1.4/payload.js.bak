@@ -1,0 +1,7 @@
+function getPayload() {
+    return {
+        file: "/;touch node-df"
+    };
+}
+
+module.exports = { getPayload };

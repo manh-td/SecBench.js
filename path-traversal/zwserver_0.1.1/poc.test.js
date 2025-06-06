@@ -1,0 +1,27 @@
+test("Path Traversal in zwserver", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+  const fs = require("fs");
+  const path = require("path");
+
+  // Get the content of the flag file
+  const hostsFile = fs.readFileSync(path.resolve(__dirname, "../flag.html")).toString();
+
+  // Call the exploit function
+  exploitFunction().then(() => {
+    // Wait for the server to start and the attack to complete
+    setTimeout(() => {
+      // Read the flag file again to verify the output
+      fs.readFile(path.resolve(__dirname, "../flag.html"), (err, data) => {
+        if (err) {
+          throw err;
+        }
+        expect(data.toString()).toBe(hostsFile);
+        done();
+      });
+    }, 5000); // 5 seconds delay
+  }).catch((err) => {
+    console.error(`Error during exploit: ${err}`);
+    done(err);
+  });
+});

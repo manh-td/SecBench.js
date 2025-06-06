@@ -1,0 +1,7 @@
+function getPayload() {
+  return {
+    path: "& touch im-resize &"
+  };
+}
+
+module.exports = { getPayload };

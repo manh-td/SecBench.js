@@ -1,0 +1,11 @@
+function getPayload() {
+    const pointer = require("json-pointer");
+    let obj = {};
+
+    return {
+        obj: obj,
+        polluted: undefined
+    };
+}
+
+module.exports = { getPayload };

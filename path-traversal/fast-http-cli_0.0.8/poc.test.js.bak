@@ -1,0 +1,15 @@
+test("Path Traversal in fast-http-cli", (done) => {
+    const { exploitFunction } = require("./function.js");
+    const { getPayload } = require('./payload.js');
+
+    let hostsFile = fs.readFileSync(path.resolve(__dirname, "../flag.html")).toString();
+
+    let output = exploitFunction();
+
+    expect(output).toBe(hostsFile);
+    done();
+});
+
+// Note: Ensure you have the necessary imports at the top of your test file
+const fs = require("fs");
+const path = require("path");

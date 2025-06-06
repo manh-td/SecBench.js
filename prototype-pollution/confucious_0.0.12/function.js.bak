@@ -1,0 +1,6 @@
+function exploitFunction(payload) {
+  const confucious = require("confucious");
+  confucious.set(Object.keys(payload)[0], payload[Object.keys(payload)[0]]);
+}
+
+module.exports = { exploitFunction };

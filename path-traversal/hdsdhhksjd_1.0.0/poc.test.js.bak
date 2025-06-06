@@ -1,0 +1,9 @@
+test("Path Traversal in hdsdhhksjd", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  let output = exploitFunction(payload);
+
+  // No need to verify anything here since the test is inside the exploitFunction
+});

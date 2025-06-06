@@ -1,0 +1,16 @@
+function exploitFunction(payload) {
+  const pkg = require("isv-http");
+  const fs = require("fs");
+  const { exec } = require("child_process");
+
+  try {
+    fs.readFile(payload, (err, data) => {
+      if (err) throw err;
+      console.log(data.toString());
+    });
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+module.exports = { exploitFunction };

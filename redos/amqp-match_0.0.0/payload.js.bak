@@ -1,0 +1,8 @@
+function getPayload() {
+  return {
+    pattern: "f" + "0".repeat(19),
+    regex: "#.bar"
+  };
+}
+
+module.exports = { getPayload };

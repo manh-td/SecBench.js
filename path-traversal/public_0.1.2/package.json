@@ -1,7 +1,8 @@
 {
   "id": "",
   "dependencies": {
-    "public": "0.1.2"
+    "public": "0.1.2",
+    "sleep": "^6.3.0"
   },
   "links": {
     "source1": "https://security.snyk.io/vuln/SNYK-JS-PUBLIC-460390",

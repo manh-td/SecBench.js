@@ -1,0 +1,6 @@
+function exploitFunction(command) {
+  const root = require("lsof");
+  root.rawTcpPort(command, function () {});
+}
+
+module.exports = { exploitFunction };

@@ -1,0 +1,8 @@
+function exploitFunction(payload) {
+  const utils = require("../utils");
+  utils.wfVars.remove(payload.command, function () {
+    // This is the vulnerable part where the payload is executed
+  });
+}
+
+module.exports = { exploitFunction };

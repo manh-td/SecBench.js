@@ -1,0 +1,18 @@
+test("Path Traversal in hostr", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+  const { readFile } = require('fs');
+
+  // Read the flag file
+  readFile(path.resolve(__dirname, "../flag.html"), 'utf8', (err, data) => {
+    if (err) throw err;
+
+    const hostsFile = data.toString();
+
+    // Run the exploit function
+    const output = exploitFunction();
+
+    // Verify the output
+    expect(output).toBe(hostsFile);
+  });
+});

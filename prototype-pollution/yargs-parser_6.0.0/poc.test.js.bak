@@ -1,0 +1,9 @@
+test("Prototype pollution in yargs-parser", () => {
+  const { exploitFunction } = require("../function");
+  const { getPayload } = require('../payload');
+
+  const payload = getPayload();
+  const parsedArgs = exploitFunction(payload);
+
+  expect(parsedArgs.foo.__proto__.polluted).toBe("yes");
+});

@@ -1,0 +1,23 @@
+test("Path Traversal in fast-http", (done) => {
+  expect.assertions(1);
+  const Server = require("fast-http");
+  const fs = require("fs");
+  const { exec, execSync } = require("child_process");
+  let hostsFile = fs.readFileSync(path.resolve(__dirname, "../flag.html")).toString();
+  const a = require("child_process");
+
+  try {
+    a.execSync("fuser -k 8080/tcp", () => {});
+  } catch (e) {}
+
+  let srv = new Server(8080, "./", true);
+
+  let { getPayload } = require('./payload.js');
+  let payload = getPayload();
+  let attack_string = exploitFunction(payload);
+  
+  exec(attack_string, (error, stdout) => {
+    expect(stdout).toBe(hostsFile);
+    done();
+  });
+});

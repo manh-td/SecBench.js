@@ -1,0 +1,17 @@
+function getPayload() {
+    return {
+        setter: (path, value) => {
+            const [key1, key2] = path;
+            if (key1 === "__proto__") {
+                Object.defineProperty({}, key2, {
+                    writable: true,
+                    configurable: true,
+                    enumerable: false,
+                    value: value
+                });
+            }
+        }
+    };
+}
+
+module.exports = { getPayload };

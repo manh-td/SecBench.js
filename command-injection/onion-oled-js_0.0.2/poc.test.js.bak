@@ -1,0 +1,24 @@
+test("Command Injection in onion-oled-js", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+  const fs = require("fs");
+
+  const payload = getPayload();
+  let file_exist = fs.existsSync("./onion-oled-js");
+  
+  try {
+    if (file_exist) {
+      fs.unlinkSync("./onion-oled-js");
+      console.log("File removed:", "./onion-oled-js");
+    }
+  } catch (err) {
+    console.error(err);
+  }
+
+  exploitFunction(payload);
+
+  file_exist = fs.existsSync("./onion-oled-js");
+  expect(file_exist).toBe(true);
+
+  fs.unlink("./onion-oled-js", function (err) {});
+});

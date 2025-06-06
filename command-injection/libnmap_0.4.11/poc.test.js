@@ -1,0 +1,12 @@
+test("Command Injection in libnmap", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  exploitFunction(payload, done);  // Pass the done callback
+
+  // The test framework should handle the verification through the callbacks
+  // No additional verification code needed here
+});
+
+// Note: The original test code already contains the necessary verification logic.

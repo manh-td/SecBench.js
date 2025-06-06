@@ -1,0 +1,11 @@
+test("Arbitrary code execution in local-devices", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  exploitFunction(payload);
+
+  const path = "./local-devices";
+  const fileExist = fs.existsSync(path);
+  expect(fileExist).toBe(true);
+});

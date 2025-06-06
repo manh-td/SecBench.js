@@ -1,0 +1,7 @@
+function exploitFunction(payload) {
+    const a = {};
+    mergeDeep(a, payload);
+    return a.polluted;
+}
+
+module.exports = { exploitFunction };

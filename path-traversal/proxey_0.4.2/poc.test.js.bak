@@ -1,0 +1,18 @@
+test("Path Traversal in proxey", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  let attack_string = `curl -v --path-as-is "http://127.0.0.1:8981${getPayload()}"`;
+  let stdout;
+
+  let hostsFile = fs.readFileSync(path.resolve(__dirname, "../flag.html")).toString();
+
+  try {
+    stdout = exploitFunction(getPayload());
+  } catch (e) {
+    throw new Error("Exploit function failed");
+  }
+
+  expect(stdout).toBe(hostsFile);
+  done();
+});

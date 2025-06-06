@@ -1,0 +1,15 @@
+test("Arbitrary code execution in mongo-parse", (done) => {
+  const { exploitFunction } = require("../utils/function.js");
+  const { getPayload } = require('../utils/payload.js');
+
+  const payload = getPayload();
+
+  exploitFunction({
+    input: payload,
+    path: "./mongo-parse"
+  });
+
+  setTimeout(() => {
+    done();
+  }, 500);
+});

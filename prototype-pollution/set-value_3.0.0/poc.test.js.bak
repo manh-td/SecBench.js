@@ -1,0 +1,9 @@
+test("Prototype pollution in set-value", () => {
+  const { exploitFunction } = require("../function");
+  const { getPayload } = require('../payload');
+
+  const { paths, setFn } = getPayload();
+  exploitFunction(paths, setFn);
+
+  expect({}.polluted).toBe("yes");
+});

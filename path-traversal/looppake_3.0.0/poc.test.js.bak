@@ -1,0 +1,17 @@
+test("Path Traversal in looppake", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+  const fs = require("fs");
+
+  // Get the content of the flag file
+  const hostsFile = fs.readFileSync(path.resolve(__dirname, "../flag.html")).toString();
+
+  // Execute the exploit function
+  exploitFunction().then(output => {
+    // Verify the output
+    expect(output).toBe(hostsFile);
+    done();
+  }).catch(error => {
+    done(error);
+  });
+});

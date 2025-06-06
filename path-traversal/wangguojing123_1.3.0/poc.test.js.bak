@@ -1,0 +1,11 @@
+test("Path Traversal in wangguojing123", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  const result = exploitFunction(payload);
+
+  expect(result).toBeDefined(); // Ensure the function returns something
+});
+
+// Note: The actual verification logic should be more robust, but this is a simplified example.

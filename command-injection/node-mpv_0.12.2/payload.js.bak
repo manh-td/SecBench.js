@@ -1,0 +1,7 @@
+function getPayload() {
+    return {
+        binary: '" $(touch node-mpv) "'
+    };
+}
+
+module.exports = { getPayload };

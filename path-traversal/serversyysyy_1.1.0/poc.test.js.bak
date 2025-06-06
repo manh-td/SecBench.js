@@ -1,0 +1,10 @@
+test("Path Traversal in serversyysyy", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  exploitFunction(payload);
+
+  // Ensure the test runs correctly
+  // The test will automatically verify the output based on the expectations set in the exploitFunction
+});

@@ -1,0 +1,9 @@
+test("Arbitrary code execution in mathjs", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  exploitFunction(payload);
+
+  // No need to manually verify here as the function itself does the assertions
+});

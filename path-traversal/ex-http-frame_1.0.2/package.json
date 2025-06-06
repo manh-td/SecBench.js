@@ -1,7 +1,8 @@
 {
   "id": "",
   "dependencies": {
-    "ex-http-frame": "1.0.2"
+    "ex-http-frame": "1.0.2",
+    "sleep": "^6.3.0"
   },
   "links": {
     "source1": "https://security.snyk.io/vuln/npm:ex-http-frame:20180226",

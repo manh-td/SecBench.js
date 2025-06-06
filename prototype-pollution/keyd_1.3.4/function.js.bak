@@ -1,0 +1,7 @@
+const keyd = require("keyd");
+
+function exploitFunction(payload) {
+    keyd({}).set(Object.keys(payload)[0], payload[Object.keys(payload)[0]]);
+}
+
+module.exports = { exploitFunction };

@@ -1,0 +1,24 @@
+test("Path Traversal in wangshuai", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+  const path = require("path");  // Import the path module
+
+  // Read the flag file content
+  const fs = require("fs");
+  const pathToFlag = path.resolve(__dirname, "../flag.html");
+  const hostsFile = fs.readFileSync(pathToFlag).toString();
+
+  // Get the payload
+  const payload = getPayload();
+
+  // Exploit the vulnerability
+  exploitFunction(payload, (error, stdout) => {
+    if (error) {
+      throw new Error(`Error during exploit: ${error}`);
+    }
+
+    // Verify the output
+    expect(stdout).toBe(hostsFile);
+    done();
+  });
+});

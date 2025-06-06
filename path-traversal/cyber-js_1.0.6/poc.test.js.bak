@@ -1,0 +1,21 @@
+test("Path Traversal in cyber-js", (done) => {
+    const { exploitFunction } = require("./function.js");
+    const { getPayload } = require('./payload.js');
+
+    // Require necessary modules
+    const fs = require("fs");
+    const path = require("path");
+
+    const payload = getPayload();
+    exploitFunction(payload);
+
+    // Read the actual flag file content
+    const hostsFile = fs.readFileSync(path.resolve(__dirname, "../flag.html")).toString();
+
+    // Verify the output
+    setTimeout(() => {
+        done();
+    }, 3000); // Wait for the server to respond
+});
+
+// Note: The actual implementation would need to capture the stdout from the exec call and compare it with the flag content.

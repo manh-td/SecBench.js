@@ -1,7 +1,8 @@
 {
   "id": "CVE-2020-7684",
   "dependencies": {
-    "rollup-plugin-serve": "0.4.2"
+    "rollup-plugin-serve": "0.4.2",
+    "sleep": "^6.3.0"
   },
   "links": {
     "source1": "https://security.snyk.io/vuln/SNYK-JS-ROLLUPPLUGINSERVE-585897",

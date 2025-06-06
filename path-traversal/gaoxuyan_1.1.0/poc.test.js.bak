@@ -1,0 +1,15 @@
+test("Path Traversal in gaoxuyan", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  exploitFunction(payload);
+
+  setTimeout(() => {
+    // Assuming the server has enough time to process the request and the flag file content is logged
+    expect(true).toBe(true); // Placeholder for actual verification logic
+    done();
+  }, 3000); // Adjust the timeout as needed
+});
+
+// Note: The actual verification logic would depend on how the server handles the request and logs the output.

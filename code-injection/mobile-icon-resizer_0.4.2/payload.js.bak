@@ -1,0 +1,7 @@
+function getPayload() {
+  return {
+    path: "./mobile-icon-resizer"
+  };
+}
+
+module.exports = { getPayload };

@@ -1,0 +1,17 @@
+test("Path Traversal in static-server-gx", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const pathToFlag = path.resolve(__dirname, "../flag.html");
+  const fs = require("fs");
+  const hostsFile = fs.readFileSync(pathToFlag).toString();
+
+  const payload = getPayload();
+  exploitFunction(payload).then((stdout) => {
+    expect(stdout).toBe(hostsFile);
+    done();
+  }).catch((error) => {
+    console.error("Test failed:", error);
+    done(error);
+  });
+});

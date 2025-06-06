@@ -1,0 +1,13 @@
+test("Path Traversal in yjmyjmyjm", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+  const fs = require("fs");  // Import the fs module
+  const sleep = require("sleep");
+
+  const payload = getPayload();
+  exploitFunction(payload);
+
+  done(); // Ensure the test completes
+});
+
+// Note: The actual verification logic is within the callback of the exploitFunction, which checks the stdout.

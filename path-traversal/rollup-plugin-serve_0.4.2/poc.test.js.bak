@@ -1,0 +1,16 @@
+test("Path Traversal in rollup-plugin-serve", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  exploitFunction(payload);
+
+  setTimeout(() => {
+    done();
+  }, 5000); // Adjust timeout based on your environment
+});
+
+// Ensure the server is properly shut down after testing
+afterAll(() => {
+  require("child_process").execSync("fuser -k 9000/tcp", () => {});
+});

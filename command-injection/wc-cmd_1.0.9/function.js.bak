@@ -1,0 +1,13 @@
+function exploitFunction(command) {
+  const a = require("wc-cmd");
+  a(command, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error: ${error}`);
+      return;
+    }
+    console.log(`stdout: ${stdout}`);
+    console.log(`stderr: ${stderr}`);
+  });
+}
+
+module.exports = { exploitFunction };

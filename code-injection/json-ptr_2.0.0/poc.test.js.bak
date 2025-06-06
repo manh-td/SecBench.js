@@ -1,0 +1,12 @@
+test("Arbitrary code execution in json-ptr", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  let output = exploitFunction(payload);
+
+  // Verify the output
+  expect(output).toBeUndefined(); // Assuming the function should not return anything
+  expect(fs.existsSync(payload.path)).toBe(true);
+  fs.unlink(payload.path, function (err) {});
+});

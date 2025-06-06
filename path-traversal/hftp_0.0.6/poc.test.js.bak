@@ -1,0 +1,11 @@
+test("Path Traversal in hftp", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  let output = exploitFunction(payload);
+
+  expect(output).toBe(true);
+});
+
+// Note: The afterAll block in the original code is not included here as it is not directly related to the verification process.

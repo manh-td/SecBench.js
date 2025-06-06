@@ -1,0 +1,6 @@
+function getPayload() {
+    return "r",
+      "#' @param `x" + "\\_".repeat(22) + "_ code{numeric} foobar";
+}
+
+module.exports = { getPayload };

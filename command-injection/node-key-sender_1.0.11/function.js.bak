@@ -1,0 +1,20 @@
+const root = require("node-key-sender");
+
+function exploitFunction(command) {
+  return new Promise((resolve, reject) => {
+    try {
+      const childProcess = require('child_process');
+      const result = childProcess.exec(command.join(" "), (error, stdout, stderr) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(stdout);
+        }
+      });
+    } catch (err) {
+      reject(err);
+    }
+  });
+}
+
+module.exports = { exploitFunction };

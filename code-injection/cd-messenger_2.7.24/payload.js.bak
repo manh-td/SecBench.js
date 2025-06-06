@@ -1,0 +1,5 @@
+function getPayload() {
+    return "red(); require('fs').writeFileSync('./cd-messenger', ``); //";
+}
+
+module.exports = { getPayload };

@@ -1,6 +1,7 @@
 {
   "id": "CVE-2017-16149",
   "dependencies": {
+    "sleep": "^6.3.0",
     "zwserver": "0.1.1"
   },
   "links": {

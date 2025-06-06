@@ -1,0 +1,9 @@
+test("Prototype pollution in dset", () => {
+  const { exploitFunction } = require("../function");
+  const { getPayload } = require('../payload');
+
+  const obj = getPayload();
+  exploitFunction(obj);
+
+  expect(obj.polluted).toBe("yes");
+});

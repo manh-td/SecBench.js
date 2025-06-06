@@ -1,0 +1,6 @@
+function exploitFunction(payload) {
+    var relative = require("cached-path-relative");
+    relative(Object.keys(payload)[0], Object.values(payload)[0]);
+}
+
+module.exports = { exploitFunction };

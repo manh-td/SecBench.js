@@ -1,0 +1,13 @@
+test("Prototype pollution in decal", () => {
+  const { exploitFunction } = require("./function");
+  const { getPayload } = require('./payload');
+
+  // Require necessary modules
+  const decal = require("decal");
+
+  const payload = getPayload();
+  const obj = {};
+  payload.setPrototypePollution(obj);
+
+  expect(obj.polluted).toBe("yes");
+});

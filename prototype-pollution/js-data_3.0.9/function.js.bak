@@ -1,0 +1,7 @@
+function exploitFunction(payload) {
+  const { utils } = require("../utils");
+  const source = payload;
+  utils.deepMixIn({}, source);
+}
+
+module.exports = { exploitFunction };

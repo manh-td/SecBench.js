@@ -1,0 +1,9 @@
+test("Prototype pollution in changeset", () => {
+    const { exploitFunction } = require("./function.js");
+    const { getPayload } = require('./payload.js');
+
+    const payload = getPayload();
+    const obj = exploitFunction(payload[0]);
+
+    expect(obj.polluted).toBe("yes");
+});

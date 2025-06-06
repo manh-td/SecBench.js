@@ -1,0 +1,10 @@
+test("Path Traversal in sabu", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  const output = exploitFunction();
+
+  expect(output).toBe(require("fs").readFileSync(pathToFlag).toString());
+  done();
+});

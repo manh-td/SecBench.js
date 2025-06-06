@@ -1,7 +1,8 @@
 {
   "id": "CVE-2017-16083",
   "dependencies": {
-    "node-simple-router": "0.10.0"
+    "node-simple-router": "0.10.0",
+    "sleep": "^6.3.0"
   },
   "links": {
     "source1": "https://security.snyk.io/vuln/npm:node-simple-router:20170523",

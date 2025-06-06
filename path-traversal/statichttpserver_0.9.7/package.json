@@ -1,6 +1,7 @@
 {
   "id": "CVE-2019-5480",
   "dependencies": {
+    "sleep": "^6.3.0",
     "statichttpserver": "0.9.7"
   },
   "links": {

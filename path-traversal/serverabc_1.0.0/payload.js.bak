@@ -1,0 +1,11 @@
+function getPayload() {
+  const pathToFlag = path.resolve(__dirname, "../flag.html");
+  function genstr(n) {
+    return "/..".repeat(50) + pathToFlag;
+  }
+  return {
+    genstr
+  };
+}
+
+module.exports = { getPayload };

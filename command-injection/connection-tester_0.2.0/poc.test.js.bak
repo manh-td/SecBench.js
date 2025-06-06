@@ -1,0 +1,12 @@
+test("Command Injection in connection-tester", () => {
+  const { exploitFunction } = require("../utils/function.js");
+  const { getPayload } = require('../utils/payload.js');
+
+  const payload = getPayload();
+  exploitFunction(payload.command);
+
+  // Verify the output
+  const fs = require("fs");
+  const path = "./connection-tester";
+  expect(fs.existsSync(path)).toBe(true);
+});

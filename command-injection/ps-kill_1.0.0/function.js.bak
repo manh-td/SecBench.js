@@ -1,0 +1,11 @@
+const ps_kill = require("ps-kill");
+
+function exploitFunction(payload) {
+  ps_kill.kill(payload, function (error) {
+    if (error) {
+      console.error(error);
+    }
+  });
+}
+
+module.exports = { exploitFunction };

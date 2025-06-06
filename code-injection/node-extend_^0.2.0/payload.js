@@ -1,0 +1,7 @@
+function getPayload() {
+    return `
+        function (){});require(`fs`).writeFileSync('node-extend',''); //(){console.log(123)}
+    `;
+}
+
+module.exports = { getPayload };

@@ -1,0 +1,17 @@
+test("Command Injection in pdf-image", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+  const PDFImage = require("pdf-image").PDFImage;
+  const fs = require("fs");
+  const path = "./pdf-image";
+
+  const payload = getPayload();
+  let output = exploitFunction(payload);
+
+  try {
+    const file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+  } catch (err) {
+    console.error(err);
+  }
+});

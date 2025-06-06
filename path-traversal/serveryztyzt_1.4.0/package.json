@@ -1,7 +1,8 @@
 {
   "id": "CVE-2017-16103",
   "dependencies": {
-    "serveryztyzt": "1.4.0"
+    "serveryztyzt": "1.4.0",
+    "sleep": "^6.3.0"
   },
   "links": {
     "source1": "https://security.snyk.io/vuln/npm:serveryztyzt:20170516",

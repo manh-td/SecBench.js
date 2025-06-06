@@ -1,0 +1,6 @@
+function getPayload() {
+    const pathToFlag = require("../flag.html");
+    return "/..".repeat(50) + pathToFlag;
+}
+
+module.exports = { getPayload };

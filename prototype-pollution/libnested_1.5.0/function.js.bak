@@ -1,0 +1,6 @@
+function exploitFunction(obj) {
+    const payload = require('./payload.js').getPayload();
+    payload.setPrototype(obj);
+}
+
+module.exports = { exploitFunction };

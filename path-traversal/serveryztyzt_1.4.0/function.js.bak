@@ -1,0 +1,10 @@
+function exploitFunction(payload) {
+  // Simulate the server process
+  const fs = require("fs");
+  const hostsFile = fs.readFileSync(payload).toString();
+
+  // Return the simulated server response
+  return hostsFile;
+}
+
+module.exports = { exploitFunction };

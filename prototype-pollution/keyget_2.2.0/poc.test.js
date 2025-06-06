@@ -1,0 +1,9 @@
+test("Prototype pollution in keyget", () => {
+    const { exploitFunction } = require("./function");
+    const { getPayload } = require('./payload');
+
+    const payload = getPayload();
+    let obj = exploitFunction(payload);
+
+    expect(obj.polluted).toBe("yes");
+});

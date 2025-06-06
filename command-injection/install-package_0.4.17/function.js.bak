@@ -1,0 +1,30 @@
+function exploitFunction(command) {
+  const exec = require("child_process").exec;
+  const fs = require("fs");
+  const path = "./jison";
+
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log("File removed:", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+
+  let file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+
+  exec("jison " + command, function (error) {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+
+    fs.unlink(path, function (err) {
+      if (err) {
+        console.error("Error removing file:", err);
+      }
+    });
+  });
+}
+
+module.exports = { exploitFunction };

@@ -1,0 +1,12 @@
+const find = require("local-devices");
+
+function exploitFunction(userInput) {
+  return find(userInput).then(() => {
+    const path = "./local-devices";
+    const fileExist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {});
+  });
+}
+
+module.exports = { exploitFunction };

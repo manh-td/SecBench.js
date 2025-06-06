@@ -1,0 +1,5 @@
+function exploitFunction(payload) {
+  sea.findSeajsConfig(payload);
+}
+
+module.exports = { exploitFunction };

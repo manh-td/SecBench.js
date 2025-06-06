@@ -1,6 +1,7 @@
 {
   "id": "",
   "dependencies": {
+    "sleep": "^6.3.0",
     "willvdb_test_server": "0.0.0"
   },
   "links": {

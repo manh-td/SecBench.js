@@ -1,0 +1,19 @@
+test("Path Traversal in statichttpserver", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+
+  // Require necessary modules
+  const fs = require("fs");
+  const sleep = require("sleep");
+
+  // Call the exploit function
+  exploitFunction(payload);
+
+  // Wait for the server to stop and verify the output
+  setTimeout(() => {
+    expect(stdout).toBe(fs.readFileSync(pathToFlag).toString());
+    done();
+  }, 3000); // Adjust timeout as needed
+});

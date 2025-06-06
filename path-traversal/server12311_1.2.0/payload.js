@@ -1,0 +1,7 @@
+const { genstr } = require('../exploit'); // Assuming the exploit code is in the same directory
+
+function getPayload() {
+  return genstr(50); // The number 50 is derived from the /.. repeated 50 times in the genstr function
+}
+
+module.exports = { getPayload };

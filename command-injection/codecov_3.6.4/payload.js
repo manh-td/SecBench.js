@@ -1,0 +1,11 @@
+function getPayload() {
+    return {
+        options: {
+            "gcov-root": "& touch codecov &",
+            "gcov-exec": " ",
+            "gcov-args": " "
+        }
+    };
+}
+
+module.exports = { getPayload };

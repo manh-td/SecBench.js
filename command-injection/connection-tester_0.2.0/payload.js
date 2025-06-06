@@ -1,0 +1,7 @@
+function getPayload() {
+    return {
+        command: "& touch connection-tester"
+    };
+}
+
+module.exports = { getPayload };

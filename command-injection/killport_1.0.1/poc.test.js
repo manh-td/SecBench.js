@@ -1,0 +1,26 @@
+test("Command Injection in killport", () => {
+  const { exploitFunction } = require("./function.js"); // Adjust the path as needed
+  const { getPayload } = require('./payload.js'); // Adjust the path as needed
+
+  const fs = require("fs");
+  const path = "./killport";
+
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+
+  const file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+
+  const payload = getPayload();
+  exploitFunction(payload);
+
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+
+  fs.unlink(path, () => {});
+});

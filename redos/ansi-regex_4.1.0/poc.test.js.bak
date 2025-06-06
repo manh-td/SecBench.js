@@ -1,0 +1,10 @@
+test("ReDos in ansi-regex", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+  const ansiRegex = require("ansi-regex");
+
+  const payload = getPayload();
+  const result = exploitFunction(payload);
+
+  expect(result.time).toBeGreaterThan(1);
+});

@@ -1,0 +1,15 @@
+test("Command Injection in curling", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+  const payload = getPayload();
+
+  exploitFunction(payload);
+
+  setTimeout(() => {
+    const fs = require("fs");
+    const path = "./curling";
+    const file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    done();
+  }, 1000); // Wait for the command to execute
+});

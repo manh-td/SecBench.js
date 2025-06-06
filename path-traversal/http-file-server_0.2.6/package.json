@@ -1,7 +1,8 @@
 {
   "id": "CVE-2019-5447",
   "dependencies": {
-    "http-file-server": "0.2.6"
+    "http-file-server": "0.2.6",
+    "sleep": "^6.3.0"
   },
   "links": {
     "source1": "https://security.snyk.io/vuln/SNYK-JS-HTTPFILESERVER-451564",

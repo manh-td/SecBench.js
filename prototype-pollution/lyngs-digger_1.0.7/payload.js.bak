@@ -1,0 +1,8 @@
+function getPayload() {
+    return {
+        polluted: undefined,
+        __proto__: {}
+    };
+}
+
+module.exports = { getPayload };

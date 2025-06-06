@@ -1,0 +1,11 @@
+test("Prototype pollution in class-transformer", () => {
+  const { exploitFunction } = require("../function");
+  const { getPayload } = require('../payload');
+
+  expect({}.polluted).toBe(undefined);
+
+  const payload = getPayload();
+  exploitFunction(payload);
+
+  expect({}.polluted).toBe("yes");
+});

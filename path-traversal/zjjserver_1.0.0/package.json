@@ -1,6 +1,7 @@
 {
   "id": "CVE-2017-16201",
   "dependencies": {
+    "sleep": "^6.3.0",
     "zjjserver": "1.0.0"
   },
   "links": {

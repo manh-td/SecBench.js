@@ -1,7 +1,8 @@
 {
   "id": "",
   "dependencies": {
-    "gamebutler": "1.0.4"
+    "gamebutler": "1.0.4",
+    "sleep": "^6.3.0"
   },
   "links": {
     "source1": "https://security.snyk.io/vuln/npm:gamebutler:20180226",

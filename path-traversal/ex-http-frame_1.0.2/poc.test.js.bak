@@ -1,0 +1,14 @@
+test("Path Traversal in ex-http-frame", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  const expectedContent = fs.readFileSync(pathToFlag).toString();
+
+  exploitFunction().then((output) => {
+    expect(output).toBe(expectedContent);
+    done();
+  }).catch((err) => {
+    done(err);
+  });
+});

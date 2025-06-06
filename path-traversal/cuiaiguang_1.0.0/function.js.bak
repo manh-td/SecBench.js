@@ -1,0 +1,27 @@
+function exploitFunction() {
+  const { exec } = require("child_process");
+  const sleep = require("sleep");
+
+  afterAll(() => {
+    try {
+      execSync("fuser -k 8888/tcp");
+    } catch (e) {}
+  });
+
+  const path = require("path");
+  const { sleep } = require("sleep");
+  const pathToFlag = path.resolve(__dirname, "../flag.html");
+
+  test("Path Traversal in cuiaiguang", (done) => {
+    expect.assertions(1);
+
+    let server = "node ./node_modules/cuiaiguang/index.js";
+    let exe = exec(server, (error, stdout) => {
+      sleep.sleep(2);
+      expect(stdout).toBe(fs.readFileSync(pathToFlag).toString());
+      done();
+    });
+  });
+}
+
+module.exports = { exploitFunction };

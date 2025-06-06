@@ -1,0 +1,11 @@
+test("Command Injection in xopen", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+  const { expect } = require('expect');
+
+  const payload = getPayload();
+  exploitFunction(payload);
+
+  // Verify the output
+  expect(fs.existsSync("./xopen")).toBe(true);
+});

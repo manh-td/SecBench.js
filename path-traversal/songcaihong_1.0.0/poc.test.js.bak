@@ -1,0 +1,12 @@
+test("Path Traversal in songcaihong", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  // Run the exploit function
+  exploitFunction();
+
+  // Wait for the function to complete and then call done()
+  setTimeout(() => {
+    done();
+  }, 3000); // Adjust the timeout as needed
+});

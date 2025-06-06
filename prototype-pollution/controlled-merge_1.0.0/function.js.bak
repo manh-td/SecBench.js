@@ -1,0 +1,7 @@
+function exploitFunction(payload) {
+  const merge = require("controlled-merge");
+  const obj = merge({}, JSON.stringify(payload), true);
+  return obj;
+}
+
+module.exports = { exploitFunction };

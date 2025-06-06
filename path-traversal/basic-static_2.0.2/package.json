@@ -1,7 +1,8 @@
 {
   "id": "",
   "dependencies": {
-    "basic-static": "2.0.2"
+    "basic-static": "2.0.2",
+    "sleep": "^6.3.0"
   },
   "links": {
     "source1": "https://security.snyk.io/vuln/npm:basic-static:20180226",

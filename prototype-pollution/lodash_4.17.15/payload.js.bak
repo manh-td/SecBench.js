@@ -1,0 +1,11 @@
+function getPayload() {
+    return {
+        polluted: undefined,
+        setPrototypePollution: (obj) => {
+            lod.set(obj, "__proto__[polluted]", "yes");
+            delete obj.__proto__.polluted;
+        }
+    };
+}
+
+module.exports = { getPayload };

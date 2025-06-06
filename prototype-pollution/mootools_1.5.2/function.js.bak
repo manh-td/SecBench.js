@@ -1,0 +1,5 @@
+function exploitFunction(payload) {
+  Object.merge({}, payload);
+}
+
+module.exports = { exploitFunction };

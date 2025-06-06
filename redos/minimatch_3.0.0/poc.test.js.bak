@@ -1,0 +1,9 @@
+test("ReDos in minimatch", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  const result = exploitFunction(payload.attack_str);
+
+  expect(result.time).toBeGreaterThan(1);
+});

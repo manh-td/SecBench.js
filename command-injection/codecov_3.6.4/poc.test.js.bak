@@ -1,0 +1,13 @@
+test("Command Injection in codecov", async () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+
+  await exploitFunction(payload);
+
+  const fs = require("fs");
+  const path = "./codecov";
+  const file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+});

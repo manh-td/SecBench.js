@@ -1,7 +1,8 @@
 {
   "id": "",
   "dependencies": {
-    "node-cxc": "1.0.0"
+    "node-cxc": "1.0.0",
+    "sleep": "^6.3.0"
   },
   "links": {
     "source1": "https://security.snyk.io/vuln/npm:node-cxc:20180226",

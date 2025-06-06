@@ -105,6 +105,7 @@ dist
 .tern-port
 
 # Generated files
-payload.js
-function.js
-poc.test.js
+# payload.js
+# function.js
+# poc.test.js
+# *.bak*

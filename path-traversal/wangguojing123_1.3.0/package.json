@@ -1,6 +1,7 @@
 {
   "id": "CVE-2017-16150",
   "dependencies": {
+    "sleep": "^6.3.0",
     "wangguojing123": "1.3.0"
   },
   "links": {

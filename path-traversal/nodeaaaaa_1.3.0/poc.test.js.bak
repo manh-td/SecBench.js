@@ -1,0 +1,19 @@
+test("Path Traversal in nodeaaaaa", async () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  const stdout = await new Promise((resolve, reject) => {
+    exploitFunction(payload, (error, stdout) => {
+      if (error) reject(error);
+      resolve(stdout);
+    });
+  });
+
+  // Read the flag file content
+  const fs = require("fs");
+  const hostsFile = fs.readFileSync(path.resolve(__dirname, "../flag.html")).toString();
+
+  // Verify the output
+  expect(stdout).toBe(hostsFile);
+});

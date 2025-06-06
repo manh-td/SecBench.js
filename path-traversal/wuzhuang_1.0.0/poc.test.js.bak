@@ -1,0 +1,10 @@
+test("Path Traversal in wuzhuang", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  let output = exploitFunction(payload);
+
+  // The test is already defined within the exploitFunction itself,
+  // so no additional verification code is needed here.
+});

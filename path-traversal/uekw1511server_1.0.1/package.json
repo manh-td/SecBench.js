@@ -1,6 +1,7 @@
 {
   "id": "CVE-2017-16185",
   "dependencies": {
+    "sleep": "^6.3.0",
     "uekw1511server": "1.0.1"
   },
   "links": {

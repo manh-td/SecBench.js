@@ -1,7 +1,8 @@
 {
   "id": "",
   "dependencies": {
-    "serveryyl": "1.1.0"
+    "serveryyl": "1.1.0",
+    "sleep": "^6.3.0"
   },
   "links": {
     "source1": "https://security.snyk.io/vuln/npm:serveryyl:20180306",

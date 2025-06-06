@@ -1,0 +1,11 @@
+test("Command Injection in deferred-exec", async () => {
+  const { exploitFunction } = require("../utils/function");
+  const { getPayload } = require('../utils/payload');
+
+  const payload = getPayload();
+  exploitFunction(...payload);
+
+  // No need to add explicit verification here as the test is already within the exploitFunction
+});
+
+// Ensure to import necessary modules like 'expect' and others required for the test

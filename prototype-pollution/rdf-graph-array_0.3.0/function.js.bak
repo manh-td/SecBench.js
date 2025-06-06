@@ -1,0 +1,10 @@
+function exploitFunction(payload) {
+    const Graph = require("rdf-graph-array").Graph;
+    let g = new Graph();
+
+    g.add(payload);
+
+    return g;
+}
+
+module.exports = { exploitFunction };

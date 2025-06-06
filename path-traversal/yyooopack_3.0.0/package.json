@@ -1,6 +1,7 @@
 {
   "id": "CVE-2017-16167",
   "dependencies": {
+    "sleep": "^6.3.0",
     "yyooopack": "3.0.0"
   },
   "links": {

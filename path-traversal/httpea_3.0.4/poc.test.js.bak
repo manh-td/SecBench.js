@@ -1,0 +1,12 @@
+test("Path Traversal in httpea", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  exploitFunction(payload);
+
+  // Since the exploit function uses async operations, we need to wait for it to complete
+  setTimeout(() => {
+    done();
+  }, 5000); // Adjust timeout as needed
+});

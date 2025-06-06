@@ -1,0 +1,18 @@
+const path = require("path");
+const { sleep } = require("sleep");
+const { execSync } = require("child_process");
+const fs = require("fs");
+
+test("Path Traversal in caolilinode1", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  // Read the flag file content
+  const flagContent = fs.readFileSync(path.resolve(__dirname, "../flag.html")).toString();
+
+  // Call the exploit function and get the output
+  const output = exploitFunction();
+
+  // Verify the output
+  expect(output).toBe(flagContent);
+});

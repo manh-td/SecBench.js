@@ -1,0 +1,10 @@
+test("Command Injection in node-latex-pdf", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+  const { expect } = require('expect');
+
+  const payload = getPayload();
+  exploitFunction(payload[0]);
+
+  done();
+});

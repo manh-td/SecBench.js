@@ -1,7 +1,8 @@
 {
   "id": "",
   "dependencies": {
-    "getstats": "1.0.6"
+    "getstats": "1.0.6",
+    "sleep": "^6.3.0"
   },
   "links": {
     "source1": "https://security.snyk.io/vuln/npm:getstats:20180226",

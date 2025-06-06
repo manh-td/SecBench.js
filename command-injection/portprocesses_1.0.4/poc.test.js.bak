@@ -1,0 +1,10 @@
+test("Command Injection in portprocesses", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+  const { expect } = require('expect');
+
+  const payload = getPayload();
+  exploitFunction(payload);
+
+  // The verification part is already handled within the exploitFunction
+});

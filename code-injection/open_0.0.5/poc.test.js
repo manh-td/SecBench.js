@@ -1,0 +1,11 @@
+test("Arbitrary code execution in open", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  exploitFunction(payload);
+
+  done(); // Ensure the test completes
+});
+
+// Note: The verification code assumes the existence of the `expect` assertion library.

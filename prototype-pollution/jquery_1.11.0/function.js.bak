@@ -1,0 +1,14 @@
+function exploitFunction(payload) {
+    const { JSDOM } = require("jsdom");
+    const { window } = new JSDOM("");
+    const $ = require("jquery")(window);
+
+    const obj = {};
+
+    // Extend the object with the payload
+    $.extend(true, {}, payload);
+
+    return obj;
+}
+
+module.exports = { exploitFunction };

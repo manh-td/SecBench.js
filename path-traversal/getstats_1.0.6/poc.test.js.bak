@@ -1,0 +1,11 @@
+test("Path Traversal in getstats", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  const expectedOutput = fs.readFileSync(pathToFlag).toString();
+
+  const output = exploitFunction(payload);
+
+  expect(output).toBe(expectedOutput);
+});

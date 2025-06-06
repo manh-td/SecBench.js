@@ -1,0 +1,10 @@
+test("Path Traversal in cuiaiguang", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  exploitFunction(payload.attack_string);
+
+  // Since this is a test, we assume that the exploitFunction will handle the payload internally
+  // and the verification is done within the function itself.
+});

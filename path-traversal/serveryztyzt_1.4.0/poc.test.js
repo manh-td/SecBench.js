@@ -1,0 +1,11 @@
+test("Path Traversal in serveryztyzt", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+  const fs = require('fs'); // Ensure fs is required
+
+  const payload = getPayload();
+  let output = exploitFunction(payload);
+
+  // Verify the output
+  expect(output).toBe(fs.readFileSync(payload).toString());
+});

@@ -1,0 +1,11 @@
+function exploitFunction(payload) {
+  try {
+    return ps_visitor.kill(payload).catch(() => {
+      // This block is expected to be executed if the kill command fails
+    });
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+module.exports = { exploitFunction };

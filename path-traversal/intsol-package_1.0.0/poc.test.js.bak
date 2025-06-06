@@ -1,0 +1,7 @@
+test("Path Traversal in intsol-package", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  exploitFunction(payload);
+});

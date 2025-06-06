@@ -1,0 +1,12 @@
+test("Prototype pollution in utils-extend", () => {
+  const { exploitFunction } = require("../../utils/exploitFunction");
+  const { getPayload } = require("../../utils/getPayload");
+
+  const payload = getPayload();
+  exploitFunction(payload);
+
+  expect(Object.prototype.polluted).toBeUndefined(); // Check before extending
+  const obj = {};
+  exploitFunction(payload);
+  expect(obj.polluted).toBe("yes");
+});

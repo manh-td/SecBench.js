@@ -1,7 +1,8 @@
 {
   "id": "",
   "dependencies": {
-    "severzlt": "1.0.0"
+    "severzlt": "1.0.0",
+    "sleep": "^6.3.0"
   },
   "links": {
     "source1": "https://security.snyk.io/vuln/npm:severzlt:20171006",

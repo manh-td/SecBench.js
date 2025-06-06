@@ -1,7 +1,8 @@
 {
   "id": "",
   "dependencies": {
-    "myserve111": "1.1.2"
+    "myserve111": "1.1.2",
+    "sleep": "^6.3.0"
   },
   "links": {
     "source1": "https://security.snyk.io/vuln/npm:myserve111:20180306",

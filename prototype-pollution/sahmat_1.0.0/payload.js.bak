@@ -1,0 +1,8 @@
+function getPayload() {
+    const sahmat = require("sahmat");
+    let obj = { tmp: "" };
+
+    return { obj };
+}
+
+module.exports = { getPayload };

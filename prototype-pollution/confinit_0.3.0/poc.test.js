@@ -1,0 +1,9 @@
+test("Prototype pollution in confinit", () => {
+  const { exploitFunction } = require("../../utils/function.js");
+  const { getPayload } = require("../../utils/payload.js");
+
+  const payload = getPayload();
+  exploitFunction(require("confinit"), payload);
+
+  expect({}.polluted).toBe("yes");
+});

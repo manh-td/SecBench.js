@@ -1,0 +1,15 @@
+test("Command Injection in extra-asciinema", (done) => {
+  const { exploitFunction } = require("../function");
+  const { getPayload } = require('../payload');
+
+  const payload = getPayload();
+  exploitFunction(payload);
+
+  fs.readFile("./extra-asciinema", "utf8", function (err, data) {
+    if (err) {
+      throw err;
+    }
+    expect(data).toBe("");
+    done();
+  });
+});

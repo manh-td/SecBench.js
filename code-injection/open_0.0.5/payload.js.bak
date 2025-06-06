@@ -1,0 +1,7 @@
+function getPayload() {
+    return {
+        command: '""`touch open`'
+    };
+}
+
+module.exports = { getPayload };

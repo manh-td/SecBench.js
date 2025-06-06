@@ -1,0 +1,12 @@
+test("Command Injection in ffmpeg-sdk", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  let output = exploitFunction(...Object.values(payload));
+
+  // Verify the output
+  expect(fs.existsSync("./ffmpeg-sdk")).toBe(true);
+});
+
+// Note: Ensure you have the necessary modules installed and configured properly.

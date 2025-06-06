@@ -1,0 +1,9 @@
+test("Prototype pollution in assign-deep", () => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  const payload = getPayload();
+  let output = exploitFunction(payload[0]);
+
+  expect(output.polluted).toBe("yes");
+});

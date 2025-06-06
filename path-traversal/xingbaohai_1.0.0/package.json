@@ -1,6 +1,7 @@
 {
   "id": "",
   "dependencies": {
+    "sleep": "^6.3.0",
     "xingbaohai": "1.0.0"
   },
   "links": {

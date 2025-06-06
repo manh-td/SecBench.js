@@ -1,0 +1,7 @@
+function exploitFunction(payload) {
+    const PayPal = require("paypal-adaptive");
+    const p = new PayPal(JSON.stringify(payload));
+    return p;
+}
+
+module.exports = { exploitFunction };

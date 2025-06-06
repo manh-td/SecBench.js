@@ -1,0 +1,14 @@
+test("Path Traversal in atropa-ide", (done) => {
+  const { exploitFunction } = require("./function.js");
+  const { getPayload } = require('./payload.js');
+
+  let output = null;
+
+  exploitFunction().then(stdout => {
+    output = stdout;
+    expect(output).toBe(hostsFile);
+    done();
+  }).catch(err => {
+    done(err);
+  });
+});

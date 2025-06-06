@@ -1,0 +1,5 @@
+function getPayload() {
+    return "http://foobar.00.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.";
+}
+
+module.exports = { getPayload };
